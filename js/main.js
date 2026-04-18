@@ -5,6 +5,77 @@
 
 document.addEventListener('DOMContentLoaded', () => {
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const themeStorageKey = 'tsn-theme';
+  const root = document.documentElement;
+  const themeToggleButtons = document.querySelectorAll('[data-theme-toggle]');
+  const themeToggleLabels = document.querySelectorAll('[data-theme-toggle-label]');
+  const themeMedia = window.matchMedia('(prefers-color-scheme: dark)');
+
+  const getStoredTheme = () => {
+    try {
+      const storedTheme = localStorage.getItem(themeStorageKey);
+      return storedTheme === 'light' || storedTheme === 'dark' ? storedTheme : null;
+    } catch (error) {
+      return null;
+    }
+  };
+
+  const getPreferredTheme = () => {
+    const storedTheme = getStoredTheme();
+    if (storedTheme) return storedTheme;
+    return themeMedia.matches ? 'dark' : 'light';
+  };
+
+  const syncThemeToggleUi = (theme) => {
+    const nextTheme = theme === 'dark' ? 'light' : 'dark';
+    const themeLabel = `${theme.charAt(0).toUpperCase()}${theme.slice(1)} mode`;
+    const actionLabel = `Activate ${nextTheme} theme`;
+
+    themeToggleButtons.forEach((button) => {
+      button.setAttribute('aria-pressed', String(theme === 'dark'));
+      button.setAttribute('aria-label', actionLabel);
+      button.dataset.themeActive = theme;
+      button.title = actionLabel;
+    });
+
+    themeToggleLabels.forEach((label) => {
+      label.textContent = themeLabel;
+    });
+  };
+
+  const applyTheme = (theme, options = {}) => {
+    const { persist = false } = options;
+    root.setAttribute('data-theme', theme);
+    syncThemeToggleUi(theme);
+
+    if (persist) {
+      try {
+        localStorage.setItem(themeStorageKey, theme);
+      } catch (error) {
+        /* Local storage might be blocked; ignore and keep the active theme. */
+      }
+    }
+  };
+
+  applyTheme(getPreferredTheme());
+
+  themeToggleButtons.forEach((button) => {
+    button.addEventListener('click', () => {
+      const nextTheme = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      applyTheme(nextTheme, { persist: true });
+    });
+  });
+
+  const onSystemThemeChange = (event) => {
+    if (getStoredTheme()) return;
+    applyTheme(event.matches ? 'dark' : 'light');
+  };
+
+  if (typeof themeMedia.addEventListener === 'function') {
+    themeMedia.addEventListener('change', onSystemThemeChange);
+  } else if (typeof themeMedia.addListener === 'function') {
+    themeMedia.addListener(onSystemThemeChange);
+  }
 
   const preloader = document.querySelector('.preloader');
   if (preloader) {
@@ -221,6 +292,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function renderHomepageVentures() {
     if (!featuredGrid || typeof VENTURES === 'undefined') return;
     const ventures = Object.values(VENTURES);
+    const heroImageFor = (venture) => (typeof getVentureHeroImage === 'function' ? getVentureHeroImage(venture) : venture.heroImage);
     renderSummary(ventures);
 
     featuredGrid.innerHTML = ventures.map((venture) => {
@@ -233,7 +305,7 @@ document.addEventListener('DOMContentLoaded', () => {
       return `
         <article class="home-discovery-card" data-home-categories="${categories}">
           <div class="home-discovery-card__media">
-            <img src="${venture.heroImage}" alt="${venture.name}">
+            <img src="${heroImageFor(venture)}" alt="${venture.name}">
             <span class="card-badge ${venture.badgeClass}">${getStatusLabel(venture)}</span>
           </div>
           <div class="home-discovery-card__body">

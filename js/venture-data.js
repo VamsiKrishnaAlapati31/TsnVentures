@@ -4,14 +4,14 @@
    ============================= */
 
 const VENTURES = {
-  'green-valley': {
-    id: 'green-valley',
-    name: 'TSN Green Valley',
+  'green-city': {
+    id: 'green-city',
+    name: 'TSN Ventures (Green City)',
     tagline: 'Premium Residential Layout in Gantavarigudem',
     status: 'completed',
     badge: 'Completed',
     badgeClass: 'badge-completed',
-    description: `TSN Green Valley is a 15-acre premium residential layout nestled in the serene surroundings of Gantavarigudem, Andhra Pradesh. Designed for modern families, this venture features 50+ thoughtfully planned plots with complete infrastructure already in place.
+    description: `TSN Ventures (Green City) is a 15-acre premium residential layout nestled in the serene surroundings of Gantavarigudem, Andhra Pradesh. Designed for modern families, this venture features 50+ thoughtfully planned plots with complete infrastructure already in place.
 
 Every plot comes ready to build — with paved internal roads, a comprehensive drainage network, piped water supply, and landscaped green spaces. Government-approved layout with clear title documentation ensures total peace of mind for buyers.`,
     location: 'W942+P9C, Gantavarigudem, Dubacherla, Andhra Pradesh 534112',
@@ -35,15 +35,15 @@ Every plot comes ready to build — with paved internal roads, a comprehensive d
       { icon: 'fas fa-certificate', text: 'Clear Legal Documentation' }
     ],
     images: [
-      'assets/images/green-valley-main.jpg',
-      'assets/images/green-valley-gate.jpg',
-      'assets/images/green-valley-garden-1.jpg',
-      'assets/images/green-valley-garden-2.jpg',
-      'assets/images/green-valley-road.jpg',
-      'assets/images/green-valley-house.jpg',
-      'assets/images/green-valley-road.png'
+      'assets/images/ventures/green-city/01-main.jpg',
+      'assets/images/ventures/green-city/02-gate.jpg',
+      'assets/images/ventures/green-city/03-garden.jpg',
+      'assets/images/ventures/green-city/04-play-area.jpg',
+      'assets/images/ventures/green-city/05-road.jpg',
+      'assets/images/ventures/green-city/06-house.jpg',
+      'assets/images/ventures/green-city/07-road-layout.png'
     ],
-    heroImage: 'assets/images/green-valley-main.jpg'
+    heroImage: 'assets/images/ventures/green-city/01-main.jpg'
   },
 
   'royal-gardens': {

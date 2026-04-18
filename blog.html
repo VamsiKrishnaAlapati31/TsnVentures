@@ -5,11 +5,30 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="TSN Ventures blog — real estate tips, project updates, investment insights, and community news from Andhra Pradesh's trusted developer.">
   <title>Blog & News — TSN Ventures</title>
+  <script>
+    (function() {
+      const key = 'tsn-theme';
+      let theme = 'light';
+      try {
+        const storedTheme = localStorage.getItem(key);
+        if (storedTheme === 'light' || storedTheme === 'dark') {
+          theme = storedTheme;
+        } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          theme = 'dark';
+        }
+      } catch (error) {
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          theme = 'dark';
+        }
+      }
+      document.documentElement.setAttribute('data-theme', theme);
+    })();
+  </script>
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/animations.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
-<body>
+<body class="tsn-inner-premium">
 
   <!-- NAVBAR -->
   <nav class="navbar scrolled">
@@ -44,148 +63,61 @@
     </div>
   </section>
 
-  <!-- FEATURED POST -->
-  <section class="section">
+  <section class="rdx-align-section">
     <div class="container">
-      <div class="about-intro reveal">
-        <div class="about-intro-img" style="border-radius: var(--radius-lg); overflow: hidden;">
-          <img src="assets/images/venture-1.png" alt="Green Valley Phase 2 Launch">
-        </div>
-        <div class="about-intro-text">
-          <span class="card-badge badge-ongoing" style="margin-bottom: 1rem;">Featured Post</span>
-          <div style="font-size: 0.85rem; color: var(--accent); font-weight: 600; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 0.5rem;">March 2026</div>
-          <h2>New Venture Launch: TSN Green Valley Phase 2</h2>
-          <p>We're thrilled to announce the launch of TSN Green Valley Phase 2! Due to the overwhelming success and demand from our first phase, we're expanding with 60+ new premium residential plots.</p>
-          <p>Phase 2 will include enhanced amenities — a community clubhouse, children's play area, jogging track, and landscaped gardens. All plots come with complete infrastructure including underground drainage, water supply, and 30-feet wide roads.</p>
-          <p><strong>Pre-booking is now open with special launch pricing.</strong> Early investors get an exclusive discount up to 10%. Contact us today to reserve your plot in what promises to be our most ambitious project yet.</p>
-          <a href="index.html#contact" class="btn btn-primary" style="margin-top: 1rem;">
-            <i class="fas fa-phone"></i> Enquire About Phase 2
-          </a>
-        </div>
+      <div class="rdx-align-head reveal">
+        <div class="section-label">Knowledge Catalog</div>
+        <h2>Articles Grouped by Buyer Decision</h2>
+        <p>Browse launch updates, infrastructure checks, construction guidance, and investment notes with the same stage-based logic used in the venture catalog.</p>
       </div>
-    </div>
-  </section>
-
-  <!-- ALL BLOG POSTS -->
-  <section class="section section-light">
-    <div class="container">
-      <div class="section-header reveal">
-        <div class="section-label">All Posts</div>
-        <h2>Latest Articles & Updates</h2>
-        <p>Tips, news, and insights from the world of real estate</p>
+      <div class="rdx-align-filterbar reveal">
+        <div class="rdx-align-filterbar__chips">
+          <span class="rdx-align-chip is-active">All Posts</span>
+          <span class="rdx-align-chip">Launch</span>
+          <span class="rdx-align-chip">Infrastructure</span>
+          <span class="rdx-align-chip">Construction</span>
+          <span class="rdx-align-chip">Investment</span>
+        </div>
+        <div class="rdx-align-filterbar__result">6 buyer guides</div>
       </div>
-      <div class="cards-grid stagger-children">
-        <!-- Post 1 -->
-        <div class="blog-card">
-          <div class="blog-img">
-            <img src="assets/images/service-land.png" alt="Infrastructure Guide">
-          </div>
-          <div class="blog-content">
-            <div class="blog-date">February 2026</div>
-            <h3>Why Infrastructure Matters in Land Investment</h3>
-            <p>When buying a plot, the quality of infrastructure — drainage, water supply, roads — directly impacts your property's value and livability. Here's what to look for and why TSN Ventures prioritizes infrastructure above everything else.</p>
-            <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border);">
-              <p style="font-size: 0.85rem; color: var(--text-light); margin-bottom: 0.5rem;"><strong style="color: var(--text);">Key Takeaways:</strong></p>
-              <ul style="font-size: 0.85rem; color: var(--text-light); padding-left: 1.2rem; list-style: disc;">
-                <li>Underground drainage prevents flooding and increases plot longevity</li>
-                <li>Water supply systems ensure 24/7 access to clean water</li>
-                <li>Paved roads with proper grades improve accessibility and value</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-
-        <!-- Post 2 -->
-        <div class="blog-card">
-          <div class="blog-img">
-            <img src="assets/images/venture-3.png" alt="Home Building Tips">
-          </div>
-          <div class="blog-content">
-            <div class="blog-date">January 2026</div>
-            <h3>5 Tips for Building Your First Home in Andhra Pradesh</h3>
-            <p>Building a home is one of the biggest financial decisions you'll make. Here are 5 expert tips to help you navigate the process — from choosing the right location to managing your construction budget.</p>
-            <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border);">
-              <p style="font-size: 0.85rem; color: var(--text-light); margin-bottom: 0.5rem;"><strong style="color: var(--text);">Quick Tips:</strong></p>
-              <ul style="font-size: 0.85rem; color: var(--text-light); padding-left: 1.2rem; list-style: disc;">
-                <li>Research the area and check for upcoming development plans</li>
-                <li>Always verify land titles and approvals before purchasing</li>
-                <li>Set a realistic budget with 15% contingency buffer</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-
-        <!-- Post 3 -->
-        <div class="blog-card">
-          <div class="blog-img">
-            <img src="assets/images/venture-2.png" alt="Construction Quality">
-          </div>
-          <div class="blog-content">
-            <div class="blog-date">December 2025</div>
-            <h3>How TSN Ventures Ensures Construction Quality</h3>
-            <p>Quality construction is the backbone of trust. Learn about our material sourcing, quality checks, and the engineering standards we follow to build homes that last generations.</p>
-            <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border);">
-              <p style="font-size: 0.85rem; color: var(--text-light); margin-bottom: 0.5rem;"><strong style="color: var(--text);">Our Standards:</strong></p>
-              <ul style="font-size: 0.85rem; color: var(--text-light); padding-left: 1.2rem; list-style: disc;">
-                <li>Only branded materials (UltraTech, JSW, ACC)</li>
-                <li>Periodic structural inspections and quality audits</li>
-                <li>Every project supervised by licensed civil engineers</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-
-        <!-- Post 4 -->
-        <div class="blog-card">
-          <div class="blog-img">
-            <img src="assets/images/hero-banner.png" alt="Real Estate Investment">
-          </div>
-          <div class="blog-content">
-            <div class="blog-date">November 2025</div>
-            <h3>Real Estate vs Other Investments: Why Land is Still King</h3>
-            <p>In a world of volatile stocks and fluctuating savings rates, real estate — especially land — continues to offer stable, appreciating returns. Here's why.</p>
-            <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border);">
-              <p style="font-size: 0.85rem; color: var(--text-light); margin-bottom: 0.5rem;"><strong style="color: var(--text);">Why Land Works:</strong></p>
-              <ul style="font-size: 0.85rem; color: var(--text-light); padding-left: 1.2rem; list-style: disc;">
-                <li>Tangible asset that appreciates over time</li>
-                <li>Low maintenance compared to built property</li>
-                <li>AP's growth corridor makes it a prime investment zone</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-
-        <!-- Post 5 -->
-        <div class="blog-card">
-          <div class="blog-img">
-            <img src="assets/images/service-construction.png" alt="Design Consultation">
-          </div>
-          <div class="blog-content">
-            <div class="blog-date">October 2025</div>
-            <h3>Planning Your Dream Home: Our Design Consultation Process</h3>
-            <p>Before we lay the first brick, we invest time in understanding your lifestyle, needs, and budget. Our design process ensures the final home is exactly what you envisioned.</p>
-            <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border);">
-              <p style="font-size: 0.85rem; color: var(--text-light); margin-bottom: 0.5rem;"><strong style="color: var(--text);">Our Process:</strong></p>
-              <ul style="font-size: 0.85rem; color: var(--text-light); padding-left: 1.2rem; list-style: disc;">
-                <li>Free initial consultation and requirement gathering</li>
-                <li>2D floor plans with 3D visualization before construction</li>
-                <li>Revisions until you're 100% satisfied with the design</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-
-        <!-- Post 6: Instagram/Social -->
-        <div class="blog-card" style="background: linear-gradient(135deg, #833AB4, #FD1D1D, #F77737); color: var(--white); border: none;">
-          <div style="padding: 2rem; text-align: center; height: 100%; display: flex; flex-direction: column; justify-content: center;">
-            <i class="fab fa-instagram" style="font-size: 3rem; margin-bottom: 1rem;"></i>
-            <h3 style="color: var(--white); margin-bottom: 0.5rem;">Follow Us on Instagram</h3>
-            <p style="color: rgba(255,255,255,0.9); font-size: 0.95rem; margin-bottom: 1.5rem;">See our latest project photos, behind-the-scenes updates, and happy customer stories.</p>
-            <a href="https://www.instagram.com/tsn_ventures/" target="_blank" class="btn" style="background: var(--white); color: #833AB4; margin: 0 auto;">
-              <i class="fab fa-instagram"></i> @tsn_ventures
-            </a>
-          </div>
-        </div>
+      <div class="rdx-align-grid stagger-children">
+        <article class="rdx-align-card">
+          <div class="rdx-align-card__media"><img src="assets/images/venture-1.png" alt="Green Valley Phase 2 Launch"></div>
+          <div class="rdx-align-card__header"><div><span class="rdx-align-card__eyebrow">March 2026</span><h3>New Venture Launch: TSN Green Valley Phase 2</h3></div><span class="rdx-align-badge rdx-align-badge--blue">Launch</span></div>
+          <p>Phase 2 expands with 60+ premium plots, stronger amenities, and pre-booking guidance for early buyers.</p>
+          <div class="rdx-align-list"><span><i class="fas fa-check-circle"></i> Community clubhouse and play area</span><span><i class="fas fa-check-circle"></i> Drainage, water supply, and wide roads</span></div>
+          <div class="rdx-align-card__footer"><a href="index.html#contact" class="rdx-align-link">Enquire About Phase 2 <i class="fas fa-arrow-right"></i></a></div>
+        </article>
+        <article class="rdx-align-card">
+          <div class="rdx-align-card__media"><img src="assets/images/service-land.png" alt="Infrastructure Guide"></div>
+          <div class="rdx-align-card__header"><div><span class="rdx-align-card__eyebrow">February 2026</span><h3>Why Infrastructure Matters in Land Investment</h3></div><span class="rdx-align-badge rdx-align-badge--green">Check</span></div>
+          <p>Drainage, water supply, roads, and utility readiness directly affect usability, value, and buyer confidence.</p>
+          <div class="rdx-align-list"><span><i class="fas fa-check-circle"></i> Drainage prevents flooding and plot damage</span><span><i class="fas fa-check-circle"></i> Road grades improve access and long-term value</span></div>
+        </article>
+        <article class="rdx-align-card">
+          <div class="rdx-align-card__media"><img src="assets/images/venture-3.png" alt="Home Building Tips"></div>
+          <div class="rdx-align-card__header"><div><span class="rdx-align-card__eyebrow">January 2026</span><h3>5 Tips for Building Your First Home in Andhra Pradesh</h3></div><span class="rdx-align-badge rdx-align-badge--violet">Build</span></div>
+          <p>Plan location, approvals, budget, and builder selection before starting your first home construction journey.</p>
+          <div class="rdx-align-list"><span><i class="fas fa-check-circle"></i> Verify titles and approvals first</span><span><i class="fas fa-check-circle"></i> Keep a realistic contingency buffer</span></div>
+        </article>
+        <article class="rdx-align-card">
+          <div class="rdx-align-card__media"><img src="assets/images/venture-2.png" alt="Construction Quality"></div>
+          <div class="rdx-align-card__header"><div><span class="rdx-align-card__eyebrow">December 2025</span><h3>How TSN Ventures Ensures Construction Quality</h3></div><span class="rdx-align-badge rdx-align-badge--violet">Quality</span></div>
+          <p>Material sourcing, structural checks, and engineering supervision keep construction quality measurable.</p>
+          <div class="rdx-align-list"><span><i class="fas fa-check-circle"></i> Branded materials and quality audits</span><span><i class="fas fa-check-circle"></i> Civil engineer project supervision</span></div>
+        </article>
+        <article class="rdx-align-card">
+          <div class="rdx-align-card__media"><img src="assets/images/hero-banner.png" alt="Real Estate Investment"></div>
+          <div class="rdx-align-card__header"><div><span class="rdx-align-card__eyebrow">November 2025</span><h3>Real Estate vs Other Investments: Why Land is Still King</h3></div><span class="rdx-align-badge">Invest</span></div>
+          <p>Land remains a tangible, low-maintenance asset with long-term appreciation potential in growing corridors.</p>
+          <div class="rdx-align-list"><span><i class="fas fa-check-circle"></i> Tangible asset with lower upkeep</span><span><i class="fas fa-check-circle"></i> Andhra Pradesh growth corridor potential</span></div>
+        </article>
+        <article class="rdx-align-card">
+          <div class="rdx-align-card__media"><img src="assets/images/service-construction.png" alt="Design Consultation"></div>
+          <div class="rdx-align-card__header"><div><span class="rdx-align-card__eyebrow">October 2025</span><h3>Planning Your Dream Home: Our Design Consultation Process</h3></div><span class="rdx-align-badge rdx-align-badge--blue">Design</span></div>
+          <p>Understand lifestyle, budget, floor plans, and design revisions before the first brick is laid.</p>
+          <div class="rdx-align-list"><span><i class="fas fa-check-circle"></i> Requirement gathering and planning</span><span><i class="fas fa-check-circle"></i> 2D floor plans and 3D visualization</span></div>
+        </article>
       </div>
     </div>
   </section>
@@ -263,6 +195,14 @@
       </div>
     </div>
   </footer>
+
+  <button class="theme-switch" type="button" data-theme-toggle aria-label="Activate dark theme" aria-pressed="false">
+    <span class="theme-switch__track">
+      <span class="theme-switch__icon theme-switch__icon--sun"><i class="fas fa-sun"></i></span>
+      <span class="theme-switch__label" data-theme-toggle-label>Light mode</span>
+      <span class="theme-switch__icon theme-switch__icon--moon"><i class="fas fa-moon"></i></span>
+    </span>
+  </button>
 
   <a href="https://wa.me/919553577777" class="whatsapp-btn" target="_blank" aria-label="Chat on WhatsApp">
     <i class="fab fa-whatsapp"></i>

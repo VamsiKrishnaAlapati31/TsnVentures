@@ -5,11 +5,30 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="TSN Ventures services — land layout development, plot sales, and contract construction. Comprehensive real estate solutions in Andhra Pradesh.">
   <title>Our Services — TSN Ventures</title>
+  <script>
+    (function() {
+      const key = 'tsn-theme';
+      let theme = 'light';
+      try {
+        const storedTheme = localStorage.getItem(key);
+        if (storedTheme === 'light' || storedTheme === 'dark') {
+          theme = storedTheme;
+        } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          theme = 'dark';
+        }
+      } catch (error) {
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          theme = 'dark';
+        }
+      }
+      document.documentElement.setAttribute('data-theme', theme);
+    })();
+  </script>
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/animations.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
-<body>
+<body class="tsn-inner-premium">
 
   <!-- NAVBAR -->
   <nav class="navbar scrolled">
@@ -44,164 +63,90 @@
     </div>
   </section>
 
-  <!-- SERVICE 1: LAND LAYOUT DEVELOPMENT -->
-  <section class="section" id="land-development">
+  <section class="rdx-align-section" id="service-catalog">
     <div class="container">
-      <div class="about-intro">
-        <div class="about-intro-img reveal-left">
-          <img src="assets/images/service-land.png" alt="Land Development">
+      <div class="rdx-align-head reveal">
+        <div class="section-label">Service Catalog</div>
+        <h2>Services by Buyer Decision Stage</h2>
+        <p>Choose support the same way you filter ventures: discovery, plot selection, infrastructure confidence, and construction execution.</p>
+      </div>
+      <div class="rdx-align-filterbar reveal">
+        <div class="rdx-align-filterbar__chips">
+          <a href="#land-development" class="rdx-align-chip is-active">Development</a>
+          <a href="#plot-sales" class="rdx-align-chip">Plot Sales</a>
+          <a href="#construction" class="rdx-align-chip">Construction</a>
+          <a href="#service-process" class="rdx-align-chip">Process</a>
         </div>
-        <div class="about-intro-text reveal-right">
-          <div class="section-label">Service 01</div>
-          <h2>Land Layout Development</h2>
-          <p>We acquire raw land and transform it into premium residential layouts. Our team handles every aspect of development — from land clearing and survey to complete infrastructure installation.</p>
-          <p>Every layout is government-approved with clear titles, ensuring your investment is 100% safe and legally sound.</p>
-          <div style="margin-top: 1.5rem; display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
-            <div style="display: flex; align-items: center; gap: 10px;">
-              <i class="fas fa-check-circle" style="color: var(--primary); font-size: 1.1rem;"></i>
-              <span style="font-size: 0.9rem;">Underground Drainage</span>
-            </div>
-            <div style="display: flex; align-items: center; gap: 10px;">
-              <i class="fas fa-check-circle" style="color: var(--primary); font-size: 1.1rem;"></i>
-              <span style="font-size: 0.9rem;">Water Supply System</span>
-            </div>
-            <div style="display: flex; align-items: center; gap: 10px;">
-              <i class="fas fa-check-circle" style="color: var(--primary); font-size: 1.1rem;"></i>
-              <span style="font-size: 0.9rem;">Paved Road Network</span>
-            </div>
-            <div style="display: flex; align-items: center; gap: 10px;">
-              <i class="fas fa-check-circle" style="color: var(--primary); font-size: 1.1rem;"></i>
-              <span style="font-size: 0.9rem;">Electricity Lines</span>
-            </div>
-            <div style="display: flex; align-items: center; gap: 10px;">
-              <i class="fas fa-check-circle" style="color: var(--primary); font-size: 1.1rem;"></i>
-              <span style="font-size: 0.9rem;">Street Lighting</span>
-            </div>
-            <div style="display: flex; align-items: center; gap: 10px;">
-              <i class="fas fa-check-circle" style="color: var(--primary); font-size: 1.1rem;"></i>
-              <span style="font-size: 0.9rem;">Community Spaces</span>
-            </div>
+        <div class="rdx-align-filterbar__result">3 service paths + 4-step process</div>
+      </div>
+      <div class="rdx-align-grid">
+        <article class="rdx-align-card" id="land-development">
+          <div class="rdx-align-card__media"><img src="assets/images/service-land.png" alt="Land Development"></div>
+          <div class="rdx-align-card__header">
+            <div><span class="rdx-align-card__eyebrow">Service 01</span><h3>Land Layout Development</h3></div>
+            <span class="rdx-align-badge rdx-align-badge--green">Foundation</span>
           </div>
-        </div>
+          <p>We acquire raw land and transform it into premium residential layouts with complete infrastructure and approval-led buyer confidence.</p>
+          <div class="rdx-align-list">
+            <span><i class="fas fa-check-circle"></i> Underground drainage and water supply</span>
+            <span><i class="fas fa-check-circle"></i> Paved roads, electricity, and street lighting</span>
+            <span><i class="fas fa-check-circle"></i> Community spaces and usability planning</span>
+          </div>
+        </article>
+        <article class="rdx-align-card" id="plot-sales">
+          <div class="rdx-align-card__media"><img src="assets/images/venture-1.png" alt="Plot Sales"></div>
+          <div class="rdx-align-card__header">
+            <div><span class="rdx-align-card__eyebrow">Service 02</span><h3>Plot Sales & Guidance</h3></div>
+            <span class="rdx-align-badge">Selection</span>
+          </div>
+          <p>Choose residential plots with clearer stage, size, location, and payment guidance before committing to a site visit or booking.</p>
+          <div class="rdx-align-list">
+            <span><i class="fas fa-check-circle"></i> Clear titles and approved layout plans</span>
+            <span><i class="fas fa-check-circle"></i> Flexible plot sizes and payment planning</span>
+            <span><i class="fas fa-check-circle"></i> Bank loan support and arranged site visits</span>
+          </div>
+        </article>
+        <article class="rdx-align-card" id="construction">
+          <div class="rdx-align-card__media"><img src="assets/images/service-construction.png" alt="Contract Construction"></div>
+          <div class="rdx-align-card__header">
+            <div><span class="rdx-align-card__eyebrow">Service 03</span><h3>Contract Construction</h3></div>
+            <span class="rdx-align-badge rdx-align-badge--violet">Build</span>
+          </div>
+          <p>Move from plot purchase to finished home with one partner managing design, materials, construction, and handover.</p>
+          <div class="rdx-align-list">
+            <span><i class="fas fa-check-circle"></i> Custom home design and quality materials</span>
+            <span><i class="fas fa-check-circle"></i> Skilled workforce and progress monitoring</span>
+            <span><i class="fas fa-check-circle"></i> Fixed-price contracts and warranty assurance</span>
+          </div>
+        </article>
       </div>
     </div>
   </section>
 
-  <!-- SERVICE 2: PLOT SALES -->
-  <section class="section section-light" id="plot-sales">
+  <section class="rdx-align-section rdx-align-section--deep" id="service-process">
     <div class="container">
-      <div class="about-intro" style="direction: rtl;">
-        <div class="about-intro-img reveal-right" style="direction: ltr;">
-          <img src="assets/images/venture-1.png" alt="Plot Sales">
-        </div>
-        <div class="about-intro-text reveal-left" style="direction: ltr;">
-          <div class="section-label">Service 02</div>
-          <h2>Plot Sales</h2>
-          <p>Choose from a wide range of residential plots in our developed layouts. Plots are sold by the cent, giving you flexibility to pick the perfect size for your needs and budget.</p>
-          <p>All plots come with approved layout plans, clear titles, and access to complete infrastructure. Move in and start building immediately!</p>
-          <div style="margin-top: 1.5rem; display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
-            <div style="display: flex; align-items: center; gap: 10px;">
-              <i class="fas fa-check-circle" style="color: var(--primary); font-size: 1.1rem;"></i>
-              <span style="font-size: 0.9rem;">Clear Legal Titles</span>
-            </div>
-            <div style="display: flex; align-items: center; gap: 10px;">
-              <i class="fas fa-check-circle" style="color: var(--primary); font-size: 1.1rem;"></i>
-              <span style="font-size: 0.9rem;">Flexible Plot Sizes</span>
-            </div>
-            <div style="display: flex; align-items: center; gap: 10px;">
-              <i class="fas fa-check-circle" style="color: var(--primary); font-size: 1.1rem;"></i>
-              <span style="font-size: 0.9rem;">Easy Payment Plans</span>
-            </div>
-            <div style="display: flex; align-items: center; gap: 10px;">
-              <i class="fas fa-check-circle" style="color: var(--primary); font-size: 1.1rem;"></i>
-              <span style="font-size: 0.9rem;">Ready Infrastructure</span>
-            </div>
-            <div style="display: flex; align-items: center; gap: 10px;">
-              <i class="fas fa-check-circle" style="color: var(--primary); font-size: 1.1rem;"></i>
-              <span style="font-size: 0.9rem;">Bank Loan Support</span>
-            </div>
-            <div style="display: flex; align-items: center; gap: 10px;">
-              <i class="fas fa-check-circle" style="color: var(--primary); font-size: 1.1rem;"></i>
-              <span style="font-size: 0.9rem;">Site Visit Arranged</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- SERVICE 3: CONTRACT CONSTRUCTION -->
-  <section class="section" id="construction">
-    <div class="container">
-      <div class="about-intro">
-        <div class="about-intro-img reveal-left">
-          <img src="assets/images/service-construction.png" alt="Contract Construction">
-        </div>
-        <div class="about-intro-text reveal-right">
-          <div class="section-label">Service 03</div>
-          <h2>Contract Construction</h2>
-          <p>Don't just buy a plot — let us build your dream home too! Our construction division takes your vision and turns it into reality, from custom design consultation to final handover.</p>
-          <p>We handle architecture, structural engineering, interior design, and construction — all under one roof with transparent pricing and regular progress updates.</p>
-          <div style="margin-top: 1.5rem; display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
-            <div style="display: flex; align-items: center; gap: 10px;">
-              <i class="fas fa-check-circle" style="color: var(--primary); font-size: 1.1rem;"></i>
-              <span style="font-size: 0.9rem;">Custom Home Design</span>
-            </div>
-            <div style="display: flex; align-items: center; gap: 10px;">
-              <i class="fas fa-check-circle" style="color: var(--primary); font-size: 1.1rem;"></i>
-              <span style="font-size: 0.9rem;">Quality Materials</span>
-            </div>
-            <div style="display: flex; align-items: center; gap: 10px;">
-              <i class="fas fa-check-circle" style="color: var(--primary); font-size: 1.1rem;"></i>
-              <span style="font-size: 0.9rem;">Skilled Workforce</span>
-            </div>
-            <div style="display: flex; align-items: center; gap: 10px;">
-              <i class="fas fa-check-circle" style="color: var(--primary); font-size: 1.1rem;"></i>
-              <span style="font-size: 0.9rem;">Progress Monitoring</span>
-            </div>
-            <div style="display: flex; align-items: center; gap: 10px;">
-              <i class="fas fa-check-circle" style="color: var(--primary); font-size: 1.1rem;"></i>
-              <span style="font-size: 0.9rem;">Fixed-Price Contracts</span>
-            </div>
-            <div style="display: flex; align-items: center; gap: 10px;">
-              <i class="fas fa-check-circle" style="color: var(--primary); font-size: 1.1rem;"></i>
-              <span style="font-size: 0.9rem;">Warranty Assured</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- HOW WE WORK PROCESS -->
-  <section class="section section-dark">
-    <div class="container">
-      <div class="section-header reveal">
+      <div class="rdx-align-head reveal">
         <div class="section-label">Our Process</div>
         <h2>How We Work</h2>
-        <p>A transparent, step-by-step process from enquiry to handover</p>
+        <p>A transparent step-by-step path from enquiry to site visit, documentation, and handover.</p>
       </div>
-      <div class="process-steps stagger-children">
-        <div class="process-step">
-          <div class="step-icon"><i class="fas fa-phone-alt"></i></div>
-          <h3>Enquiry & Consultation</h3>
+      <div class="rdx-align-grid rdx-align-grid--two stagger-children">
+        <article class="rdx-align-card">
+          <div class="rdx-align-card__header"><div><span class="rdx-align-card__eyebrow">Step 01</span><h3>Enquiry & Consultation</h3></div><span class="rdx-align-badge">Start</span></div>
           <p>Reach out to us via call, WhatsApp, or visit. We understand your needs and guide you to the right option.</p>
-        </div>
-        <div class="process-step">
-          <div class="step-icon"><i class="fas fa-map-marked-alt"></i></div>
-          <h3>Site Visit</h3>
+        </article>
+        <article class="rdx-align-card">
+          <div class="rdx-align-card__header"><div><span class="rdx-align-card__eyebrow">Step 02</span><h3>Site Visit</h3></div><span class="rdx-align-badge rdx-align-badge--blue">Visit</span></div>
           <p>We arrange a free site visit to our ventures so you can see the infrastructure and choose your preferred plot.</p>
-        </div>
-        <div class="process-step">
-          <div class="step-icon"><i class="fas fa-file-signature"></i></div>
-          <h3>Documentation</h3>
+        </article>
+        <article class="rdx-align-card">
+          <div class="rdx-align-card__header"><div><span class="rdx-align-card__eyebrow">Step 03</span><h3>Documentation</h3></div><span class="rdx-align-badge rdx-align-badge--green">Verify</span></div>
           <p>Complete legal documentation with clear titles, approved layouts, and transparent terms. No hidden charges.</p>
-        </div>
-        <div class="process-step">
-          <div class="step-icon"><i class="fas fa-key"></i></div>
-          <h3>Handover & Support</h3>
+        </article>
+        <article class="rdx-align-card">
+          <div class="rdx-align-card__header"><div><span class="rdx-align-card__eyebrow">Step 04</span><h3>Handover & Support</h3></div><span class="rdx-align-badge rdx-align-badge--violet">Close</span></div>
           <p>Once complete, we hand over your plot or home with all documents. Post-sale support included.</p>
-        </div>
+        </article>
       </div>
     </div>
   </section>
@@ -307,6 +252,14 @@
       </div>
     </div>
   </footer>
+
+  <button class="theme-switch" type="button" data-theme-toggle aria-label="Activate dark theme" aria-pressed="false">
+    <span class="theme-switch__track">
+      <span class="theme-switch__icon theme-switch__icon--sun"><i class="fas fa-sun"></i></span>
+      <span class="theme-switch__label" data-theme-toggle-label>Light mode</span>
+      <span class="theme-switch__icon theme-switch__icon--moon"><i class="fas fa-moon"></i></span>
+    </span>
+  </button>
 
   <a href="https://wa.me/919553577777" class="whatsapp-btn" target="_blank" aria-label="Chat on WhatsApp">
     <i class="fab fa-whatsapp"></i>

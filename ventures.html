@@ -5,6 +5,25 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Explore TSN Ventures residential layouts and construction-backed projects in Andhra Pradesh.">
   <title>Our Ventures — TSN Ventures</title>
+  <script>
+    (function() {
+      const key = 'tsn-theme';
+      let theme = 'light';
+      try {
+        const storedTheme = localStorage.getItem(key);
+        if (storedTheme === 'light' || storedTheme === 'dark') {
+          theme = storedTheme;
+        } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          theme = 'dark';
+        }
+      } catch (error) {
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          theme = 'dark';
+        }
+      }
+      document.documentElement.setAttribute('data-theme', theme);
+    })();
+  </script>
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/animations.css">
   <link rel="stylesheet" href="css/ventures-redesign.css">
@@ -129,9 +148,19 @@
     </div>
   </footer>
 
+  <button class="theme-switch" type="button" data-theme-toggle aria-label="Activate dark theme" aria-pressed="false">
+    <span class="theme-switch__track">
+      <span class="theme-switch__icon theme-switch__icon--sun"><i class="fas fa-sun"></i></span>
+      <span class="theme-switch__label" data-theme-toggle-label>Light mode</span>
+      <span class="theme-switch__icon theme-switch__icon--moon"><i class="fas fa-moon"></i></span>
+    </span>
+  </button>
+
   <a href="https://wa.me/919553577777" class="whatsapp-btn" target="_blank" aria-label="Chat on WhatsApp"><i class="fab fa-whatsapp"></i></a>
 
   <script src="js/venture-data.js"></script>
+  <script src="js/venture-image-manifest.js"></script>
+  <script src="js/venture-image-resolver.js"></script>
   <script src="js/main.js"></script>
   <script src="js/ventures-redesign.js"></script>
 </body>

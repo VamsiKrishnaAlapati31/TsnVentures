@@ -5,11 +5,30 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Learn about TSN Ventures — our history, mission, values, and the team behind Andhra Pradesh's trusted real estate developer.">
   <title>About Us — TSN Ventures</title>
+  <script>
+    (function() {
+      const key = 'tsn-theme';
+      let theme = 'light';
+      try {
+        const storedTheme = localStorage.getItem(key);
+        if (storedTheme === 'light' || storedTheme === 'dark') {
+          theme = storedTheme;
+        } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          theme = 'dark';
+        }
+      } catch (error) {
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          theme = 'dark';
+        }
+      }
+      document.documentElement.setAttribute('data-theme', theme);
+    })();
+  </script>
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/animations.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
-<body>
+<body class="tsn-inner-premium">
 
   <!-- NAVBAR -->
   <nav class="navbar scrolled" id="navbar">
@@ -44,180 +63,63 @@
     </div>
   </section>
 
-  <!-- ABOUT INTRO -->
-  <section class="section">
-    <div class="container">
-      <div class="about-intro">
-        <div class="about-intro-img reveal-left">
-          <img src="assets/images/hero-banner.png" alt="TSN Ventures Development">
+  <section class="inner-showcase">
+    <div class="container inner-showcase__grid">
+      <div class="inner-showcase__copy reveal-left">
+        <div class="section-label">Our Story</div>
+        <h2>Building Trust Since 2018</h2>
+        <p>TSN Ventures was founded to make premium, infrastructure-ready housing accessible to families and first-time investors in Andhra Pradesh.</p>
+        <p>We do not just sell plots. We create buyer-ready communities with roads, drainage, water supply, parks, documentation clarity, and construction support.</p>
+        <div class="inner-showcase__metrics">
+          <div><strong>10+</strong><span>ventures delivered</span></div>
+          <div><strong>100+</strong><span>acres developed</span></div>
+          <div><strong>500+</strong><span>families served</span></div>
         </div>
-        <div class="about-intro-text reveal-right">
-          <div class="section-label">Our Story</div>
-          <h2>Building Trust Since 2018</h2>
-          <p>TSN Ventures was founded with a simple yet powerful vision — to make premium housing accessible to every family. Based in Gantavarigudem, Andhra Pradesh, we started by developing our first residential layout and have since grown into one of the region's most trusted real estate developers.</p>
-          <p>We believe that every family deserves a home in a well-planned community. That's why we go beyond just selling plots — we build entire ecosystems with drainage, water supply, paved roads, parks, and community spaces.</p>
-          <p>From middle-class families to first-time investors, our ventures are designed to offer the best value for money without compromising on quality or infrastructure.</p>
-        </div>
+      </div>
+      <div class="inner-showcase__media reveal-right">
+        <img src="assets/images/hero-banner.png" alt="TSN Ventures Development">
+        <div class="inner-showcase__float"><span>Buyer-first planning</span><strong>Infrastructure, approvals, and support before the sale.</strong></div>
       </div>
     </div>
   </section>
 
-  <!-- MISSION & VISION -->
-  <section class="section section-light">
+  <section class="rdx-align-section">
     <div class="container">
-      <div class="section-header reveal">
+      <div class="rdx-align-head reveal">
         <div class="section-label">What Drives Us</div>
-        <h2>Our Mission & Vision</h2>
+        <h2>Mission, Vision, and Operating Principles</h2>
+        <p>The same decision signals buyers care about in our ventures guide how we build the company: clarity, infrastructure, quality, and long-term support.</p>
       </div>
-      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; max-width: 900px; margin: 0 auto;" class="stagger-children">
-        <div style="padding: 2.5rem; background: var(--white); border-radius: var(--radius-lg); box-shadow: 0 4px 20px var(--shadow); border-left: 4px solid var(--primary);">
-          <h3 style="color: var(--primary); margin-bottom: 1rem; font-size: 1.3rem;"><i class="fas fa-bullseye" style="margin-right: 8px;"></i> Our Mission</h3>
-          <p style="color: var(--text-light);">To deliver premium, affordable residential developments with world-class infrastructure, ensuring every family has access to safe, secure, and well-planned living spaces.</p>
-        </div>
-        <div style="padding: 2.5rem; background: var(--white); border-radius: var(--radius-lg); box-shadow: 0 4px 20px var(--shadow); border-left: 4px solid var(--accent);">
-          <h3 style="color: var(--accent-dark); margin-bottom: 1rem; font-size: 1.3rem;"><i class="fas fa-eye" style="margin-right: 8px;"></i> Our Vision</h3>
-          <p style="color: var(--text-light);">To become the most trusted real estate brand in Andhra Pradesh, known for integrity, quality construction, and community-focused land development.</p>
-        </div>
+      <div class="rdx-align-grid rdx-align-grid--two stagger-children">
+        <article class="rdx-align-card">
+          <div class="rdx-align-card__header"><div><span class="rdx-align-card__eyebrow">Mission</span><h3>Premium development made accessible</h3></div><span class="rdx-align-badge rdx-align-badge--green">Now</span></div>
+          <p>Deliver affordable residential developments with strong infrastructure, legal clarity, and practical buyer guidance.</p>
+        </article>
+        <article class="rdx-align-card">
+          <div class="rdx-align-card__header"><div><span class="rdx-align-card__eyebrow">Vision</span><h3>Andhra Pradesh's most trusted land brand</h3></div><span class="rdx-align-badge">Future</span></div>
+          <p>Become known for integrity, quality construction, and community-focused land development across the region.</p>
+        </article>
       </div>
-    </div>
-  </section>
-
-  <!-- CORE VALUES -->
-  <section class="section">
-    <div class="container">
-      <div class="section-header reveal">
-        <div class="section-label">Our Pillars</div>
-        <h2>Core Values</h2>
-        <p>The principles that guide everything we do</p>
-      </div>
-      <div class="values-grid stagger-children">
-        <div class="value-card">
-          <div class="value-icon">🛡️</div>
-          <h3>Quality & Security</h3>
-          <p>We use the best materials and proven engineering practices to ensure your investment is safe and built to last generations.</p>
-        </div>
-        <div class="value-card">
-          <div class="value-icon">💰</div>
-          <h3>Affordable Pricing</h3>
-          <p>Premium living shouldn't break the bank. We offer competitive prices and flexible payment plans for every budget.</p>
-        </div>
-        <div class="value-card">
-          <div class="value-icon">🤝</div>
-          <h3>Transparency</h3>
-          <p>Clear titles, approved layouts, and honest communication. We believe trust is built through complete transparency.</p>
-        </div>
-        <div class="value-card">
-          <div class="value-icon">🏗️</div>
-          <h3>Infrastructure First</h3>
-          <p>Drainage, water supply, roads, electricity — we ensure all infrastructure is in place before you build your home.</p>
-        </div>
-        <div class="value-card">
-          <div class="value-icon">🌿</div>
-          <h3>Community Living</h3>
-          <p>Parks, open spaces, and community areas create a vibrant neighborhood where families thrive together.</p>
-        </div>
-        <div class="value-card">
-          <div class="value-icon">⏱️</div>
-          <h3>On-Time Delivery</h3>
-          <p>We respect your time and investment. All our projects are delivered on schedule with no compromises.</p>
-        </div>
+      <div class="rdx-align-grid stagger-children" style="margin-top: 22px;">
+        <article class="rdx-align-card"><div class="rdx-align-card__header"><div><span class="rdx-align-card__eyebrow">Pillar 01</span><h3>Quality & Security</h3></div><span class="rdx-align-badge rdx-align-badge--green">Trust</span></div><p>Materials, engineering practices, and planning standards are chosen to protect buyer confidence.</p></article>
+        <article class="rdx-align-card"><div class="rdx-align-card__header"><div><span class="rdx-align-card__eyebrow">Pillar 02</span><h3>Transparency</h3></div><span class="rdx-align-badge rdx-align-badge--blue">Clear</span></div><p>Clear titles, approved layouts, honest communication, and no hidden surprises in the journey.</p></article>
+        <article class="rdx-align-card"><div class="rdx-align-card__header"><div><span class="rdx-align-card__eyebrow">Pillar 03</span><h3>Infrastructure First</h3></div><span class="rdx-align-badge">Ready</span></div><p>Drainage, water supply, roads, electricity, and usability planning are treated as primary value signals.</p></article>
       </div>
     </div>
   </section>
 
-  <!-- MILESTONE TIMELINE -->
-  <section class="section section-light">
+  <section class="rdx-align-section rdx-align-section--deep">
     <div class="container">
-      <div class="section-header reveal">
+      <div class="rdx-align-head reveal">
         <div class="section-label">Our Journey</div>
-        <h2>Key Milestones</h2>
+        <h2>Milestones That Built Buyer Confidence</h2>
+        <p>From first layout to expanded construction support, every stage sharpened our focus on infrastructure-led communities.</p>
       </div>
-      <div class="timeline reveal">
-        <div class="timeline-item">
-          <div class="timeline-dot"></div>
-          <div class="timeline-content">
-            <div class="timeline-year">2018</div>
-            <h4>Company Founded</h4>
-            <p>TSN Ventures was established with the vision of creating quality residential layouts in Andhra Pradesh.</p>
-          </div>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-dot"></div>
-          <div class="timeline-content">
-            <div class="timeline-year">2019</div>
-            <h4>First Venture Launched</h4>
-            <p>Successfully launched and sold out our first residential layout in Gantavarigudem with 30+ plots.</p>
-          </div>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-dot"></div>
-          <div class="timeline-content">
-            <div class="timeline-year">2020</div>
-            <h4>Construction Division Started</h4>
-            <p>Expanded services to include contract construction — designing and building homes for our customers.</p>
-          </div>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-dot"></div>
-          <div class="timeline-content">
-            <div class="timeline-year">2022</div>
-            <h4>500+ Happy Families</h4>
-            <p>Crossed the milestone of 500 families who trusted us with their dream home and investment.</p>
-          </div>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-dot"></div>
-          <div class="timeline-content">
-            <div class="timeline-year">2024</div>
-            <h4>10th Venture Completed</h4>
-            <p>Successfully completed our 10th residential venture, spanning over 100 acres of developed land.</p>
-          </div>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-dot"></div>
-          <div class="timeline-content">
-            <div class="timeline-year">2026</div>
-            <h4>Expanding Horizons</h4>
-            <p>Launching new premium ventures and expanding construction services to more regions in AP.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- TEAM SECTION -->
-  <section class="section">
-    <div class="container">
-      <div class="section-header reveal">
-        <div class="section-label">Our People</div>
-        <h2>Meet The Team</h2>
-        <p>The dedicated professionals behind every successful venture</p>
-      </div>
-      <div class="team-grid stagger-children">
-        <div class="team-card">
-          <div class="team-photo">
-            <div style="width:100%;height:100%;background:linear-gradient(135deg,var(--primary),var(--accent));display:flex;align-items:center;justify-content:center;color:white;font-size:2.5rem;font-family:var(--font-heading);font-weight:800;">T</div>
-          </div>
-          <h3>Founder</h3>
-          <div class="role">Managing Director</div>
-          <p>Visionary leader with 10+ years in real estate. Drives the company's mission of quality and affordability.</p>
-        </div>
-        <div class="team-card">
-          <div class="team-photo">
-            <div style="width:100%;height:100%;background:linear-gradient(135deg,var(--accent),var(--primary-light));display:flex;align-items:center;justify-content:center;color:white;font-size:2.5rem;font-family:var(--font-heading);font-weight:800;">S</div>
-          </div>
-          <h3>Project Manager</h3>
-          <div class="role">Operations Head</div>
-          <p>Ensures every project is delivered on time with the highest quality standards and customer satisfaction.</p>
-        </div>
-        <div class="team-card">
-          <div class="team-photo">
-            <div style="width:100%;height:100%;background:linear-gradient(135deg,#6366f1,var(--primary));display:flex;align-items:center;justify-content:center;color:white;font-size:2.5rem;font-family:var(--font-heading);font-weight:800;">R</div>
-          </div>
-          <h3>Lead Architect</h3>
-          <div class="role">Design & Planning</div>
-          <p>Expert in modern home design and layout planning. Creates functional, beautiful living spaces for families.</p>
-        </div>
+      <div class="inner-timeline-grid stagger-children">
+        <article class="rdx-align-card"><span class="rdx-align-card__eyebrow">2018</span><h3>Company Founded</h3><p>TSN Ventures started with the goal of creating quality residential layouts in Andhra Pradesh.</p></article>
+        <article class="rdx-align-card"><span class="rdx-align-card__eyebrow">2019</span><h3>First Venture Launched</h3><p>Our first Gantavarigudem residential layout launched with 30+ plots and practical infrastructure.</p></article>
+        <article class="rdx-align-card"><span class="rdx-align-card__eyebrow">2020</span><h3>Construction Division Started</h3><p>Services expanded from land to contract construction for buyers who wanted end-to-end support.</p></article>
+        <article class="rdx-align-card"><span class="rdx-align-card__eyebrow">2024</span><h3>10th Venture Completed</h3><p>We crossed 100+ acres of developed land and strengthened our community-development playbook.</p></article>
       </div>
     </div>
   </section>
@@ -292,6 +194,14 @@
       </div>
     </div>
   </footer>
+
+  <button class="theme-switch" type="button" data-theme-toggle aria-label="Activate dark theme" aria-pressed="false">
+    <span class="theme-switch__track">
+      <span class="theme-switch__icon theme-switch__icon--sun"><i class="fas fa-sun"></i></span>
+      <span class="theme-switch__label" data-theme-toggle-label>Light mode</span>
+      <span class="theme-switch__icon theme-switch__icon--moon"><i class="fas fa-moon"></i></span>
+    </span>
+  </button>
 
   <a href="https://wa.me/919553577777" class="whatsapp-btn" target="_blank" aria-label="Chat on WhatsApp">
     <i class="fab fa-whatsapp"></i>

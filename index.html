@@ -5,6 +5,25 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="TSN Ventures — Premium real estate development in Andhra Pradesh. Explore approved layouts, ongoing ventures, pre-booking opportunities, and custom construction services.">
   <title>TSN Ventures — Premium Real Estate Development</title>
+  <script>
+    (function() {
+      const key = 'tsn-theme';
+      let theme = 'light';
+      try {
+        const storedTheme = localStorage.getItem(key);
+        if (storedTheme === 'light' || storedTheme === 'dark') {
+          theme = storedTheme;
+        } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          theme = 'dark';
+        }
+      } catch (error) {
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          theme = 'dark';
+        }
+      }
+      document.documentElement.setAttribute('data-theme', theme);
+    })();
+  </script>
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/animations.css">
   <link rel="stylesheet" href="css/homepage-redesign.css">
@@ -254,7 +273,7 @@
       <div class="home-rdx-about__shell">
         <div class="home-rdx-about__media reveal-left">
           <div class="home-rdx-about__frame">
-            <img src="assets/images/green-valley-main.jpg" alt="TSN Ventures Project">
+            <img src="assets/images/ventures/green-city/01-main.jpg" alt="TSN Ventures Project">
           </div>
           <div class="home-rdx-about__card home-rdx-about__card--one">
             <span>Local strength</span>
@@ -294,48 +313,70 @@
     </div>
   </section>
 
-  <section class="section section-light" id="services-overview">
+  <section class="rdx-align-section rdx-align-section--deep" id="services-overview">
     <div class="container">
-      <div class="section-header reveal">
+      <div class="rdx-align-head reveal">
         <div class="section-label">What We Do</div>
         <h2>Services Aligned to Buyer Needs</h2>
-        <p>Comprehensive support from venture discovery to custom construction execution.</p>
+        <p>Use the same decision-stage logic from the venture catalog: identify what you need now, what support is available, and what the next action should be.</p>
       </div>
-      <div class="cards-grid stagger-children">
-        <div class="service-card">
-          <div class="service-icon">
-            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-              <polyline points="9 22 9 12 15 12 15 22"></polyline>
-            </svg>
+      <div class="rdx-align-filterbar reveal">
+        <div class="rdx-align-filterbar__chips">
+          <span class="rdx-align-chip is-active">Discovery</span>
+          <span class="rdx-align-chip">Plot Selection</span>
+          <span class="rdx-align-chip">Build Support</span>
+        </div>
+        <div class="rdx-align-filterbar__result">3 buyer-support paths</div>
+      </div>
+      <div class="rdx-align-grid stagger-children">
+        <article class="rdx-align-card">
+          <div class="rdx-align-card__header">
+            <div>
+              <span class="rdx-align-card__eyebrow">Discovery Stage</span>
+              <h3>Land Layout Development</h3>
+            </div>
+            <span class="rdx-align-badge rdx-align-badge--green">Ready</span>
           </div>
-          <h3>Land Layout Development</h3>
           <p>Premium residential layouts with roads, drainage, water supply, and essential infrastructure planned for real usability.</p>
-        </div>
-        <div class="service-card">
-          <div class="service-icon">
-            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect>
-              <line x1="1" y1="10" x2="23" y2="10"></line>
-            </svg>
+          <div class="rdx-align-metrics">
+            <div class="rdx-align-metric"><i class="fas fa-road"></i><span>Signal</span><strong>Infrastructure</strong></div>
+            <div class="rdx-align-metric"><i class="fas fa-file-contract"></i><span>Check</span><strong>Approvals</strong></div>
+            <div class="rdx-align-metric"><i class="fas fa-map-location-dot"></i><span>Action</span><strong>Site Visit</strong></div>
           </div>
-          <h3>Plot Sales & Guidance</h3>
+        </article>
+        <article class="rdx-align-card">
+          <div class="rdx-align-card__header">
+            <div>
+              <span class="rdx-align-card__eyebrow">Selection Stage</span>
+              <h3>Plot Sales & Guidance</h3>
+            </div>
+            <span class="rdx-align-badge">Guided</span>
+          </div>
           <p>Help buyers identify the right plot size, project stage, and location fit with clear project positioning and site-visit support.</p>
-        </div>
-        <div class="service-card">
-          <div class="service-icon">
-            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M2 20h20"></path>
-              <path d="M5 20V8l7-5 7 5v12"></path>
-              <path d="M10 20v-6h4v6"></path>
-            </svg>
+          <div class="rdx-align-metrics">
+            <div class="rdx-align-metric"><i class="fas fa-ruler-combined"></i><span>Fit</span><strong>Plot Size</strong></div>
+            <div class="rdx-align-metric"><i class="fas fa-indian-rupee-sign"></i><span>Need</span><strong>Budget Match</strong></div>
+            <div class="rdx-align-metric"><i class="fas fa-phone-volume"></i><span>Action</span><strong>Enquiry</strong></div>
           </div>
-          <h3>Contract Construction</h3>
+        </article>
+        <article class="rdx-align-card">
+          <div class="rdx-align-card__header">
+            <div>
+              <span class="rdx-align-card__eyebrow">Construction Stage</span>
+              <h3>Contract Construction</h3>
+            </div>
+            <span class="rdx-align-badge rdx-align-badge--violet">Build</span>
+          </div>
           <p>Move from land purchase to finished home with one delivery partner for design, build quality, and project execution.</p>
-        </div>
+          <div class="rdx-align-metrics">
+            <div class="rdx-align-metric"><i class="fas fa-drafting-compass"></i><span>Start</span><strong>Design</strong></div>
+            <div class="rdx-align-metric"><i class="fas fa-hard-hat"></i><span>Focus</span><strong>Execution</strong></div>
+            <div class="rdx-align-metric"><i class="fas fa-key"></i><span>Finish</span><strong>Handover</strong></div>
+          </div>
+        </article>
       </div>
       <div style="text-align: center; margin-top: 3rem;" class="reveal">
-        <a href="services.html" class="btn btn-outline-dark">View All Services <i class="fas fa-arrow-right"></i></a>
+        <a href="services.html" class="btn btn-accent">View All Services <i class="fas fa-arrow-right"></i></a>
       </div>
     </div>
   </section>
@@ -376,19 +417,43 @@
     </div>
   </section>
 
-  <section class="section" id="blog-preview">
+  <section class="rdx-align-section" id="blog-preview">
     <div class="container">
-      <div class="section-header reveal">
+      <div class="rdx-align-head reveal">
         <div class="section-label">Latest Updates</div>
-        <h2>News & Insights</h2>
-        <p>Project updates and real estate guidance, placed lower so venture discovery remains the main homepage action.</p>
+        <h2>Insights Matched to Buyer Decisions</h2>
+        <p>Articles are grouped like the venture catalog: launch updates, infrastructure checks, and construction guidance are easy to scan before enquiry.</p>
       </div>
-      <div class="cards-grid stagger-children">
-        <div class="blog-card"><div class="blog-img"><img src="assets/images/venture-1.png" alt="New Venture Launch"></div><div class="blog-content"><div class="blog-date">March 2026</div><h3>New Venture Launch: TSN Green Valley Phase 2</h3><p>We are opening the next phase with 60+ premium plots and stronger amenity planning.</p><a href="blog.html" class="read-more">Read More <i class="fas fa-arrow-right"></i></a></div></div>
-        <div class="blog-card"><div class="blog-img"><img src="assets/images/service-land.png" alt="Infrastructure Guide"></div><div class="blog-content"><div class="blog-date">February 2026</div><h3>Why Infrastructure Matters in Land Investment</h3><p>Understand drainage, roads, and utility readiness before committing to a layout.</p><a href="blog.html" class="read-more">Read More <i class="fas fa-arrow-right"></i></a></div></div>
-        <div class="blog-card"><div class="blog-img"><img src="assets/images/venture-3.png" alt="Home Building Tips"></div><div class="blog-content"><div class="blog-date">January 2026</div><h3>5 Tips for Building Your First Home in Andhra Pradesh</h3><p>Practical guidance on plot selection, project budgeting, and choosing the right builder.</p><a href="blog.html" class="read-more">Read More <i class="fas fa-arrow-right"></i></a></div></div>
+      <div class="rdx-align-filterbar reveal">
+        <div class="rdx-align-filterbar__chips">
+          <span class="rdx-align-chip is-active">All Insights</span>
+          <span class="rdx-align-chip">Launch</span>
+          <span class="rdx-align-chip">Infrastructure</span>
+          <span class="rdx-align-chip">Construction</span>
+        </div>
+        <div class="rdx-align-filterbar__result">3 featured reads</div>
       </div>
-      <div style="text-align: center; margin-top: 3rem;" class="reveal"><a href="blog.html" class="btn btn-outline-dark">View All Posts <i class="fas fa-arrow-right"></i></a></div>
+      <div class="rdx-align-grid stagger-children">
+        <article class="rdx-align-card">
+          <div class="rdx-align-card__media"><img src="assets/images/venture-1.png" alt="New Venture Launch"></div>
+          <div class="rdx-align-card__header"><div><span class="rdx-align-card__eyebrow">March 2026</span><h3>New Venture Launch: TSN Green Valley Phase 2</h3></div><span class="rdx-align-badge rdx-align-badge--blue">Launch</span></div>
+          <p>We are opening the next phase with 60+ premium plots and stronger amenity planning.</p>
+          <div class="rdx-align-card__footer"><a href="blog.html" class="rdx-align-link">Read More <i class="fas fa-arrow-right"></i></a></div>
+        </article>
+        <article class="rdx-align-card">
+          <div class="rdx-align-card__media"><img src="assets/images/service-land.png" alt="Infrastructure Guide"></div>
+          <div class="rdx-align-card__header"><div><span class="rdx-align-card__eyebrow">February 2026</span><h3>Why Infrastructure Matters in Land Investment</h3></div><span class="rdx-align-badge rdx-align-badge--green">Check</span></div>
+          <p>Understand drainage, roads, and utility readiness before committing to a layout.</p>
+          <div class="rdx-align-card__footer"><a href="blog.html" class="rdx-align-link">Read More <i class="fas fa-arrow-right"></i></a></div>
+        </article>
+        <article class="rdx-align-card">
+          <div class="rdx-align-card__media"><img src="assets/images/venture-3.png" alt="Home Building Tips"></div>
+          <div class="rdx-align-card__header"><div><span class="rdx-align-card__eyebrow">January 2026</span><h3>5 Tips for Building Your First Home in Andhra Pradesh</h3></div><span class="rdx-align-badge rdx-align-badge--violet">Build</span></div>
+          <p>Practical guidance on plot selection, project budgeting, and choosing the right builder.</p>
+          <div class="rdx-align-card__footer"><a href="blog.html" class="rdx-align-link">Read More <i class="fas fa-arrow-right"></i></a></div>
+        </article>
+      </div>
+      <div style="text-align: center; margin-top: 3rem;" class="reveal"><a href="blog.html" class="btn btn-accent">View All Posts <i class="fas fa-arrow-right"></i></a></div>
     </div>
   </section>
 
@@ -440,6 +505,14 @@
     </div>
   </footer>
 
+  <button class="theme-switch" type="button" data-theme-toggle aria-label="Activate dark theme" aria-pressed="false">
+    <span class="theme-switch__track">
+      <span class="theme-switch__icon theme-switch__icon--sun"><i class="fas fa-sun"></i></span>
+      <span class="theme-switch__label" data-theme-toggle-label>Light mode</span>
+      <span class="theme-switch__icon theme-switch__icon--moon"><i class="fas fa-moon"></i></span>
+    </span>
+  </button>
+
   <a href="https://wa.me/919553577777" class="whatsapp-btn" target="_blank" aria-label="Chat on WhatsApp"><i class="fab fa-whatsapp"></i></a>
 
   <div class="lightbox-overlay">
@@ -452,6 +525,8 @@
   </div>
 
   <script src="js/venture-data.js"></script>
+  <script src="js/venture-image-manifest.js"></script>
+  <script src="js/venture-image-resolver.js"></script>
   <script src="js/main.js"></script>
   <script src="js/homepage-redesign.js"></script>
   <script src="js/lightbox.js"></script>

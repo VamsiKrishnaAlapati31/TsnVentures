@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const jumpButtons = document.querySelectorAll('[data-rdx-jump]');
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const ventures = Object.values(VENTURES);
+  const heroImageFor = (venture) => (typeof getVentureHeroImage === 'function' ? getVentureHeroImage(venture) : venture.heroImage);
 
   const categoriesFor = (venture) => {
     const categories = ['all'];
@@ -48,7 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
       return [
         `<article class="home-rdx-card reveal-scale" data-rdx-categories="${categories}">`,
         '  <div class="home-rdx-card__media">',
-        `    <img src="${venture.heroImage}" alt="${venture.name}">`,
+        `    <img src="${heroImageFor(venture)}" alt="${venture.name}">`,
         `    <span class="home-rdx-badge ${statusClass(venture)}">${statusLabel(venture)}</span>`,
         '  </div>',
         '  <div class="home-rdx-card__body">',

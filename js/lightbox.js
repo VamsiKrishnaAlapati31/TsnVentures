@@ -15,17 +15,8 @@ document.addEventListener('DOMContentLoaded', () => {
   let galleryImages = [];
   let currentIndex = 0;
 
-  // Collect all lightbox-trigger images
   function initLightbox() {
     galleryImages = Array.from(document.querySelectorAll('[data-lightbox]'));
-
-    galleryImages.forEach((img, index) => {
-      img.style.cursor = 'pointer';
-      img.addEventListener('click', () => {
-        currentIndex = index;
-        openLightbox(img.getAttribute('data-lightbox') || img.src);
-      });
-    });
   }
 
   function openLightbox(src) {
@@ -51,16 +42,23 @@ document.addEventListener('DOMContentLoaded', () => {
     lightboxImg.src = src;
   }
 
-  // Event listeners
   if (closeBtn) closeBtn.addEventListener('click', closeLightbox);
   if (prevBtn) prevBtn.addEventListener('click', showPrev);
   if (nextBtn) nextBtn.addEventListener('click', showNext);
+
+  document.addEventListener('click', (e) => {
+    const trigger = e.target.closest('[data-lightbox]');
+    if (!trigger) return;
+
+    galleryImages = Array.from(document.querySelectorAll('[data-lightbox]'));
+    currentIndex = Math.max(galleryImages.indexOf(trigger), 0);
+    openLightbox(trigger.getAttribute('data-lightbox') || trigger.src);
+  });
 
   lightboxOverlay.addEventListener('click', (e) => {
     if (e.target === lightboxOverlay) closeLightbox();
   });
 
-  // Keyboard navigation
   document.addEventListener('keydown', (e) => {
     if (!lightboxOverlay.classList.contains('active')) return;
     if (e.key === 'Escape') closeLightbox();
@@ -69,5 +67,6 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   initLightbox();
+  document.addEventListener('tsn:gallery-updated', initLightbox);
 
 });

@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (typeof VENTURES === 'undefined') return;
 
   const ventures = Object.values(VENTURES);
+  const heroImageFor = (venture) => (typeof getVentureHeroImage === 'function' ? getVentureHeroImage(venture) : venture.heroImage);
   const grid = document.getElementById('venturesGrid');
   const summary = document.getElementById('venturesSummary');
   const filterButtons = document.querySelectorAll('[data-venture-filter]');
@@ -95,7 +96,7 @@ document.addEventListener('DOMContentLoaded', () => {
         `    <span class="ventures-rdx-card__badge ${statusClass(venture)}">${statusLabel(venture)}</span>`,
         '  </div>',
         '  <div class="ventures-rdx-card__details">',
-        `    <div class="ventures-rdx-card__thumb"><img src="${venture.heroImage}" alt="${venture.name}"></div>`,
+        `    <div class="ventures-rdx-card__thumb"><img src="${heroImageFor(venture)}" alt="${venture.name}"></div>`,
         `    <div class="ventures-rdx-card__description">${description}</div>`,
         '  </div>',
         '  <div class="ventures-rdx-card__metrics">',
