@@ -257,7 +257,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (venture.status === 'completed') categories.push('completed');
     if (venture.status === 'ongoing') categories.push('ongoing');
     if (venture.status === 'upcoming') categories.push('pre-booking');
-    if (['premium-villas', 'heights-phase2'].includes(venture.id)) categories.push('construction');
     return categories;
   };
 
@@ -278,14 +277,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const completed = ventures.filter((item) => item.status === 'completed').length;
     const ongoing = ventures.filter((item) => item.status === 'ongoing').length;
     const preBooking = ventures.filter((item) => item.status === 'upcoming').length;
-    const construction = ventures.filter((item) => ['premium-villas', 'heights-phase2'].includes(item.id)).length;
 
     summaryStrip.innerHTML = `
       <div class="home-discovery-summary__item"><strong>${ventures.length}</strong><span>Total ventures</span></div>
       <div class="home-discovery-summary__item"><strong>${completed}</strong><span>Completed</span></div>
       <div class="home-discovery-summary__item"><strong>${ongoing}</strong><span>Ongoing</span></div>
       <div class="home-discovery-summary__item"><strong>${preBooking}</strong><span>Pre-booking</span></div>
-      <div class="home-discovery-summary__item"><strong>${construction}</strong><span>Construction</span></div>
     `;
   }
 

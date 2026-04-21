@@ -30,9 +30,17 @@ window.VENTURE_IMAGE_MANIFEST = {
     "assets/images/ventures/green-city/WhatsApp Image 2026-04-17 at 21.46.04 (1).jpeg",
     "assets/images/ventures/green-city/WhatsApp Image 2026-04-17 at 21.46.04.jpeg"
   ],
-  "green-valley-phase2": [],
-  "heights-phase2": [],
-  "premium-villas": [],
-  "royal-gardens": [],
-  "sunrise-layout": []
+  "sunrise-layout": [
+    "assets/images/ventures/sunrise-layout/10-gate-day.jpeg",
+    "assets/images/ventures/sunrise-layout/11-gate-night.jpeg",
+    "assets/images/ventures/sunrise-layout/01-aerial.jpeg",
+    "assets/images/ventures/sunrise-layout/12-overview.jpeg",
+    "assets/images/ventures/sunrise-layout/06-road.jpeg",
+    "assets/images/ventures/sunrise-layout/09-roadway.jpeg",
+    "assets/images/ventures/sunrise-layout/07-gate.jpeg",
+    "assets/images/ventures/sunrise-layout/08-entry.jpeg",
+    "assets/images/ventures/sunrise-layout/03-garden.jpeg",
+    "assets/images/ventures/sunrise-layout/04-roadside.jpeg",
+    "assets/images/ventures/sunrise-layout/02-house.jpeg"
+  ]
 };

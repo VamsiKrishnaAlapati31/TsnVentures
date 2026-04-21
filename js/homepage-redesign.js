@@ -14,18 +14,15 @@ document.addEventListener('DOMContentLoaded', () => {
     if (venture.status === 'completed') categories.push('completed');
     if (venture.status === 'ongoing') categories.push('ongoing');
     if (venture.status === 'upcoming') categories.push('pre-booking');
-    if (['premium-villas', 'heights-phase2'].includes(venture.id)) categories.push('construction');
     return categories;
   };
 
   const statusLabel = (venture) => {
-    if (['premium-villas', 'heights-phase2'].includes(venture.id)) return 'Construction';
     if (venture.status === 'upcoming') return 'Pre-Booking';
     return venture.badge || venture.status;
   };
 
   const statusClass = (venture) => {
-    if (['premium-villas', 'heights-phase2'].includes(venture.id)) return 'home-rdx-badge--construction';
     if (venture.status === 'upcoming') return 'home-rdx-badge--pre-booking';
     if (venture.status === 'ongoing') return 'home-rdx-badge--ongoing';
     return 'home-rdx-badge--completed';

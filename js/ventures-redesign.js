@@ -16,25 +16,20 @@ document.addEventListener('DOMContentLoaded', () => {
     prebooking: document.getElementById('venturesPrebooking')
   };
 
-  const isConstruction = (venture) => ['premium-villas', 'heights-phase2'].includes(venture.id);
-
   const categoriesFor = (venture) => {
     const categories = ['all'];
     if (venture.status === 'completed') categories.push('completed');
     if (venture.status === 'ongoing') categories.push('ongoing');
     if (venture.status === 'upcoming') categories.push('pre-booking');
-    if (isConstruction(venture)) categories.push('construction');
     return categories;
   };
 
   const statusLabel = (venture) => {
-    if (isConstruction(venture)) return 'Construction';
     if (venture.status === 'upcoming') return 'Pre-Booking';
     return venture.badge || venture.status;
   };
 
   const statusClass = (venture) => {
-    if (isConstruction(venture)) return 'ventures-rdx-card__badge--construction';
     if (venture.status === 'upcoming') return 'ventures-rdx-card__badge--pre-booking';
     if (venture.status === 'ongoing') return 'ventures-rdx-card__badge--ongoing';
     return 'ventures-rdx-card__badge--completed';
@@ -56,7 +51,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const completed = ventures.filter((item) => item.status === 'completed').length;
     const ongoing = ventures.filter((item) => item.status === 'ongoing').length;
     const preBooking = ventures.filter((item) => item.status === 'upcoming').length;
-    const construction = ventures.filter((item) => isConstruction(item)).length;
 
     if (totals.total) totals.total.textContent = ventures.length;
     if (totals.completed) totals.completed.textContent = completed;
@@ -68,8 +62,7 @@ document.addEventListener('DOMContentLoaded', () => {
         `<div class="ventures-rdx-summary-item reveal"><strong>${ventures.length}</strong><span>Total ventures</span></div>`,
         `<div class="ventures-rdx-summary-item reveal"><strong>${completed}</strong><span>Completed</span></div>`,
         `<div class="ventures-rdx-summary-item reveal"><strong>${ongoing}</strong><span>Ongoing</span></div>`,
-        `<div class="ventures-rdx-summary-item reveal"><strong>${preBooking}</strong><span>Pre-Booking</span></div>`,
-        `<div class="ventures-rdx-summary-item reveal"><strong>${construction}</strong><span>Construction</span></div>`
+        `<div class="ventures-rdx-summary-item reveal"><strong>${preBooking}</strong><span>Pre-Booking</span></div>`
       ].join('');
 
       summary.querySelectorAll('.reveal').forEach((item) => item.classList.add('revealed'));
