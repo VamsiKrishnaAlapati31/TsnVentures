@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const categories = categoriesFor(venture).join(' ');
       const location = statValue(venture, 'location');
       const scale = statValue(venture, 'area') !== '—' ? statValue(venture, 'area') : statValue(venture, 'size');
-      const availability = statValue(venture, 'plot') !== '—' ? statValue(venture, 'plot') : statValue(venture, 'home');
+      const availability = venture.availability || venture.badge || venture.status || '—';
       const description = String(venture.description || '').split(/\n\n/)[0];
 
       return [

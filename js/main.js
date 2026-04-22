@@ -8,7 +8,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const themeStorageKey = 'tsn-theme';
   const root = document.documentElement;
   const themeToggleButtons = document.querySelectorAll('[data-theme-toggle]');
-  const themeToggleLabels = document.querySelectorAll('[data-theme-toggle-label]');
   const themeMedia = window.matchMedia('(prefers-color-scheme: dark)');
 
   const getStoredTheme = () => {
@@ -28,7 +27,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const syncThemeToggleUi = (theme) => {
     const nextTheme = theme === 'dark' ? 'light' : 'dark';
-    const themeLabel = `${theme.charAt(0).toUpperCase()}${theme.slice(1)} mode`;
     const actionLabel = `Activate ${nextTheme} theme`;
 
     themeToggleButtons.forEach((button) => {
@@ -36,10 +34,6 @@ document.addEventListener('DOMContentLoaded', () => {
       button.setAttribute('aria-label', actionLabel);
       button.dataset.themeActive = theme;
       button.title = actionLabel;
-    });
-
-    themeToggleLabels.forEach((label) => {
-      label.textContent = themeLabel;
     });
   };
 
@@ -296,7 +290,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const categories = getVentureCategories(venture).join(' ');
       const locationValue = getMetaValue(venture, 'location');
       const scaleValue = getMetaValue(venture, 'area') !== '—' ? getMetaValue(venture, 'area') : getMetaValue(venture, 'size');
-      const availabilityValue = getMetaValue(venture, 'plot') !== '—' ? getMetaValue(venture, 'plot') : getMetaValue(venture, 'home');
+      const availabilityValue = venture.availability || venture.badge || venture.status || '—';
       const shortDescription = String(venture.description || '').split('\n\n')[0];
 
       return `

@@ -14,12 +14,13 @@ const VENTURES = {
     description: `TSN Ventures (Green City) is a completed residential layout in Dubacherla East, GDV District, Andhra Pradesh. The project spans 8 acres and was developed between 2021 and 2023 with a focus on clear approvals, practical access, and buyer confidence.
 
 The layout is DTCP and RERA approved, and homebuyers can access loan support from SBI, HDFC, and Axis Bank. Green City was planned as a reliable plotted development with the essential project approvals and financing support already in place.`,
-    location: 'Dubacherla East, GDV District, Andhra Pradesh 534112',
-    mapQuery: 'Dubacherla+East,+Andhra+Pradesh+534112',
-    mapEmbed: 'https://www.google.com/maps/embed/v1/place?key=AIzaSyD-9tSrke72PouQMnMX-a7eZSW0jkFMBWY&q=Dubacherla+East,+Andhra+Pradesh+534112',
-    mapLink: 'https://www.google.com/maps/search/Dubacherla+East,+Andhra+Pradesh+534112',
+    location: 'TSN Ventures, W942+P9C, Gantavarigudem, Dubacherla, Andhra Pradesh 534112',
+    availability: 'Completed',
+    mapQuery: 'TSN+Ventures,+W942+P9C,+Gantavarigudem,+Dubacherla,+Andhra+Pradesh+534112',
+    mapEmbed: 'https://www.google.com/maps/embed/v1/place?key=AIzaSyD-9tSrke72PouQMnMX-a7eZSW0jkFMBWY&q=TSN+Ventures,+W942+P9C,+Gantavarigudem,+Dubacherla,+Andhra+Pradesh+534112',
+    mapLink: 'https://www.google.com/maps/search/TSN+Ventures,+W942+P9C,+Gantavarigudem,+Dubacherla,+Andhra+Pradesh+534112',
     stats: [
-      { icon: 'fas fa-map-marker-alt', label: 'Location', value: 'Dubacherla East' },
+      { icon: 'fas fa-map-marker-alt', label: 'Location', value: 'Gantavarigudem' },
       { icon: 'fas fa-expand', label: 'Total Area', value: '8 Acres' },
       { icon: 'fas fa-certificate', label: 'Approvals', value: 'DTCP + RERA' },
       { icon: 'fas fa-university', label: 'Loans', value: 'SBI / HDFC / Axis' },
@@ -30,7 +31,7 @@ The layout is DTCP and RERA approved, and homebuyers can access loan support fro
       { icon: 'fas fa-certificate', text: 'DTCP Approved Layout' },
       { icon: 'fas fa-certificate', text: 'RERA Approved Project' },
       { icon: 'fas fa-university', text: 'SBI, HDFC & Axis Bank Loans Available' },
-      { icon: 'fas fa-tint', text: 'Underground Drainage System' },
+      { icon: 'fas fa-tint', text: 'Open Drainage System' },
       { icon: 'fas fa-water', text: 'Piped Water Supply' },
       { icon: 'fas fa-bolt', text: 'Electricity Infrastructure' },
       { icon: 'fas fa-file-alt', text: 'Completed Development with Clear Documentation' }
@@ -58,6 +59,7 @@ The layout is DTCP and RERA approved, and homebuyers can access loan support fro
 
 The venture supports HDFC Smart Plot Loans and house loan options through SBI, Bank of India, and Bank of Baroda, giving buyers a practical financing path for both plot purchase and home construction.`,
     location: 'Nallajerlla, beside Star Grand, TPG Rd',
+    availability: 'Ongoing',
     mapQuery: 'Nallajerlla,+beside+Star+Grand,+TPG+Rd',
     mapEmbed: 'https://www.google.com/maps/embed/v1/place?key=AIzaSyD-9tSrke72PouQMnMX-a7eZSW0jkFMBWY&q=Nallajerlla,+beside+Star+Grand,+TPG+Rd',
     mapLink: 'https://www.google.com/maps/search/Nallajerlla,+beside+Star+Grand,+TPG+Rd',

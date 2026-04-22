@@ -26,9 +26,10 @@
   </script>
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/animations.css">
+  <link rel="stylesheet" href="css/services-redesign.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
-<body class="tsn-inner-premium">
+<body class="tsn-inner-premium tsn-services-redesign">
 
   <!-- NAVBAR -->
   <nav class="navbar scrolled">
@@ -51,72 +52,105 @@
     </div>
   </nav>
 
-  <!-- PAGE HEADER -->
-  <section class="page-header">
+  <section class="services-feature-section" id="service-catalog">
     <div class="container">
-      <h1>Our Services</h1>
-      <div class="breadcrumb">
-        <a href="index.html">Home</a>
-        <span>/</span>
-        <span>Services</span>
+      <div class="services-feature-head reveal">
+        <div class="section-label">What We Do</div>
+        <h2>Three services, clearly explained</h2>
+        <p>We keep the original project photos and explain each service in simple language so buyers can understand what we do at a glance.</p>
       </div>
-    </div>
-  </section>
-
-  <section class="rdx-align-section" id="service-catalog">
-    <div class="container">
-      <div class="rdx-align-head reveal">
-        <div class="section-label">Service Catalog</div>
-        <h2>Services by Buyer Decision Stage</h2>
-        <p>Choose support the same way you filter ventures: discovery, plot selection, infrastructure confidence, and construction execution.</p>
-      </div>
-      <div class="rdx-align-filterbar reveal">
-        <div class="rdx-align-filterbar__chips">
-          <a href="#land-development" class="rdx-align-chip is-active">Development</a>
-          <a href="#plot-sales" class="rdx-align-chip">Plot Sales</a>
-          <a href="#construction" class="rdx-align-chip">Construction</a>
-          <a href="#service-process" class="rdx-align-chip">Process</a>
-        </div>
-        <div class="rdx-align-filterbar__result">3 service paths + 4-step process</div>
-      </div>
-      <div class="rdx-align-grid">
-        <article class="rdx-align-card" id="land-development">
-          <div class="rdx-align-card__media"><img src="assets/images/services-hero-iconcity.jpeg" alt="Land Development"></div>
-          <div class="rdx-align-card__header">
-            <div><span class="rdx-align-card__eyebrow">Service 01</span><h3>Land Layout Development</h3></div>
-            <span class="rdx-align-badge rdx-align-badge--green">Foundation</span>
+      <div class="services-feature-list stagger-children">
+        <article class="services-feature-row" id="land-development">
+          <div class="services-feature-row__media">
+            <img src="assets/images/services-hero-iconcity.jpeg" alt="Land Layout Development">
+            <div class="services-feature-row__badge">Land development</div>
           </div>
-          <p>We acquire raw land and transform it into premium residential layouts with complete infrastructure and approval-led buyer confidence.</p>
-          <div class="rdx-align-list">
-            <span><i class="fas fa-check-circle"></i> Underground drainage and water supply</span>
-            <span><i class="fas fa-check-circle"></i> Paved roads, electricity, and street lighting</span>
-            <span><i class="fas fa-check-circle"></i> Community spaces and usability planning</span>
+          <div class="services-feature-row__content">
+            <div class="services-feature-row__eyebrow">Service 01</div>
+            <h3>Land Layout Development</h3>
+            <p>We turn raw land into ready-to-use residential layouts with roads, open drainage, water supply, and electricity already planned in.</p>
+            <div class="services-feature-row__points">
+              <div class="services-feature-point">
+                <i class="fas fa-road"></i>
+                <strong>Ready roads</strong>
+                <span>Easy access inside the layout</span>
+              </div>
+              <div class="services-feature-point">
+                <i class="fas fa-tint"></i>
+                <strong>Open drainage</strong>
+                <span>Simple water flow and cleaner streets</span>
+              </div>
+              <div class="services-feature-point">
+                <i class="fas fa-file-shield"></i>
+                <strong>Clear approvals</strong>
+                <span>Documents and layout details up front</span>
+              </div>
+            </div>
+            <div class="services-feature-row__actions">
+              <a href="#plot-sales" class="btn btn-accent">See plot options</a>
+            </div>
           </div>
         </article>
-        <article class="rdx-align-card" id="plot-sales">
-          <div class="rdx-align-card__media"><img src="assets/images/venture-1.png" alt="Plot Sales"></div>
-          <div class="rdx-align-card__header">
-            <div><span class="rdx-align-card__eyebrow">Service 02</span><h3>Plot Sales & Guidance</h3></div>
-            <span class="rdx-align-badge">Selection</span>
+        <article class="services-feature-row services-feature-row--reverse" id="plot-sales">
+          <div class="services-feature-row__media">
+            <img src="assets/images/venture-1.png" alt="Plot Sales & Guidance">
+            <div class="services-feature-row__badge">Plot guidance</div>
           </div>
-          <p>Choose residential plots with clearer stage, size, location, and payment guidance before committing to a site visit or booking.</p>
-          <div class="rdx-align-list">
-            <span><i class="fas fa-check-circle"></i> Clear titles and approved layout plans</span>
-            <span><i class="fas fa-check-circle"></i> Flexible plot sizes and payment planning</span>
-            <span><i class="fas fa-check-circle"></i> Bank loan support and arranged site visits</span>
+          <div class="services-feature-row__content">
+            <div class="services-feature-row__eyebrow">Service 02</div>
+            <h3>Plot Sales & Guidance</h3>
+            <p>We help you compare plot size, location, budget, and approval details so you can choose with less confusion.</p>
+            <div class="services-feature-row__points">
+              <div class="services-feature-point">
+                <i class="fas fa-location-dot"></i>
+                <strong>Site visit support</strong>
+                <span>See the layout before you decide</span>
+              </div>
+              <div class="services-feature-point">
+                <i class="fas fa-university"></i>
+                <strong>Loan guidance</strong>
+                <span>Support from partner banks</span>
+              </div>
+              <div class="services-feature-point">
+                <i class="fas fa-pen-to-square"></i>
+                <strong>Simple booking help</strong>
+                <span>Clear next steps from enquiry to booking</span>
+              </div>
+            </div>
+            <div class="services-feature-row__actions">
+              <a href="#service-process" class="btn btn-accent">See the process</a>
+            </div>
           </div>
         </article>
-        <article class="rdx-align-card" id="construction">
-          <div class="rdx-align-card__media"><img src="assets/images/service-construction.png" alt="Contract Construction"></div>
-          <div class="rdx-align-card__header">
-            <div><span class="rdx-align-card__eyebrow">Service 03</span><h3>Contract Construction</h3></div>
-            <span class="rdx-align-badge rdx-align-badge--violet">Build</span>
+        <article class="services-feature-row" id="construction">
+          <div class="services-feature-row__media">
+            <img src="assets/images/service-construction.png" alt="Contract Construction">
+            <div class="services-feature-row__badge">Construction support</div>
           </div>
-          <p>Move from plot purchase to finished home with one partner managing design, materials, construction, and handover.</p>
-          <div class="rdx-align-list">
-            <span><i class="fas fa-check-circle"></i> Custom home design and quality materials</span>
-            <span><i class="fas fa-check-circle"></i> Skilled workforce and progress monitoring</span>
-            <span><i class="fas fa-check-circle"></i> Fixed-price contracts and warranty assurance</span>
+          <div class="services-feature-row__content">
+            <div class="services-feature-row__eyebrow">Service 03</div>
+            <h3>Contract Construction</h3>
+            <p>We handle home design, materials, construction, and handover under one roof so you know who is responsible at every step.</p>
+            <div class="services-feature-row__points">
+              <div class="services-feature-point">
+                <i class="fas fa-drafting-compass"></i>
+                <strong>Custom plans</strong>
+                <span>Layouts designed around your home</span>
+              </div>
+              <div class="services-feature-point">
+                <i class="fas fa-hard-hat"></i>
+                <strong>Quality checks</strong>
+                <span>Careful work at each stage</span>
+              </div>
+              <div class="services-feature-point">
+                <i class="fas fa-key"></i>
+                <strong>Handover support</strong>
+                <span>Move in with documents in hand</span>
+              </div>
+            </div>
+            <div class="services-feature-row__actions">
+              <a href="index.html#contact" class="btn btn-accent">Talk to us</a>
+            </div>
           </div>
         </article>
       </div>
@@ -126,9 +160,9 @@
   <section class="rdx-align-section rdx-align-section--deep" id="service-process">
     <div class="container">
       <div class="rdx-align-head reveal">
-        <div class="section-label">Our Process</div>
-        <h2>How We Work</h2>
-        <p>A transparent step-by-step path from enquiry to site visit, documentation, and handover.</p>
+        <div class="section-label">How It Works</div>
+        <h2>A simple four-step process</h2>
+        <p>From first enquiry to handover, we keep each step clear and easy to follow.</p>
       </div>
       <div class="rdx-align-grid rdx-align-grid--two stagger-children">
         <article class="rdx-align-card">
@@ -159,25 +193,25 @@
         <h2>Frequently Asked Questions</h2>
       </div>
       <div style="max-width: 800px; margin: 0 auto;" class="stagger-children">
-        <div style="border: 1px solid var(--border); border-radius: var(--radius-md); padding: 1.5rem; margin-bottom: 1rem; background: var(--white);">
-          <h3 style="font-size: 1.05rem; color: var(--text); margin-bottom: 0.5rem;"><i class="fas fa-question-circle" style="color: var(--accent); margin-right: 8px;"></i>What sizes of plots are available?</h3>
-          <p style="font-size: 0.9rem; color: var(--text-light);">We offer plots ranging from 100 sq. yards to 500 sq. yards, sold by the cent. Contact us for specific availability in each venture.</p>
+        <div class="services-faq-card">
+          <h3><i class="fas fa-question-circle"></i>What sizes of plots are available?</h3>
+          <p>We offer plots ranging from 100 sq. yards to 500 sq. yards, sold by the cent. Contact us for specific availability in each venture.</p>
         </div>
-        <div style="border: 1px solid var(--border); border-radius: var(--radius-md); padding: 1.5rem; margin-bottom: 1rem; background: var(--white);">
-          <h3 style="font-size: 1.05rem; color: var(--text); margin-bottom: 0.5rem;"><i class="fas fa-question-circle" style="color: var(--accent); margin-right: 8px;"></i>Do you offer payment plans?</h3>
-          <p style="font-size: 0.9rem; color: var(--text-light);">Yes! We offer flexible EMI options and bank loan assistance. We work with major banks to ensure easy financing for your purchase.</p>
+        <div class="services-faq-card">
+          <h3><i class="fas fa-question-circle"></i>Do you offer payment plans?</h3>
+          <p>Yes! We offer flexible EMI options and bank loan assistance. We work with major banks to ensure easy financing for your purchase.</p>
         </div>
-        <div style="border: 1px solid var(--border); border-radius: var(--radius-md); padding: 1.5rem; margin-bottom: 1rem; background: var(--white);">
-          <h3 style="font-size: 1.05rem; color: var(--text); margin-bottom: 0.5rem;"><i class="fas fa-question-circle" style="color: var(--accent); margin-right: 8px;"></i>Are layouts government approved?</h3>
-          <p style="font-size: 0.9rem; color: var(--text-light);">Absolutely. All our ventures have proper government approvals, DTCP (Directorate of Town & Country Planning) approved layouts, and clear legal titles.</p>
+        <div class="services-faq-card">
+          <h3><i class="fas fa-question-circle"></i>Are layouts government approved?</h3>
+          <p>Absolutely. All our ventures have proper government approvals, DTCP (Directorate of Town & Country Planning) approved layouts, and clear legal titles.</p>
         </div>
-        <div style="border: 1px solid var(--border); border-radius: var(--radius-md); padding: 1.5rem; margin-bottom: 1rem; background: var(--white);">
-          <h3 style="font-size: 1.05rem; color: var(--text); margin-bottom: 0.5rem;"><i class="fas fa-question-circle" style="color: var(--accent); margin-right: 8px;"></i>What is the construction cost per sq. ft?</h3>
-          <p style="font-size: 0.9rem; color: var(--text-light);">Construction costs vary based on design, materials, and finishes. Contact us for a personalized quote and we'll provide a detailed estimate within 48 hours.</p>
+        <div class="services-faq-card">
+          <h3><i class="fas fa-question-circle"></i>What is the construction cost per sq. ft?</h3>
+          <p>Construction costs vary based on design, materials, and finishes. Contact us for a personalized quote and we'll provide a detailed estimate within 48 hours.</p>
         </div>
-        <div style="border: 1px solid var(--border); border-radius: var(--radius-md); padding: 1.5rem; background: var(--white);">
-          <h3 style="font-size: 1.05rem; color: var(--text); margin-bottom: 0.5rem;"><i class="fas fa-question-circle" style="color: var(--accent); margin-right: 8px;"></i>Can I visit the site before purchasing?</h3>
-          <p style="font-size: 0.9rem; color: var(--text-light);">Of course! We encourage site visits. Contact us to schedule a free visit and we'll arrange transportation from nearby towns.</p>
+        <div class="services-faq-card">
+          <h3><i class="fas fa-question-circle"></i>Can I visit the site before purchasing?</h3>
+          <p>Of course! We encourage site visits. Contact us to schedule a free visit and we'll arrange transportation from nearby towns.</p>
         </div>
       </div>
     </div>
@@ -255,9 +289,8 @@
 
   <button class="theme-switch" type="button" data-theme-toggle aria-label="Activate dark theme" aria-pressed="false">
     <span class="theme-switch__track">
-      <span class="theme-switch__icon theme-switch__icon--sun"><i class="fas fa-sun"></i></span>
-      <span class="theme-switch__label" data-theme-toggle-label>Light mode</span>
-      <span class="theme-switch__icon theme-switch__icon--moon"><i class="fas fa-moon"></i></span>
+      <span class="theme-switch__icon theme-switch__icon--sun" aria-hidden="true"><i class="fas fa-sun"></i></span>
+      <span class="theme-switch__icon theme-switch__icon--moon" aria-hidden="true"><i class="fas fa-moon"></i></span>
     </span>
   </button>
 
