@@ -90,22 +90,12 @@
           <a href="https://wa.me/919553577777?text=Hi%20TSN%20Ventures!%20I%20want%20to%20schedule%20a%20site%20visit." target="_blank" class="btn btn-primary home-rdx-btn">
             <i class="fab fa-whatsapp"></i> Book Site Visit
           </a>
-          <a href="#rdx-discovery" class="btn btn-outline home-rdx-btn" data-rdx-jump="ongoing">
+          <a href="#rdx-venture-sunrise-layout" class="btn btn-outline home-rdx-btn">
             <i class="fas fa-chart-line"></i> View Ongoing Projects
           </a>
           <a href="tel:+919553577777" class="btn btn-outline home-rdx-btn">
             <i class="fas fa-phone"></i> Call Now
           </a>
-        </div>
-
-        <div class="home-rdx-filter-strip reveal">
-          <div class="home-rdx-filter-strip__label">Quick Discovery</div>
-          <div class="home-rdx-filter-strip__chips">
-            <button type="button" class="home-rdx-chip is-active" data-rdx-filter="all">All Ventures</button>
-            <button type="button" class="home-rdx-chip" data-rdx-filter="completed">Completed</button>
-            <button type="button" class="home-rdx-chip" data-rdx-filter="ongoing">Ongoing</button>
-            <button type="button" class="home-rdx-chip" data-rdx-filter="pre-booking">Pre-Booking</button>
-          </div>
         </div>
       </div>
 
@@ -182,23 +172,10 @@
     <div class="container">
       <div class="home-rdx-heading reveal">
         <div class="section-label">Project Discovery</div>
-        <h2>Filter Projects by Buying Stage</h2>
-        <p>Separate ready-to-evaluate layouts, active developments, pre-booking phases, and construction-backed projects in one premium catalog.</p>
+        <h2>Explore the Featured Ventures in a Larger Visual Format</h2>
+        <p>Each project rotates through its own gallery automatically, so the page opens with live site photography instead of a static hero block.</p>
       </div>
-
-      <div class="home-rdx-filters reveal" id="rdxFilters">
-        <button type="button" class="home-rdx-chip is-active" data-rdx-filter="all">All</button>
-        <button type="button" class="home-rdx-chip" data-rdx-filter="completed">Completed</button>
-        <button type="button" class="home-rdx-chip" data-rdx-filter="ongoing">Ongoing</button>
-        <button type="button" class="home-rdx-chip" data-rdx-filter="pre-booking">Pre-Booking</button>
-        <button type="button" class="home-rdx-chip" data-rdx-filter="construction">Construction</button>
-      </div>
-
-      <div class="home-rdx-grid" id="rdxGrid"></div>
-
-      <div class="home-rdx-discovery__footer reveal">
-        <a href="ventures.html" class="btn btn-accent home-rdx-btn-inline">View Full Venture Catalog <i class="fas fa-arrow-right"></i></a>
-      </div>
+      <div class="home-rdx-feature-list" id="rdxShowcase"></div>
     </div>
   </section>
 
@@ -306,55 +283,87 @@
 
   <section class="rdx-align-section rdx-align-section--deep" id="services-overview">
     <div class="container">
-      <div class="rdx-align-grid stagger-children">
-        <article class="rdx-align-card">
-          <div class="rdx-align-card__header">
-            <div>
+      <div class="home-rdx-heading reveal">
+        <div class="section-label">How it works</div>
+        <h2>One guided path from ready layout to handover</h2>
+        <p>Follow the process in order: discover an approved layout, choose the right plot, then move toward construction with the same team.</p>
+      </div>
+
+      <div class="home-rdx-flow stagger-children">
+        <article class="rdx-align-card home-rdx-flow-card">
+          <div class="rdx-align-card__header home-rdx-flow-card__header">
+            <div class="home-rdx-flow-card__title">
+              <span class="home-rdx-flow-card__step">01</span>
               <span class="rdx-align-card__eyebrow">Discovery Stage</span>
               <h3>Approved Layout Development</h3>
             </div>
-            <span class="rdx-align-badge rdx-align-badge--green">Ready</span>
+            <div class="home-rdx-flow-card__status">
+              <span class="rdx-align-badge rdx-align-badge--green">Ready</span>
+            </div>
           </div>
-          <p>We plan residential layouts with roads, drainage, water supply, and approvals in place before buyers visit.</p>
-          <div class="rdx-align-metrics">
-            <div class="rdx-align-metric"><i class="fas fa-road"></i><span>Need</span><strong>Ready Layout</strong></div>
-            <div class="rdx-align-metric"><i class="fas fa-file-contract"></i><span>Check</span><strong>Approvals</strong></div>
-            <div class="rdx-align-metric"><i class="fas fa-map-location-dot"></i><span>Next Step</span><strong>Site Visit</strong></div>
+          <div class="home-rdx-flow-card__body">
+            <p>We prepare residential layouts with roads, drainage, water supply, and approvals in place before buyers visit.</p>
+            <div class="rdx-align-metrics home-rdx-flow-card__metrics">
+              <div class="rdx-align-metric"><i class="fas fa-road"></i><span>What we do</span><strong>Prepare the layout</strong></div>
+              <div class="rdx-align-metric"><i class="fas fa-file-contract"></i><span>What you check</span><strong>Approvals</strong></div>
+              <div class="rdx-align-metric"><i class="fas fa-map-location-dot"></i><span>Next step</span><strong>Site Visit</strong></div>
+            </div>
           </div>
         </article>
-        <article class="rdx-align-card">
-          <div class="rdx-align-card__header">
-            <div>
+
+        <div class="home-rdx-flow-arrow" aria-hidden="true">
+          <span class="home-rdx-flow-arrow__icon"><i class="fas fa-arrow-right"></i></span>
+        </div>
+
+        <article class="rdx-align-card home-rdx-flow-card">
+          <div class="rdx-align-card__header home-rdx-flow-card__header">
+            <div class="home-rdx-flow-card__title">
+              <span class="home-rdx-flow-card__step">02</span>
               <span class="rdx-align-card__eyebrow">Selection Stage</span>
               <h3>Plot Selection Help</h3>
             </div>
-            <span class="rdx-align-badge">Guided</span>
+            <div class="home-rdx-flow-card__status">
+              <span class="rdx-align-badge">Guided</span>
+            </div>
           </div>
-          <p>We help buyers compare plot size, location, and budget so they can choose faster and with less back-and-forth.</p>
-          <div class="rdx-align-metrics">
-            <div class="rdx-align-metric"><i class="fas fa-ruler-combined"></i><span>Compare</span><strong>Plot Size</strong></div>
-            <div class="rdx-align-metric"><i class="fas fa-indian-rupee-sign"></i><span>Check</span><strong>Budget</strong></div>
-            <div class="rdx-align-metric"><i class="fas fa-phone-volume"></i><span>Next Step</span><strong>Enquiry</strong></div>
+          <div class="home-rdx-flow-card__body">
+            <p>We help buyers compare plot size, location, and budget so they can choose faster and with less back-and-forth.</p>
+            <div class="rdx-align-metrics home-rdx-flow-card__metrics">
+              <div class="rdx-align-metric"><i class="fas fa-ruler-combined"></i><span>Compare</span><strong>Plot size</strong></div>
+              <div class="rdx-align-metric"><i class="fas fa-indian-rupee-sign"></i><span>Check</span><strong>Budget</strong></div>
+              <div class="rdx-align-metric"><i class="fas fa-phone-volume"></i><span>Next step</span><strong>Talk to us</strong></div>
+            </div>
           </div>
         </article>
-        <article class="rdx-align-card">
-          <div class="rdx-align-card__header">
-            <div>
+
+        <div class="home-rdx-flow-arrow" aria-hidden="true">
+          <span class="home-rdx-flow-arrow__icon"><i class="fas fa-arrow-right"></i></span>
+        </div>
+
+        <article class="rdx-align-card home-rdx-flow-card">
+          <div class="rdx-align-card__header home-rdx-flow-card__header">
+            <div class="home-rdx-flow-card__title">
+              <span class="home-rdx-flow-card__step">03</span>
               <span class="rdx-align-card__eyebrow">Construction Stage</span>
               <h3>Construction Support</h3>
             </div>
-            <span class="rdx-align-badge rdx-align-badge--violet">Build</span>
+            <div class="home-rdx-flow-card__status">
+              <span class="rdx-align-badge rdx-align-badge--violet">Build</span>
+            </div>
           </div>
-          <p>Move from land purchase to a finished home with one team handling design, build quality, and handover.</p>
-          <div class="rdx-align-metrics">
-            <div class="rdx-align-metric"><i class="fas fa-drafting-compass"></i><span>Plan</span><strong>Design</strong></div>
-            <div class="rdx-align-metric"><i class="fas fa-hard-hat"></i><span>Build</span><strong>Execution</strong></div>
-            <div class="rdx-align-metric"><i class="fas fa-key"></i><span>Close</span><strong>Handover</strong></div>
+          <div class="home-rdx-flow-card__body">
+            <p>Move from land purchase to a finished home with one team handling design, build quality, and handover.</p>
+            <div class="rdx-align-metrics home-rdx-flow-card__metrics">
+              <div class="rdx-align-metric"><i class="fas fa-drafting-compass"></i><span>Plan</span><strong>Design</strong></div>
+              <div class="rdx-align-metric"><i class="fas fa-hard-hat"></i><span>Build</span><strong>Execution</strong></div>
+              <div class="rdx-align-metric"><i class="fas fa-key"></i><span>Close</span><strong>Handover</strong></div>
+            </div>
           </div>
         </article>
       </div>
-      <div style="text-align: center; margin-top: 3rem;" class="reveal">
-        <a href="services.html" class="btn btn-accent">View All Services <i class="fas fa-arrow-right"></i></a>
+
+      <div class="home-rdx-flow-cta reveal">
+        <a href="services.html" class="btn btn-accent">View the Full Service Journey <i class="fas fa-arrow-right"></i></a>
       </div>
     </div>
   </section>
@@ -395,29 +404,17 @@
     </div>
   </section>
 
-  <section class="rdx-align-section" id="blog-preview">
+  <section class="rdx-align-section rdx-align-section--deep" id="blog-preview">
     <div class="container">
-      <div class="rdx-align-grid stagger-children">
-        <article class="rdx-align-card">
-          <div class="rdx-align-card__media"><img src="assets/images/venture-1.png" alt="New Venture Launch"></div>
-          <div class="rdx-align-card__header"><div><span class="rdx-align-card__eyebrow">March 2026</span><h3>How to Verify Approvals Before Booking</h3></div><span class="rdx-align-badge rdx-align-badge--blue">Guide</span></div>
-          <p>Use this quick checklist to confirm approvals, access, and documents before you commit.</p>
-          <div class="rdx-align-card__footer"><a href="blog.html" class="rdx-align-link">Read More <i class="fas fa-arrow-right"></i></a></div>
-        </article>
-        <article class="rdx-align-card">
-          <div class="rdx-align-card__media"><img src="assets/images/service-land.png" alt="Infrastructure Guide"></div>
-          <div class="rdx-align-card__header"><div><span class="rdx-align-card__eyebrow">February 2026</span><h3>Why Infrastructure Matters for Plot Buyers</h3></div><span class="rdx-align-badge rdx-align-badge--green">Check</span></div>
-          <p>See how roads, drainage, and utilities affect daily use and long-term value.</p>
-          <div class="rdx-align-card__footer"><a href="blog.html" class="rdx-align-link">Read More <i class="fas fa-arrow-right"></i></a></div>
-        </article>
-        <article class="rdx-align-card">
-          <div class="rdx-align-card__media"><img src="assets/images/venture-3.png" alt="Home Building Tips"></div>
-          <div class="rdx-align-card__header"><div><span class="rdx-align-card__eyebrow">January 2026</span><h3>3 Tips for First-Time Home Builders</h3></div><span class="rdx-align-badge rdx-align-badge--violet">Build</span></div>
-          <p>Use these basics to choose the right plot, set a budget, and start construction with confidence.</p>
-          <div class="rdx-align-card__footer"><a href="blog.html" class="rdx-align-link">Read More <i class="fas fa-arrow-right"></i></a></div>
-        </article>
+      <div class="rdx-align-head reveal">
+        <div class="section-label">Project Updates</div>
+        <h2>Three simple stories from our ventures</h2>
+        <p>Read a completed-layout spotlight, an ongoing project update, and a quick buyer checklist based on the real TSN venture data.</p>
       </div>
-      <div style="text-align: center; margin-top: 3rem;" class="reveal"><a href="blog.html" class="btn btn-accent">View All Posts <i class="fas fa-arrow-right"></i></a></div>
+      <div class="rdx-align-grid stagger-children" id="homeBlogGrid" data-blog-grid="homepage"></div>
+      <div class="home-blog-preview__cta reveal">
+        <a href="blog.html" class="btn btn-accent">View All Posts <i class="fas fa-arrow-right"></i></a>
+      </div>
     </div>
   </section>
 
@@ -490,6 +487,8 @@
   <script src="js/venture-data.js"></script>
   <script src="js/venture-image-manifest.js"></script>
   <script src="js/venture-image-resolver.js"></script>
+  <script src="js/blog-data.js"></script>
+  <script src="js/blog-redesign.js"></script>
   <script src="js/main.js"></script>
   <script src="js/homepage-redesign.js"></script>
   <script src="js/lightbox.js"></script>

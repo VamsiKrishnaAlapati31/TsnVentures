@@ -1,10 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const grid = document.getElementById('blogStoriesGrid');
-  if (!grid || typeof VENTURES === 'undefined') return;
-
-  const greenCity = VENTURES['green-city'];
-  const sunrise = VENTURES['sunrise-layout'];
-  if (!greenCity || !sunrise) return;
+  const posts = Array.isArray(window.TSN_BLOG_POSTS) ? window.TSN_BLOG_POSTS : [];
+  const grids = document.querySelectorAll('[data-blog-grid]');
+  if (posts.length === 0 || grids.length === 0) return;
 
   const escapeHtml = (value) => String(value).replace(/[&<>"']/g, (char) => ({
     '&': '&amp;',
@@ -14,84 +11,36 @@ document.addEventListener('DOMContentLoaded', () => {
     "'": '&#39;'
   }[char]));
 
-  const renderList = (items) => items.map((item) => (
-    `<span><i class="fas fa-check-circle"></i> ${escapeHtml(item)}</span>`
-  )).join('');
+  const renderCard = (post, mode) => {
+    const anchorId = escapeHtml(post.anchorId || '');
+    const href = mode === 'homepage'
+      ? `blog.html#${anchorId}`
+      : `#${anchorId}`;
 
-  const roadLayoutImage = Array.isArray(greenCity.images) && greenCity.images[6]
-    ? greenCity.images[6]
-    : greenCity.heroImage;
-
-  const posts = [
-    {
-      eyebrow: 'Dubacherla East',
-      badge: greenCity.badge || 'Completed',
-      badgeClass: 'rdx-align-badge--green',
-      title: 'Green City: A completed layout you can review with confidence',
-      image: greenCity.heroImage,
-      alt: greenCity.name,
-      summary: '8 acres in Dubacherla East with DTCP + RERA approval, completed development, and loan support from SBI, HDFC, and Axis Bank.',
-      bullets: [
-        'BT paved internal roads',
-        'Open drainage system',
-        'Clear documentation and water supply'
-      ],
-      linkLabel: 'View Green City',
-      href: `venture-detail.html?id=${encodeURIComponent(greenCity.id)}`
-    },
-    {
-      eyebrow: 'Nallajerlla',
-      badge: sunrise.badge || 'Ongoing',
-      badgeClass: 'rdx-align-badge--violet',
-      title: 'TSN ICONCITY: An ongoing project with loan support',
-      image: sunrise.heroImage,
-      alt: sunrise.name,
-      summary: '10 acres beside Star Grand on TPG Road with RUDA + RERA approval and practical loan options already available.',
-      bullets: [
-        'HDFC Smart Plot Loans',
-        'SBI, BOI, and Bank of Baroda support',
-        'Avenue plantation and BT roads'
-      ],
-      linkLabel: 'View TSN ICONCITY',
-      href: `venture-detail.html?id=${encodeURIComponent(sunrise.id)}`
-    },
-    {
-      eyebrow: 'Buyer guide',
-      badge: 'Guide',
-      badgeClass: 'rdx-align-badge--blue',
-      title: 'What to check before you book a plot',
-      image: roadLayoutImage,
-      alt: 'Layout road plan',
-      summary: 'Use Green City and TSN ICONCITY as examples: approvals, roads, open drainage, and a site visit should be clear before you decide.',
-      bullets: [
-        'Check approvals and supporting documents first',
-        'Compare roads, drainage, and water supply',
-        'Plan a site visit before booking'
-      ],
-      linkLabel: 'Plan a Site Visit',
-      href: 'index.html#contact'
-    }
-  ];
-
-  grid.innerHTML = posts.map((post) => `
-    <article class="rdx-align-card">
-      <div class="rdx-align-card__media">
-        <img src="${escapeHtml(post.image)}" alt="${escapeHtml(post.alt)}">
-      </div>
-      <div class="rdx-align-card__header">
-        <div>
-          <span class="rdx-align-card__eyebrow">${escapeHtml(post.eyebrow)}</span>
-          <h3>${escapeHtml(post.title)}</h3>
+    return `
+      <article id="${anchorId}" class="rdx-align-card blog-post-card">
+        <div class="rdx-align-card__media">
+          <img src="${escapeHtml(post.image || '')}" alt="${escapeHtml(post.alt || post.title || '')}" loading="lazy" decoding="async">
         </div>
-        <span class="rdx-align-badge ${post.badgeClass}">${escapeHtml(post.badge)}</span>
-      </div>
-      <p>${escapeHtml(post.summary)}</p>
-      <div class="rdx-align-list">
-        ${renderList(post.bullets)}
-      </div>
-      <div class="rdx-align-card__footer">
-        <a href="${escapeHtml(post.href)}" class="rdx-align-link">${escapeHtml(post.linkLabel)} <i class="fas fa-arrow-right"></i></a>
-      </div>
-    </article>
-  `).join('');
+        <div class="blog-post-card__body">
+          <div class="rdx-align-card__header">
+            <div>
+              <span class="rdx-align-card__eyebrow">${escapeHtml(post.dateLabel || '')}</span>
+              <h3 class="blog-post-card__title">${escapeHtml(post.title || '')}</h3>
+            </div>
+            <span class="rdx-align-badge ${escapeHtml(post.badgeClass || '')}">${escapeHtml(post.badge || '')}</span>
+          </div>
+          <p class="blog-post-card__excerpt">${escapeHtml(post.excerpt || '')}</p>
+          <div class="rdx-align-card__footer blog-post-card__footer">
+            <a href="${href}" class="rdx-align-link">Read More <i class="fas fa-arrow-right"></i></a>
+          </div>
+        </div>
+      </article>
+    `;
+  };
+
+  grids.forEach((grid) => {
+    const mode = grid.getAttribute('data-blog-grid') === 'homepage' ? 'homepage' : 'listing';
+    grid.innerHTML = posts.map((post) => renderCard(post, mode)).join('');
+  });
 });

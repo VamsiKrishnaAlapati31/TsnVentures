@@ -3,42 +3,26 @@ document.addEventListener('DOMContentLoaded', () => {
   if (typeof VENTURES === 'undefined') return;
 
   const ventures = Object.values(VENTURES);
+  const showcase = document.getElementById('venturesShowcase');
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const failedSources = new Set();
+  const imageProbeCache = new Map();
+
   const heroImageFor = (venture) => (typeof getVentureHeroImage === 'function' ? getVentureHeroImage(venture) : venture.heroImage);
-  const grid = document.getElementById('venturesGrid');
-  const summary = document.getElementById('venturesSummary');
-  const filterButtons = document.querySelectorAll('[data-venture-filter]');
-  const resultCount = document.getElementById('venturesResultCount');
 
-  const totals = {
-    total: document.getElementById('venturesTotal'),
-    completed: document.getElementById('venturesCompleted'),
-    ongoing: document.getElementById('venturesOngoing'),
-    prebooking: document.getElementById('venturesPrebooking')
+  const ventureImagesFor = (venture) => {
+    const images = typeof getVentureImages === 'function' ? getVentureImages(venture) : [];
+    const cleaned = Array.isArray(images) ? images.filter(Boolean) : [];
+    if (cleaned.length > 0) return cleaned;
+
+    const heroImage = heroImageFor(venture);
+    return heroImage ? [heroImage] : [];
   };
 
-  const categoriesFor = (venture) => {
-    const categories = ['all'];
-    if (venture.status === 'completed') categories.push('completed');
-    if (venture.status === 'ongoing') categories.push('ongoing');
-    if (venture.status === 'upcoming') categories.push('pre-booking');
-    return categories;
-  };
-
-  const statusLabel = (venture) => {
-    if (venture.status === 'upcoming') return 'Pre-Booking';
-    return venture.badge || venture.status;
-  };
-
-  const statusClass = (venture) => {
-    if (venture.status === 'upcoming') return 'ventures-rdx-card__badge--pre-booking';
-    if (venture.status === 'ongoing') return 'ventures-rdx-card__badge--ongoing';
-    return 'ventures-rdx-card__badge--completed';
-  };
-
-  const statValue = (venture, keyPart) => {
-    if (!Array.isArray(venture.stats)) return '—';
-    const match = venture.stats.find((item) => (item.label || '').toLowerCase().includes(keyPart));
-    return match ? match.value : '—';
+  const stageLabel = (venture) => {
+    if (venture.status === 'completed') return 'Completed Venture';
+    if (venture.status === 'ongoing') return 'Ongoing Venture';
+    return 'Pre-Booking Venture';
   };
 
   const metricIcon = (label) => {
@@ -47,89 +31,265 @@ document.addEventListener('DOMContentLoaded', () => {
     return 'fas fa-chart-column';
   };
 
-  const renderTotals = () => {
-    const completed = ventures.filter((item) => item.status === 'completed').length;
-    const ongoing = ventures.filter((item) => item.status === 'ongoing').length;
-    const preBooking = ventures.filter((item) => item.status === 'upcoming').length;
+  const firstParagraph = (text) => String(text || '')
+    .trim()
+    .split(/\n\n+/)[0]
+    .replace(/\s+/g, ' ')
+    .trim();
 
-    if (totals.total) totals.total.textContent = ventures.length;
-    if (totals.completed) totals.completed.textContent = completed;
-    if (totals.ongoing) totals.ongoing.textContent = ongoing;
-    if (totals.prebooking) totals.prebooking.textContent = preBooking;
+  const wait = (ms) => new Promise((resolve) => window.setTimeout(resolve, ms));
 
-    if (summary) {
-      summary.innerHTML = [
-        `<div class="ventures-rdx-summary-item reveal"><strong>${ventures.length}</strong><span>Total ventures</span></div>`,
-        `<div class="ventures-rdx-summary-item reveal"><strong>${completed}</strong><span>Completed</span></div>`,
-        `<div class="ventures-rdx-summary-item reveal"><strong>${ongoing}</strong><span>Ongoing</span></div>`,
-        `<div class="ventures-rdx-summary-item reveal"><strong>${preBooking}</strong><span>Pre-Booking</span></div>`
-      ].join('');
+  const fallbackSourcesFor = (venture) => [heroImageFor(venture), 'assets/images/hero-banner.png'].filter(Boolean);
 
-      summary.querySelectorAll('.reveal').forEach((item) => item.classList.add('revealed'));
+  const probeImage = (src) => {
+    if (!src) return Promise.resolve(false);
+    if (imageProbeCache.has(src)) return imageProbeCache.get(src);
+
+    const promise = new Promise((resolve) => {
+      const image = new Image();
+      let settled = false;
+
+      const finish = (ok) => {
+        if (settled) return;
+        settled = true;
+        resolve(ok);
+      };
+
+      image.onload = () => finish(true);
+      image.onerror = () => finish(false);
+      image.src = src;
+
+      if (typeof image.decode === 'function') {
+        image.decode().then(() => finish(true)).catch(() => finish(false));
+      }
+    });
+
+    imageProbeCache.set(src, promise);
+    return promise;
+  };
+
+  const markBrokenSource = (venture, src) => {
+    if (!src || failedSources.has(src)) return;
+    failedSources.add(src);
+
+    if (typeof console !== 'undefined' && typeof console.warn === 'function') {
+      console.warn(`[ventures] Skipping broken image for ${venture.id}: ${src}`);
     }
   };
 
-  const renderGrid = () => {
-    if (!grid) return;
+  const findNextValidImage = async (venture, sources, startIndex = 0) => {
+    const orderedSources = Array.isArray(sources) && sources.length > 0 ? sources : fallbackSourcesFor(venture);
 
-    grid.innerHTML = ventures.map((venture) => {
-      const categories = categoriesFor(venture).join(' ');
-      const description = String(venture.description || '').split(/\n\n/)[0];
-      const location = statValue(venture, 'location');
-      const scale = statValue(venture, 'area') !== '—' ? statValue(venture, 'area') : statValue(venture, 'size');
-      const availability = statValue(venture, 'plot') !== '—' ? statValue(venture, 'plot') : statValue(venture, 'home');
+    for (let offset = 0; offset < orderedSources.length; offset += 1) {
+      const index = (startIndex + offset) % orderedSources.length;
+      const src = orderedSources[index];
+      if (!src || failedSources.has(src)) continue;
 
-      return [
-        `<article class="ventures-rdx-card is-visible" data-venture-categories="${categories}">`,
-        '  <div class="ventures-rdx-card__header">',
-        '    <div class="ventures-rdx-card__headline">',
-        `      <span class="ventures-rdx-card__eyebrow">${venture.tagline}</span>`,
-        `      <h3>${venture.name}</h3>`,
-        '    </div>',
-        `    <span class="ventures-rdx-card__badge ${statusClass(venture)}">${statusLabel(venture)}</span>`,
-        '  </div>',
-        '  <div class="ventures-rdx-card__details">',
-        `    <div class="ventures-rdx-card__thumb"><img src="${heroImageFor(venture)}" alt="${venture.name}"></div>`,
-        `    <div class="ventures-rdx-card__description">${description}</div>`,
-        '  </div>',
-        '  <div class="ventures-rdx-card__metrics">',
-        `    <div class="ventures-rdx-card__metric"><div class="ventures-rdx-card__metric-icon"><i class="${metricIcon('Location')}"></i></div><span>Location</span><strong>${location}</strong></div>`,
-        `    <div class="ventures-rdx-card__metric"><div class="ventures-rdx-card__metric-icon"><i class="${metricIcon('Scale')}"></i></div><span>Scale</span><strong>${scale}</strong></div>`,
-        `    <div class="ventures-rdx-card__metric"><div class="ventures-rdx-card__metric-icon"><i class="${metricIcon('Availability')}"></i></div><span>Availability</span><strong>${availability}</strong></div>`,
-        '  </div>',
-        '  <div class="ventures-rdx-card__footer">',
-        `    <a href="venture-detail.html?id=${venture.id}" class="btn btn-primary">View Details</a>`,
-        `    <a href="${venture.mapLink}" target="_blank" class="ventures-rdx-card__map"><i class="fas fa-location-arrow"></i> Open Map</a>`,
-        '  </div>',
-        '</article>'
-      ].join('');
+      if (await probeImage(src)) {
+        return { src, index };
+      }
+
+      markBrokenSource(venture, src);
+    }
+
+    const fallbacks = fallbackSourcesFor(venture);
+    for (let index = 0; index < fallbacks.length; index += 1) {
+      const src = fallbacks[index];
+      if (!src || failedSources.has(src)) continue;
+
+      if (await probeImage(src)) {
+        return { src, index: orderedSources.length + index };
+      }
+
+      markBrokenSource(venture, src);
+    }
+
+    return null;
+  };
+
+  const revealNodes = (root, selector, staggerMs = 120) => {
+    if (!root) return;
+    const nodes = root.querySelectorAll(selector);
+    if (nodes.length === 0) return;
+
+    if (prefersReducedMotion) {
+      nodes.forEach((node) => node.classList.add('revealed'));
+      return;
+    }
+
+    window.requestAnimationFrame(() => {
+      nodes.forEach((node, index) => {
+        window.setTimeout(() => node.classList.add('revealed'), index * staggerMs);
+      });
+    });
+  };
+
+  const setupFeatureCarousel = (row, venture) => {
+    const currentSlide = row.querySelector('[data-slide="current"]');
+    const bufferSlide = row.querySelector('[data-slide="buffer"]');
+    const gallery = row.querySelector('[data-gallery]');
+    const images = ventureImagesFor(venture);
+    const slides = Array.from(new Set(images.length > 0 ? images : [heroImageFor(venture)].filter(Boolean)));
+
+    if (!currentSlide || slides.length === 0) return;
+
+    const setSlide = (slide, src, index) => {
+      if (!slide || !src) return;
+      slide.src = src;
+      slide.alt = `${venture.name} image ${index + 1} of ${slides.length}`;
+    };
+
+    let activeSlide = currentSlide;
+    let inactiveSlide = bufferSlide;
+    let activeIndex = 0;
+    let cancelled = false;
+    const cycleMs = 3600;
+    const fadeMs = 900;
+
+    const abortIfCancelled = () => cancelled || !document.body.contains(row);
+
+    const finishStatic = () => {
+      if (bufferSlide) bufferSlide.remove();
+      if (gallery) gallery.classList.add('ventures-rdx-feature-row__slides--static');
+    };
+
+    const bootstrap = async () => {
+      const initial = await findNextValidImage(venture, slides, 0);
+      if (abortIfCancelled()) return;
+      if (!initial) {
+        finishStatic();
+        return;
+      }
+
+      setSlide(currentSlide, initial.src, initial.index % slides.length);
+      currentSlide.classList.add('is-visible');
+      activeIndex = initial.index % slides.length;
+
+      if (slides.length === 1 || prefersReducedMotion || !bufferSlide) {
+        finishStatic();
+        return;
+      }
+
+      const next = await findNextValidImage(venture, slides, (activeIndex + 1) % slides.length);
+      if (!abortIfCancelled() && next) {
+        setSlide(bufferSlide, next.src, next.index % slides.length);
+      }
+
+      while (!abortIfCancelled()) {
+        await wait(cycleMs);
+        if (abortIfCancelled()) break;
+
+        const upcoming = await findNextValidImage(venture, slides, (activeIndex + 1) % slides.length);
+        if (abortIfCancelled()) break;
+        if (!upcoming) {
+          finishStatic();
+          break;
+        }
+
+        setSlide(inactiveSlide, upcoming.src, upcoming.index % slides.length);
+        inactiveSlide.classList.add('is-visible');
+        activeSlide.classList.remove('is-visible');
+
+        await wait(fadeMs);
+        if (abortIfCancelled()) break;
+
+        const previousActive = activeSlide;
+        activeSlide = inactiveSlide;
+        inactiveSlide = previousActive;
+        activeIndex = upcoming.index % slides.length;
+
+        if (inactiveSlide) {
+          const preloadIndex = (activeIndex + 1) % slides.length;
+          const preloadSource = await findNextValidImage(venture, slides, preloadIndex);
+          if (abortIfCancelled()) break;
+          if (preloadSource) {
+            setSlide(inactiveSlide, preloadSource.src, preloadSource.index % slides.length);
+          }
+        }
+      }
+    };
+
+    const handleSlideError = async (slide) => {
+      if (cancelled || !slide) return;
+      const replacement = await findNextValidImage(venture, slides, (activeIndex + 1) % slides.length);
+      if (cancelled) return;
+      if (!replacement) {
+        finishStatic();
+        return;
+      }
+
+      setSlide(slide, replacement.src, replacement.index % slides.length);
+      if (slide === activeSlide) {
+        slide.classList.add('is-visible');
+      }
+    };
+
+    currentSlide.onerror = () => { void handleSlideError(currentSlide); };
+
+    if (bufferSlide) {
+      bufferSlide.onerror = () => { void handleSlideError(bufferSlide); };
+    }
+
+    bootstrap();
+  };
+
+  const renderShowcase = () => {
+    if (!showcase) return;
+
+    showcase.innerHTML = ventures.map((venture, index) => {
+      const images = ventureImagesFor(venture);
+      const firstImage = images[0] || heroImageFor(venture) || 'assets/images/hero-banner.png';
+      const imageCount = images.length > 0 ? images.length : 1;
+      const description = firstParagraph(venture.description);
+      const stats = Array.isArray(venture.stats) ? venture.stats.slice(0, 3) : [];
+      const reverse = index % 2 === 1;
+      const rowClasses = [
+        'ventures-rdx-feature-row',
+        reverse ? 'ventures-rdx-feature-row--reverse' : '',
+        reverse ? 'reveal-right' : 'reveal-left'
+      ].filter(Boolean).join(' ');
+
+      return `
+        <article class="${rowClasses}" data-venture-id="${venture.id}">
+          <div class="ventures-rdx-feature-row__media">
+            <div class="ventures-rdx-feature-row__slides" data-gallery>
+              <img class="ventures-rdx-feature-row__slide ventures-rdx-feature-row__slide--current is-visible" data-slide="current" src="${firstImage}" alt="${venture.name} image 1 of ${imageCount}" loading="eager" decoding="async">
+              <img class="ventures-rdx-feature-row__slide ventures-rdx-feature-row__slide--buffer" data-slide="buffer" alt="" loading="eager" decoding="async">
+            </div>
+            <div class="ventures-rdx-feature-row__overlay"></div>
+            <div class="ventures-rdx-feature-row__badge">Auto gallery · ${imageCount} images</div>
+          </div>
+          <div class="ventures-rdx-feature-row__content">
+            <div class="ventures-rdx-feature-row__eyebrow">${stageLabel(venture)}</div>
+            <h3>${venture.name}</h3>
+            <p class="ventures-rdx-feature-row__tagline">${venture.tagline}</p>
+            <p class="ventures-rdx-feature-row__description">${description}</p>
+            <div class="ventures-rdx-feature-row__stats">
+              ${stats.map((stat) => `
+                <div class="ventures-rdx-feature-row__stat">
+                  <i class="${stat.icon || metricIcon(stat.label)}"></i>
+                  <strong>${stat.value}</strong>
+                  <span>${stat.label}</span>
+                </div>
+              `).join('')}
+            </div>
+            <div class="ventures-rdx-feature-row__actions">
+              <a href="venture-detail.html?id=${venture.id}" class="btn btn-accent">View Details</a>
+              <a href="${venture.mapLink}" target="_blank" rel="noreferrer" class="btn btn-outline">Open Map</a>
+            </div>
+          </div>
+        </article>
+      `;
     }).join('');
+
+    revealNodes(showcase, '.reveal-left, .reveal-right', 140);
+
+    showcase.querySelectorAll('.ventures-rdx-feature-row').forEach((row) => {
+      const ventureId = row.getAttribute('data-venture-id');
+      const venture = ventures.find((item) => item.id === ventureId);
+      if (venture) setupFeatureCarousel(row, venture);
+    });
   };
 
-  const applyFilter = (filter) => {
-    let visibleCount = 0;
-
-    filterButtons.forEach((button) => {
-      button.classList.toggle('is-active', button.getAttribute('data-venture-filter') === filter);
-    });
-
-    document.querySelectorAll('.ventures-rdx-card').forEach((card) => {
-      const categories = (card.getAttribute('data-venture-categories') || '').split(' ');
-      const visible = filter === 'all' || categories.includes(filter);
-      card.style.display = visible ? '' : 'none';
-      if (visible) visibleCount += 1;
-    });
-
-    if (resultCount) resultCount.textContent = visibleCount;
-  };
-
-  renderTotals();
-  renderGrid();
-  applyFilter('all');
-
-  filterButtons.forEach((button) => {
-    button.addEventListener('click', () => {
-      applyFilter(button.getAttribute('data-venture-filter') || 'all');
-    });
-  });
+  renderShowcase();
 });

@@ -2,128 +2,300 @@ document.addEventListener('DOMContentLoaded', () => {
   if (!document.body.classList.contains('tsn-home-redesign')) return;
   if (typeof VENTURES === 'undefined') return;
 
-  const grid = document.getElementById('rdxGrid');
-  const filterButtons = document.querySelectorAll('[data-rdx-filter]');
-  const jumpButtons = document.querySelectorAll('[data-rdx-jump]');
+  const showcase = document.getElementById('rdxShowcase');
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const ventures = Object.values(VENTURES);
+  const featuredVentureIds = ['green-city', 'sunrise-layout'];
+  const featuredVentures = featuredVentureIds.map((id) => VENTURES[id]).filter(Boolean);
+  const failedSources = new Set();
+  const imageProbeCache = new Map();
+
   const heroImageFor = (venture) => (typeof getVentureHeroImage === 'function' ? getVentureHeroImage(venture) : venture.heroImage);
 
-  const categoriesFor = (venture) => {
-    const categories = ['all'];
-    if (venture.status === 'completed') categories.push('completed');
-    if (venture.status === 'ongoing') categories.push('ongoing');
-    if (venture.status === 'upcoming') categories.push('pre-booking');
-    return categories;
+  const ventureImagesFor = (venture) => {
+    const images = typeof getVentureImages === 'function' ? getVentureImages(venture) : [];
+    const cleaned = Array.isArray(images) ? images.filter(Boolean) : [];
+    if (cleaned.length > 0) return cleaned;
+
+    const heroImage = heroImageFor(venture);
+    return heroImage ? [heroImage] : [];
   };
 
-  const statusLabel = (venture) => {
-    if (venture.status === 'upcoming') return 'Pre-Booking';
-    return venture.badge || venture.status;
+  const stageLabel = (venture) => {
+    if (venture.status === 'completed') return 'Completed Venture';
+    if (venture.status === 'ongoing') return 'Ongoing Venture';
+    return 'Pre-Booking Venture';
   };
 
-  const statusClass = (venture) => {
-    if (venture.status === 'upcoming') return 'home-rdx-badge--pre-booking';
-    if (venture.status === 'ongoing') return 'home-rdx-badge--ongoing';
-    return 'home-rdx-badge--completed';
+  const metricIcon = (label) => {
+    if (label === 'Location') return 'fas fa-location-dot';
+    if (label === 'Scale') return 'fas fa-expand';
+    return 'fas fa-chart-column';
   };
 
-  const statValue = (venture, keyPart) => {
-    if (!Array.isArray(venture.stats)) return '—';
-    const match = venture.stats.find((item) => (item.label || '').toLowerCase().includes(keyPart));
-    return match ? match.value : '—';
+  const firstParagraph = (text) => String(text || '')
+    .trim()
+    .split(/\n\n+/)[0]
+    .replace(/\s+/g, ' ')
+    .trim();
+
+  const wait = (ms) => new Promise((resolve) => window.setTimeout(resolve, ms));
+
+  const fallbackSourcesFor = (venture) => [heroImageFor(venture), 'assets/images/hero-banner.png'].filter(Boolean);
+
+  const probeImage = (src) => {
+    if (!src) return Promise.resolve(false);
+    if (imageProbeCache.has(src)) return imageProbeCache.get(src);
+
+    const promise = new Promise((resolve) => {
+      const image = new Image();
+      let settled = false;
+
+      const finish = (ok) => {
+        if (settled) return;
+        settled = true;
+        resolve(ok);
+      };
+
+      image.onload = () => finish(true);
+      image.onerror = () => finish(false);
+      image.src = src;
+
+      if (typeof image.decode === 'function') {
+        image.decode().then(() => finish(true)).catch(() => finish(false));
+      }
+    });
+
+    imageProbeCache.set(src, promise);
+    return promise;
   };
 
-  const renderGrid = () => {
-    if (!grid) return;
-    grid.innerHTML = ventures.map((venture) => {
-      const categories = categoriesFor(venture).join(' ');
-      const location = statValue(venture, 'location');
-      const scale = statValue(venture, 'area') !== '—' ? statValue(venture, 'area') : statValue(venture, 'size');
-      const availability = venture.availability || venture.badge || venture.status || '—';
-      const description = String(venture.description || '').split(/\n\n/)[0];
+  const markBrokenSource = (venture, src) => {
+    if (!src || failedSources.has(src)) return;
+    failedSources.add(src);
 
-      return [
-        `<article class="home-rdx-card reveal-scale" data-rdx-categories="${categories}">`,
-        '  <div class="home-rdx-card__media">',
-        `    <img src="${heroImageFor(venture)}" alt="${venture.name}">`,
-        `    <span class="home-rdx-badge ${statusClass(venture)}">${statusLabel(venture)}</span>`,
-        '  </div>',
-        '  <div class="home-rdx-card__body">',
-        `    <div class="home-rdx-card__eyebrow">${venture.tagline}</div>`,
-        `    <h3>${venture.name}</h3>`,
-        `    <p>${description}</p>`,
-        '    <div class="home-rdx-card__meta">',
-        `      <div><span>Location</span><strong>${location}</strong></div>`,
-        `      <div><span>Scale</span><strong>${scale}</strong></div>`,
-        `      <div><span>Availability</span><strong>${availability}</strong></div>`,
-        '    </div>',
-        '    <div class="home-rdx-card__footer">',
-        `      <a href="venture-detail.html?id=${venture.id}" class="btn btn-primary">View Details</a>`,
-        `      <a href="${venture.mapLink}" target="_blank" class="home-rdx-card__map"><i class="fas fa-location-arrow"></i> Open Map</a>`,
-        '    </div>',
-        '  </div>',
-        '</article>'
-      ].join('');
+    if (typeof console !== 'undefined' && typeof console.warn === 'function') {
+      console.warn(`[homepage] Skipping broken image for ${venture.id}: ${src}`);
+    }
+  };
+
+  const findNextValidImage = async (venture, sources, startIndex = 0) => {
+    const orderedSources = Array.isArray(sources) && sources.length > 0 ? sources : fallbackSourcesFor(venture);
+
+    for (let offset = 0; offset < orderedSources.length; offset += 1) {
+      const index = (startIndex + offset) % orderedSources.length;
+      const src = orderedSources[index];
+      if (!src || failedSources.has(src)) continue;
+
+      if (await probeImage(src)) {
+        return { src, index };
+      }
+
+      markBrokenSource(venture, src);
+    }
+
+    const fallbacks = fallbackSourcesFor(venture);
+    for (let index = 0; index < fallbacks.length; index += 1) {
+      const src = fallbacks[index];
+      if (!src || failedSources.has(src)) continue;
+
+      if (await probeImage(src)) {
+        return { src, index: orderedSources.length + index };
+      }
+
+      markBrokenSource(venture, src);
+    }
+
+    return null;
+  };
+
+  const revealNodes = (root, selector, staggerMs = 120) => {
+    if (!root) return;
+    const nodes = root.querySelectorAll(selector);
+    if (nodes.length === 0) return;
+
+    if (prefersReducedMotion) {
+      nodes.forEach((node) => node.classList.add('revealed'));
+      return;
+    }
+
+    window.requestAnimationFrame(() => {
+      nodes.forEach((node, index) => {
+        window.setTimeout(() => node.classList.add('revealed'), index * staggerMs);
+      });
+    });
+  };
+
+  const setupFeatureCarousel = (row, venture) => {
+    const currentSlide = row.querySelector('[data-slide="current"]');
+    const bufferSlide = row.querySelector('[data-slide="buffer"]');
+    const gallery = row.querySelector('[data-gallery]');
+    const images = ventureImagesFor(venture);
+    const slides = Array.from(new Set(images.length > 0 ? images : [heroImageFor(venture)].filter(Boolean)));
+
+    if (!currentSlide || slides.length === 0) return;
+
+    const setSlide = (slide, src, index) => {
+      if (!slide || !src) return;
+      slide.src = src;
+      slide.alt = `${venture.name} image ${index + 1} of ${slides.length}`;
+    };
+
+    let activeSlide = currentSlide;
+    let inactiveSlide = bufferSlide;
+    let activeIndex = 0;
+    let cancelled = false;
+    const cycleMs = 3600;
+    const fadeMs = 900;
+
+    const abortIfCancelled = () => cancelled || !document.body.contains(row);
+
+    const finishStatic = () => {
+      if (bufferSlide) bufferSlide.remove();
+      if (gallery) gallery.classList.add('home-rdx-feature-row__slides--static');
+    };
+
+    const bootstrap = async () => {
+      const initial = await findNextValidImage(venture, slides, 0);
+      if (abortIfCancelled()) return;
+
+      if (!initial) {
+        const fallback = fallbackSourcesFor(venture)[0] || 'assets/images/hero-banner.png';
+        setSlide(currentSlide, fallback, 0);
+        finishStatic();
+        return;
+      }
+
+      setSlide(currentSlide, initial.src, initial.index % slides.length);
+      currentSlide.classList.add('is-visible');
+      activeIndex = initial.index % slides.length;
+
+      if (slides.length === 1 || prefersReducedMotion || !bufferSlide) {
+        finishStatic();
+        return;
+      }
+
+      const next = await findNextValidImage(venture, slides, (activeIndex + 1) % slides.length);
+      if (!abortIfCancelled() && next) {
+        setSlide(bufferSlide, next.src, next.index % slides.length);
+      }
+
+      while (!abortIfCancelled()) {
+        await wait(cycleMs);
+        if (abortIfCancelled()) break;
+
+        const upcoming = await findNextValidImage(venture, slides, (activeIndex + 1) % slides.length);
+        if (abortIfCancelled()) break;
+        if (!upcoming) {
+          finishStatic();
+          break;
+        }
+
+        setSlide(inactiveSlide, upcoming.src, upcoming.index % slides.length);
+        inactiveSlide.classList.add('is-visible');
+        activeSlide.classList.remove('is-visible');
+
+        await wait(fadeMs);
+        if (abortIfCancelled()) break;
+
+        const previousActive = activeSlide;
+        activeSlide = inactiveSlide;
+        inactiveSlide = previousActive;
+        activeIndex = upcoming.index % slides.length;
+
+        if (inactiveSlide) {
+          const preloadIndex = (activeIndex + 1) % slides.length;
+          const preloadSource = await findNextValidImage(venture, slides, preloadIndex);
+          if (abortIfCancelled()) break;
+          if (preloadSource) {
+            setSlide(inactiveSlide, preloadSource.src, preloadSource.index % slides.length);
+          }
+        }
+      }
+    };
+
+    const handleSlideError = async (slide) => {
+      if (cancelled || !slide) return;
+      const replacement = await findNextValidImage(venture, slides, (activeIndex + 1) % slides.length);
+      if (cancelled) return;
+      if (!replacement) {
+        finishStatic();
+        return;
+      }
+
+      setSlide(slide, replacement.src, replacement.index % slides.length);
+      if (slide === activeSlide) {
+        slide.classList.add('is-visible');
+      }
+    };
+
+    currentSlide.onerror = () => { void handleSlideError(currentSlide); };
+
+    if (bufferSlide) {
+      bufferSlide.onerror = () => { void handleSlideError(bufferSlide); };
+    }
+
+    bootstrap();
+  };
+
+  const renderShowcase = () => {
+    if (!showcase || featuredVentures.length === 0) return;
+
+    showcase.innerHTML = featuredVentures.map((venture, index) => {
+      const images = ventureImagesFor(venture);
+      const firstImage = images[0] || heroImageFor(venture) || 'assets/images/hero-banner.png';
+      const imageCount = images.length > 0 ? images.length : 1;
+      const description = firstParagraph(venture.description);
+      const stats = Array.isArray(venture.stats) ? venture.stats.slice(0, 3) : [];
+      const reverse = index % 2 === 1;
+      const rowClasses = [
+        'home-rdx-feature-row',
+        reverse ? 'home-rdx-feature-row--reverse' : '',
+        reverse ? 'reveal-right' : 'reveal-left'
+      ].filter(Boolean).join(' ');
+
+      return `
+        <article id="rdx-venture-${venture.id}" class="${rowClasses}" data-venture-id="${venture.id}">
+          <div class="home-rdx-feature-row__media">
+            <div class="home-rdx-feature-row__slides" data-gallery>
+              <img class="home-rdx-feature-row__slide home-rdx-feature-row__slide--current is-visible" data-slide="current" src="${firstImage}" alt="${venture.name} image 1 of ${imageCount}" loading="eager" decoding="async">
+              <img class="home-rdx-feature-row__slide home-rdx-feature-row__slide--buffer" data-slide="buffer" alt="" loading="eager" decoding="async">
+            </div>
+            <div class="home-rdx-feature-row__overlay"></div>
+            <div class="home-rdx-feature-row__badge">Auto gallery · ${imageCount} images</div>
+          </div>
+          <div class="home-rdx-feature-row__content">
+            <div class="home-rdx-feature-row__eyebrow">${stageLabel(venture)}</div>
+            <h3>${venture.name}</h3>
+            <p class="home-rdx-feature-row__tagline">${venture.tagline}</p>
+            <p class="home-rdx-feature-row__description">${description}</p>
+            <div class="home-rdx-feature-row__stats">
+              ${stats.map((stat) => `
+                <div class="home-rdx-feature-row__stat">
+                  <i class="${stat.icon || metricIcon(stat.label)}"></i>
+                  <strong>${stat.value}</strong>
+                  <span>${stat.label}</span>
+                </div>
+              `).join('')}
+            </div>
+            <div class="home-rdx-feature-row__actions">
+              <a href="venture-detail.html?id=${venture.id}" class="btn btn-accent">View Details</a>
+              <a href="${venture.mapLink}" target="_blank" rel="noreferrer" class="btn btn-outline">Open Map</a>
+            </div>
+          </div>
+        </article>
+      `;
     }).join('');
-  };
 
-  const applyFilter = (filter) => {
-    filterButtons.forEach((button) => {
-      button.classList.toggle('is-active', button.getAttribute('data-rdx-filter') === filter);
-    });
+    revealNodes(showcase, '.reveal-left, .reveal-right', 140);
 
-    document.querySelectorAll('.home-rdx-card').forEach((card, index) => {
-      const categories = (card.getAttribute('data-rdx-categories') || '').split(' ');
-      const visible = filter === 'all' || categories.includes(filter);
-
-      if (visible) {
-        card.style.display = '';
-        requestAnimationFrame(() => {
-          card.style.opacity = '1';
-          card.style.transform = '';
-          card.style.transitionDelay = `${index * 45}ms`;
-        });
-      } else {
-        card.style.opacity = '0';
-        card.style.transform = 'translateY(18px)';
-        card.style.transitionDelay = '0ms';
-        setTimeout(() => {
-          if (card.style.opacity === '0') card.style.display = 'none';
-        }, 220);
-      }
+    showcase.querySelectorAll('.home-rdx-feature-row').forEach((row) => {
+      const ventureId = row.getAttribute('data-venture-id');
+      const venture = featuredVentures.find((item) => item.id === ventureId);
+      if (venture) setupFeatureCarousel(row, venture);
     });
   };
 
-  renderGrid();
-  applyFilter('all');
-
-  filterButtons.forEach((button) => {
-    button.addEventListener('click', () => {
-      const filter = button.getAttribute('data-rdx-filter') || 'all';
-      applyFilter(filter);
-      const target = document.getElementById('rdx-discovery');
-      if (button.closest('.home-rdx-filter-strip__chips') && target) {
-        const navbar = document.getElementById('navbar');
-        const offset = navbar ? navbar.offsetHeight : 0;
-        const top = target.getBoundingClientRect().top + window.scrollY - offset + 6;
-        window.scrollTo({ top, behavior: 'smooth' });
-      }
-    });
-  });
-
-  jumpButtons.forEach((button) => {
-    button.addEventListener('click', (event) => {
-      event.preventDefault();
-      const filter = button.getAttribute('data-rdx-jump') || 'all';
-      applyFilter(filter);
-      const target = document.getElementById('rdx-discovery');
-      const navbar = document.getElementById('navbar');
-      const offset = navbar ? navbar.offsetHeight : 0;
-      const top = target.getBoundingClientRect().top + window.scrollY - offset + 6;
-      window.scrollTo({ top, behavior: 'smooth' });
-    });
-  });
+  renderShowcase();
 
   if (!prefersReducedMotion) {
     const hero = document.querySelector('.home-rdx-hero');
