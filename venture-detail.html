@@ -50,93 +50,9 @@
     </div>
   </nav>
 
-  <section class="venture-rdx-hero" id="detailHero">
-    <div class="venture-rdx-hero__bg"><img id="detailHeroImage" src="" alt=""></div>
-    <div class="venture-rdx-hero__overlay"></div>
-    <div class="venture-rdx-hero__grid"></div>
-    <div class="venture-rdx-hero__glow venture-rdx-hero__glow--gold"></div>
-    <div class="venture-rdx-hero__glow venture-rdx-hero__glow--green"></div>
-    <div class="container venture-rdx-hero__container">
-      <div class="venture-rdx-hero__stage reveal-left" data-animated-section data-motion-direction="left">
-        <div class="venture-rdx-hero__dock">
-          <div class="venture-rdx-hero__dock-copy">
-            <div class="venture-rdx-hero__dock-label">Quick Actions</div>
-            <p>Open directions or start an enquiry directly from the hero.</p>
-          </div>
-          <div class="venture-rdx-hero__actions">
-            <a id="detailMapLink" href="#" target="_blank" class="btn btn-accent"><i class="fas fa-directions"></i> Get Directions</a>
-            <a id="detailWhatsappTop" href="#" target="_blank" class="btn btn-outline"><i class="fab fa-whatsapp"></i> Enquiry</a>
-          </div>
-        </div>
-        <div class="venture-rdx-hero__marquee venture-rdx-hero__marquee--full" aria-label="Venture name banner">
-          <div class="venture-rdx-hero__marquee-track" id="detailNameTrack">
-            <span id="detailName"></span>
-            <span id="detailNameClone" aria-hidden="true"></span>
-            <span id="detailNameCloneTwo" aria-hidden="true"></span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <section class="venture-rdx-shell" id="detailContent">
     <div class="container">
-      <div class="venture-rdx-layout">
-        <div class="venture-rdx-main">
-          <div class="venture-rdx-stats reveal" id="detailStatsBar" data-animated-section data-animate-children="children" data-child-animation="card" data-child-direction="up" data-stagger="90"></div>
-
-          <article class="venture-rdx-card venture-rdx-copy reveal" data-animated-card data-motion-direction="up">
-            <div class="section-label">About This Venture</div>
-            <h2 data-animated-heading>Built for clearer buyer confidence</h2>
-            <div id="detailDescription"></div>
-          </article>
-
-          <article class="venture-rdx-card reveal-scale" data-animated-card data-motion-direction="scale">
-            <div class="section-label">Amenities & Features</div>
-            <h2 data-animated-heading>Infrastructure and lifestyle cues</h2>
-            <div class="venture-rdx-amenities" id="detailAmenities"></div>
-          </article>
-
-          <article class="venture-rdx-card venture-rdx-gallery-card reveal-scale" data-animated-card data-motion-direction="scale">
-            <div class="venture-rdx-sectionhead">
-              <div>
-                <div class="section-label">Photo Gallery</div>
-                <h2 data-animated-heading>Real project visuals</h2>
-              </div>
-              <p>Project photos now rotate continuously. Click any image to open it.</p>
-            </div>
-            <div class="venture-rdx-gallery" id="detailGallery"></div>
-          </article>
-
-          <article class="venture-rdx-card venture-rdx-location-card reveal" data-animated-card data-motion-direction="up">
-            <div class="section-label">Location</div>
-            <div class="venture-rdx-bottomhead">
-              <div>
-                <h2 data-animated-heading>Map and address</h2>
-                <p id="sidebarLocation" class="venture-rdx-location"></p>
-              </div>
-              <a id="sidebarMapLink" href="#" target="_blank" class="btn btn-primary"><i class="fas fa-location-arrow"></i> Open in Google Maps</a>
-            </div>
-            <div class="venture-rdx-mapwrap">
-              <iframe id="detailMapEmbed" src="" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-            </div>
-          </article>
-
-          <article class="venture-rdx-card venture-rdx-enquiry-card reveal-scale" data-animated-card data-motion-direction="scale">
-            <div class="section-label">Enquiry Path</div>
-            <div class="venture-rdx-bottomhead venture-rdx-bottomhead--stacked">
-              <div>
-                <h2 data-animated-heading>Interested in this venture?</h2>
-                <p>Ask for pricing, plot availability, construction timelines, or schedule a site visit directly from here.</p>
-              </div>
-            </div>
-            <div class="venture-rdx-enquiry-actions">
-              <a id="detailWhatsapp" href="#" target="_blank" class="btn btn-accent"><i class="fab fa-whatsapp"></i> Enquire on WhatsApp</a>
-              <a href="index.html#contact" class="btn btn-outline"><i class="fas fa-paper-plane"></i> Send Message</a>
-            </div>
-          </article>
-        </div>
-      </div>
+      <div class="venture-rdx-main" id="ventureDetailSections"></div>
     </div>
   </section>
 
@@ -177,7 +93,12 @@
     <div class="lightbox-content">
       <button class="lightbox-close">&times;</button>
       <button class="lightbox-nav lightbox-prev"><i class="fas fa-chevron-left"></i></button>
-      <img src="" alt="Gallery Image">
+      <figure class="lightbox-figure">
+        <img src="" alt="Gallery Image">
+        <figcaption class="lightbox-meta">
+          <span class="lightbox-counter" data-lightbox-counter></span>
+        </figcaption>
+      </figure>
       <button class="lightbox-nav lightbox-next"><i class="fas fa-chevron-right"></i></button>
     </div>
   </div>
@@ -187,160 +108,7 @@
   <script src="js/venture-image-resolver.js"></script>
   <script src="js/animation-system.js"></script>
   <script src="js/main.js"></script>
+  <script src="js/venture-detail.js"></script>
   <script src="js/lightbox.js"></script>
-  <script>
-    (function() {
-      const params = new URLSearchParams(window.location.search);
-      const legacyId = 'green-valley';
-      const canonicalId = 'green-city';
-      const requestedId = params.get('id');
-      if (requestedId === legacyId) {
-        params.set('id', canonicalId);
-        window.location.replace(`${window.location.pathname}?${params.toString()}`);
-        return;
-      }
-
-      const id = requestedId;
-      const venture = VENTURES[id];
-
-      if (!venture) {
-        window.location.href = 'ventures.html';
-        return;
-      }
-
-      function escapeHtml(value) {
-        return String(value).replace(/[&<>"']/g, (char) => ({
-          '&': '&amp;',
-          '<': '&lt;',
-          '>': '&gt;',
-          '"': '&quot;',
-          "'": '&#39;'
-        }[char]));
-      }
-
-      function preloadImage(src) {
-        return new Promise((resolve) => {
-          if (!src) {
-            resolve(null);
-            return;
-          }
-
-          const img = new Image();
-          img.onload = () => resolve(src);
-          img.onerror = () => resolve(null);
-          img.src = src;
-        });
-      }
-
-      function renderContinuousGallery(images) {
-        const galleryEl = document.getElementById('detailGallery');
-        if (!galleryEl) return;
-
-        if (!images.length) {
-          galleryEl.innerHTML = '<p class="venture-rdx-gallery-empty">Gallery images will appear here soon.</p>';
-          return;
-        }
-
-        const loops = images.length > 1 ? 2 : 1;
-        const trackSlides = Array.from({ length: loops }, (_, loopIndex) => (
-          images.map((img, index) => `
-            <article class="venture-rdx-gallery-slide" data-lightbox="${escapeHtml(img)}" data-animated-card data-motion-direction="up">
-              <img src="${escapeHtml(img)}" alt="${escapeHtml(venture.name)} - Photo ${index + 1}" loading="lazy">
-              <div class="venture-rdx-gallery-item__overlay">
-                <span><i class="fas fa-expand-alt"></i> View Image</span>
-              </div>
-            </article>
-          `).join('')
-        )).join('');
-
-        galleryEl.innerHTML = `
-          <div class="venture-rdx-gallery-track${images.length <= 1 ? ' venture-rdx-gallery-track--static' : ''}">
-            ${trackSlides}
-          </div>
-        `;
-      }
-
-      async function initDetailPage() {
-        document.title = `${venture.name} — TSN Ventures`;
-
-        const resolvedHeroImage = typeof getVentureHeroImage === 'function' ? getVentureHeroImage(venture) : venture.heroImage;
-        const resolvedImages = typeof getVentureImages === 'function' ? getVentureImages(venture) : (venture.images || []);
-        const preloadedImages = await Promise.all(resolvedImages.map(preloadImage));
-        const validImages = preloadedImages.filter(Boolean);
-        const heroFallback = await preloadImage(resolvedHeroImage);
-        const galleryImages = validImages.length > 0 ? validImages : [heroFallback].filter(Boolean);
-
-        const heroFrames = galleryImages.length > 0 ? galleryImages : [resolvedHeroImage].filter(Boolean);
-        const heroImg = document.getElementById('detailHeroImage');
-        let heroIndex = 0;
-
-        if (heroFrames.length > 0) {
-          heroImg.src = heroFrames[0];
-          heroImg.alt = venture.name;
-          heroImg.classList.add('is-visible');
-
-          if (heroFrames.length > 1 && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-            window.setInterval(() => {
-              heroIndex = (heroIndex + 1) % heroFrames.length;
-              heroImg.classList.remove('is-visible');
-              window.setTimeout(() => {
-                heroImg.src = heroFrames[heroIndex];
-                heroImg.classList.add('is-visible');
-              }, 220);
-            }, 3200);
-          } else {
-            heroImg.classList.add('is-visible');
-          }
-        }
-
-        document.getElementById('detailName').textContent = venture.name;
-        document.getElementById('detailNameClone').textContent = venture.name;
-        document.getElementById('detailNameCloneTwo').textContent = venture.name;
-
-        document.getElementById('detailMapLink').href = venture.mapLink;
-        document.getElementById('sidebarMapLink').href = venture.mapLink;
-
-        const waMsg = encodeURIComponent(`Hi TSN Ventures! I am interested in ${venture.name} (${venture.location}). Please share details on plot availability and pricing.`);
-        const waHref = `https://wa.me/919553577777?text=${waMsg}`;
-        document.getElementById('detailWhatsapp').href = waHref;
-        document.getElementById('detailWhatsappTop').href = waHref;
-
-        const statsBar = document.getElementById('detailStatsBar');
-        venture.stats.forEach((stat) => {
-          statsBar.innerHTML += `
-            <div class="venture-rdx-stat-item" data-animated-card data-motion-direction="up">
-              <div class="venture-rdx-stat-icon"><i class="${stat.icon}"></i></div>
-              <div class="venture-rdx-stat-value">${stat.value}</div>
-              <div class="venture-rdx-stat-label">${stat.label}</div>
-            </div>`;
-        });
-
-        const descEl = document.getElementById('detailDescription');
-        venture.description.split('\n\n').forEach((para) => {
-          if (para.trim()) descEl.innerHTML += `<p>${para.trim()}</p>`;
-        });
-
-        const amenitiesEl = document.getElementById('detailAmenities');
-        venture.amenities.forEach((amenity) => {
-          amenitiesEl.innerHTML += `
-            <div class="venture-rdx-amenity-item" data-animated-card data-motion-direction="up">
-              <div class="venture-rdx-amenity-icon"><i class="${amenity.icon}"></i></div>
-              <span>${amenity.text}</span>
-            </div>`;
-        });
-
-        document.getElementById('sidebarLocation').textContent = venture.location;
-        document.getElementById('detailMapEmbed').src = `https://maps.google.com/maps?q=${venture.mapQuery}&output=embed&z=14`;
-
-        renderContinuousGallery(galleryImages);
-        if (window.TsnAnimations && typeof window.TsnAnimations.initAll === 'function') {
-          window.TsnAnimations.initAll(document.getElementById('detailContent'));
-        }
-        document.dispatchEvent(new CustomEvent('tsn:gallery-updated'));
-      }
-
-      initDetailPage();
-    })();
-  </script>
 </body>
 </html>
