@@ -18,7 +18,12 @@ document.addEventListener('DOMContentLoaded', () => {
       : `#${anchorId}`;
 
     return `
-      <article id="${anchorId}" class="rdx-align-card blog-post-card">
+      <article
+        id="${anchorId}"
+        class="rdx-align-card blog-post-card"
+        data-animated-card
+        data-motion-direction="up"
+      >
         <div class="rdx-align-card__media">
           <img src="${escapeHtml(post.image || '')}" alt="${escapeHtml(post.alt || post.title || '')}" loading="lazy" decoding="async">
         </div>
@@ -42,5 +47,9 @@ document.addEventListener('DOMContentLoaded', () => {
   grids.forEach((grid) => {
     const mode = grid.getAttribute('data-blog-grid') === 'homepage' ? 'homepage' : 'listing';
     grid.innerHTML = posts.map((post) => renderCard(post, mode)).join('');
+
+    if (window.TsnAnimations && typeof window.TsnAnimations.initAll === 'function') {
+      window.TsnAnimations.initAll(grid);
+    }
   });
 });

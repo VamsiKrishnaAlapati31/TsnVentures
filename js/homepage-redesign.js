@@ -108,23 +108,6 @@ document.addEventListener('DOMContentLoaded', () => {
     return null;
   };
 
-  const revealNodes = (root, selector, staggerMs = 120) => {
-    if (!root) return;
-    const nodes = root.querySelectorAll(selector);
-    if (nodes.length === 0) return;
-
-    if (prefersReducedMotion) {
-      nodes.forEach((node) => node.classList.add('revealed'));
-      return;
-    }
-
-    window.requestAnimationFrame(() => {
-      nodes.forEach((node, index) => {
-        window.setTimeout(() => node.classList.add('revealed'), index * staggerMs);
-      });
-    });
-  };
-
   const setupFeatureCarousel = (row, venture) => {
     const currentSlide = row.querySelector('[data-slide="current"]');
     const bufferSlide = row.querySelector('[data-slide="buffer"]');
@@ -254,7 +237,18 @@ document.addEventListener('DOMContentLoaded', () => {
       ].filter(Boolean).join(' ');
 
       return `
-        <article id="rdx-venture-${venture.id}" class="${rowClasses}" data-venture-id="${venture.id}">
+        <article
+          id="rdx-venture-${venture.id}"
+          class="${rowClasses}"
+          data-venture-id="${venture.id}"
+          data-animated-card
+          data-motion-direction="${reverse ? 'right' : 'left'}"
+          data-animate-children=".home-rdx-feature-row__stat"
+          data-child-animation="card"
+          data-child-direction="up"
+          data-stagger="90"
+          data-children-delay="180"
+        >
           <div class="home-rdx-feature-row__media">
             <div class="home-rdx-feature-row__slides" data-gallery>
               <img class="home-rdx-feature-row__slide home-rdx-feature-row__slide--current is-visible" data-slide="current" src="${firstImage}" alt="${venture.name} image 1 of ${imageCount}" loading="eager" decoding="async">
@@ -286,7 +280,9 @@ document.addEventListener('DOMContentLoaded', () => {
       `;
     }).join('');
 
-    revealNodes(showcase, '.reveal-left, .reveal-right', 140);
+    if (window.TsnAnimations && typeof window.TsnAnimations.initAll === 'function') {
+      window.TsnAnimations.initAll(showcase);
+    }
 
     showcase.querySelectorAll('.home-rdx-feature-row').forEach((row) => {
       const ventureId = row.getAttribute('data-venture-id');

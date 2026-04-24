@@ -57,7 +57,7 @@
     <div class="venture-rdx-hero__glow venture-rdx-hero__glow--gold"></div>
     <div class="venture-rdx-hero__glow venture-rdx-hero__glow--green"></div>
     <div class="container venture-rdx-hero__container">
-      <div class="venture-rdx-hero__stage reveal-left">
+      <div class="venture-rdx-hero__stage reveal-left" data-animated-section data-motion-direction="left">
         <div class="venture-rdx-hero__dock">
           <div class="venture-rdx-hero__dock-copy">
             <div class="venture-rdx-hero__dock-label">Quick Actions</div>
@@ -83,36 +83,36 @@
     <div class="container">
       <div class="venture-rdx-layout">
         <div class="venture-rdx-main">
-          <div class="venture-rdx-stats reveal" id="detailStatsBar"></div>
+          <div class="venture-rdx-stats reveal" id="detailStatsBar" data-animated-section data-animate-children="children" data-child-animation="card" data-child-direction="up" data-stagger="90"></div>
 
-          <article class="venture-rdx-card venture-rdx-copy reveal">
+          <article class="venture-rdx-card venture-rdx-copy reveal" data-animated-card data-motion-direction="up">
             <div class="section-label">About This Venture</div>
-            <h2>Built for clearer buyer confidence</h2>
+            <h2 data-animated-heading>Built for clearer buyer confidence</h2>
             <div id="detailDescription"></div>
           </article>
 
-          <article class="venture-rdx-card reveal-scale">
+          <article class="venture-rdx-card reveal-scale" data-animated-card data-motion-direction="scale">
             <div class="section-label">Amenities & Features</div>
-            <h2>Infrastructure and lifestyle cues</h2>
+            <h2 data-animated-heading>Infrastructure and lifestyle cues</h2>
             <div class="venture-rdx-amenities" id="detailAmenities"></div>
           </article>
 
-          <article class="venture-rdx-card venture-rdx-gallery-card reveal-scale">
+          <article class="venture-rdx-card venture-rdx-gallery-card reveal-scale" data-animated-card data-motion-direction="scale">
             <div class="venture-rdx-sectionhead">
               <div>
                 <div class="section-label">Photo Gallery</div>
-                <h2>Real project visuals</h2>
+                <h2 data-animated-heading>Real project visuals</h2>
               </div>
               <p>Project photos now rotate continuously. Click any image to open it.</p>
             </div>
             <div class="venture-rdx-gallery" id="detailGallery"></div>
           </article>
 
-          <article class="venture-rdx-card venture-rdx-location-card reveal">
+          <article class="venture-rdx-card venture-rdx-location-card reveal" data-animated-card data-motion-direction="up">
             <div class="section-label">Location</div>
             <div class="venture-rdx-bottomhead">
               <div>
-                <h2>Map and address</h2>
+                <h2 data-animated-heading>Map and address</h2>
                 <p id="sidebarLocation" class="venture-rdx-location"></p>
               </div>
               <a id="sidebarMapLink" href="#" target="_blank" class="btn btn-primary"><i class="fas fa-location-arrow"></i> Open in Google Maps</a>
@@ -122,11 +122,11 @@
             </div>
           </article>
 
-          <article class="venture-rdx-card venture-rdx-enquiry-card reveal-scale">
+          <article class="venture-rdx-card venture-rdx-enquiry-card reveal-scale" data-animated-card data-motion-direction="scale">
             <div class="section-label">Enquiry Path</div>
             <div class="venture-rdx-bottomhead venture-rdx-bottomhead--stacked">
               <div>
-                <h2>Interested in this venture?</h2>
+                <h2 data-animated-heading>Interested in this venture?</h2>
                 <p>Ask for pricing, plot availability, construction timelines, or schedule a site visit directly from here.</p>
               </div>
             </div>
@@ -185,6 +185,7 @@
   <script src="js/venture-data.js"></script>
   <script src="js/venture-image-manifest.js"></script>
   <script src="js/venture-image-resolver.js"></script>
+  <script src="js/animation-system.js"></script>
   <script src="js/main.js"></script>
   <script src="js/lightbox.js"></script>
   <script>
@@ -243,7 +244,7 @@
         const loops = images.length > 1 ? 2 : 1;
         const trackSlides = Array.from({ length: loops }, (_, loopIndex) => (
           images.map((img, index) => `
-            <article class="venture-rdx-gallery-slide" data-lightbox="${escapeHtml(img)}">
+            <article class="venture-rdx-gallery-slide" data-lightbox="${escapeHtml(img)}" data-animated-card data-motion-direction="up">
               <img src="${escapeHtml(img)}" alt="${escapeHtml(venture.name)} - Photo ${index + 1}" loading="lazy">
               <div class="venture-rdx-gallery-item__overlay">
                 <span><i class="fas fa-expand-alt"></i> View Image</span>
@@ -307,7 +308,7 @@
         const statsBar = document.getElementById('detailStatsBar');
         venture.stats.forEach((stat) => {
           statsBar.innerHTML += `
-            <div class="venture-rdx-stat-item">
+            <div class="venture-rdx-stat-item" data-animated-card data-motion-direction="up">
               <div class="venture-rdx-stat-icon"><i class="${stat.icon}"></i></div>
               <div class="venture-rdx-stat-value">${stat.value}</div>
               <div class="venture-rdx-stat-label">${stat.label}</div>
@@ -322,7 +323,7 @@
         const amenitiesEl = document.getElementById('detailAmenities');
         venture.amenities.forEach((amenity) => {
           amenitiesEl.innerHTML += `
-            <div class="venture-rdx-amenity-item">
+            <div class="venture-rdx-amenity-item" data-animated-card data-motion-direction="up">
               <div class="venture-rdx-amenity-icon"><i class="${amenity.icon}"></i></div>
               <span>${amenity.text}</span>
             </div>`;
@@ -332,6 +333,9 @@
         document.getElementById('detailMapEmbed').src = `https://maps.google.com/maps?q=${venture.mapQuery}&output=embed&z=14`;
 
         renderContinuousGallery(galleryImages);
+        if (window.TsnAnimations && typeof window.TsnAnimations.initAll === 'function') {
+          window.TsnAnimations.initAll(document.getElementById('detailContent'));
+        }
         document.dispatchEvent(new CustomEvent('tsn:gallery-updated'));
       }
 

@@ -138,20 +138,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  const revealTargets = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale, .stagger-children, .footer');
-  if ('IntersectionObserver' in window && revealTargets.length > 0) {
-    const revealObserver = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('revealed');
-          revealObserver.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
-
-    revealTargets.forEach((target) => revealObserver.observe(target));
-  } else {
-    revealTargets.forEach((target) => target.classList.add('revealed'));
+  if (window.TsnAnimations && typeof window.TsnAnimations.initAll === 'function') {
+    window.TsnAnimations.initAll(document);
   }
 
   const counters = document.querySelectorAll('[data-count]');
@@ -203,24 +191,6 @@ document.addEventListener('DOMContentLoaded', () => {
       window.scrollTo({ top: targetTop, behavior: 'smooth' });
     });
   });
-
-  const particlesContainer = document.querySelector('.hero-particles');
-  if (particlesContainer && !prefersReducedMotion) {
-    for (let index = 0; index < 26; index += 1) {
-      const particle = document.createElement('div');
-      particle.className = 'hero-particle';
-      particle.style.left = `${Math.random() * 100}%`;
-      particle.style.top = `${Math.random() * 80 + 8}%`;
-      const size = Math.random() * 4 + 2;
-      particle.style.width = `${size}px`;
-      particle.style.height = `${size}px`;
-      particle.style.setProperty('--drift-x', `${Math.random() * 60 - 30}px`);
-      particle.style.setProperty('--drift-y', `${-(Math.random() * 120 + 40)}px`);
-      particle.style.setProperty('--duration', `${Math.random() * 10 + 7}s`);
-      particle.style.setProperty('--delay', `${Math.random() * 5}s`);
-      particlesContainer.appendChild(particle);
-    }
-  }
 
   const hero = document.querySelector('.hero-premium');
   const parallaxLayers = document.querySelectorAll('.hero-parallax');

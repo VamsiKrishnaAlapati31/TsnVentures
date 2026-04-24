@@ -381,9 +381,9 @@ h1, h2, h3, h4, h5, h6 {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: white;
-  border-radius: var(--radius-sm);
-  padding: 4px;
+  background: transparent;
+  border-radius: 0;
+  padding: 0;
 }
 
 .nav-logo .logo-icon img {
@@ -1107,9 +1107,9 @@ h1, h2, h3, h4, h5, h6 {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: white;
-  border-radius: var(--radius-sm);
-  padding: 4px;
+  background: transparent;
+  border-radius: 0;
+  padding: 0;
 }
 
 .footer-about .footer-logo .logo-icon img {
@@ -4007,8 +4007,8 @@ h1, h2, h3, h4, h5, h6 {
 
 .nav-logo .logo-icon,
 .footer-about .footer-logo .logo-icon {
-  background: rgba(255,255,255,0.94);
-  box-shadow: 0 12px 30px rgba(15,25,35,0.12);
+  background: transparent;
+  box-shadow: none;
 }
 
 .nav-logo .logo-text,
