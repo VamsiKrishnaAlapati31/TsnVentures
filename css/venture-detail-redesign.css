@@ -1,6 +1,51 @@
 .tsn-detail-redesign {
+  --venture-detail-page-bg:
+    radial-gradient(circle at top left, rgba(212, 168, 83, 0.12), transparent 24%),
+    radial-gradient(circle at bottom right, rgba(26, 86, 50, 0.08), transparent 22%),
+    linear-gradient(180deg, var(--surface-page) 0%, var(--surface-page-soft) 100%);
+  --venture-detail-card-bg: rgba(255, 255, 255, 0.96);
+  --venture-detail-card-border: rgba(255, 255, 255, 0.7);
+  --venture-detail-card-shadow: 0 18px 52px rgba(24, 34, 43, 0.08);
+  --venture-detail-card-accent: linear-gradient(180deg, rgba(212, 168, 83, 0.06), transparent 24%);
+  --venture-detail-heading: var(--text-primary);
+  --venture-detail-text: var(--text-secondary);
+  --venture-detail-muted: var(--text-muted);
+  --venture-detail-panel-bg: rgba(255, 255, 255, 0.98);
+  --venture-detail-panel-border: rgba(20, 33, 44, 0.08);
+  --venture-detail-panel-shadow: 0 10px 28px rgba(24, 34, 43, 0.06);
+  --venture-detail-panel-hover-shadow: 0 18px 38px rgba(24, 34, 43, 0.1);
+  --venture-detail-icon-bg: rgba(212, 168, 83, 0.12);
+  --venture-detail-icon-ring: inset 0 0 0 1px rgba(212, 168, 83, 0.08);
+  --venture-detail-gallery-overlay: rgba(20, 33, 44, 0.78);
+  --venture-detail-gallery-overlay-text: #fff;
+  --venture-detail-map-border: rgba(20, 33, 44, 0.08);
+  --venture-detail-map-highlight: inset 0 0 0 1px rgba(255, 255, 255, 0.4);
   overflow-x: clip;
-  background: linear-gradient(180deg, #f4efe6 0%, #fbf8f2 100%);
+  background: var(--venture-detail-page-bg);
+}
+
+html[data-theme="dark"] .tsn-detail-redesign {
+  --venture-detail-page-bg:
+    radial-gradient(circle at top left, rgba(212, 168, 83, 0.1), transparent 22%),
+    radial-gradient(circle at bottom right, rgba(26, 86, 50, 0.12), transparent 20%),
+    linear-gradient(180deg, var(--surface-page) 0%, var(--surface-page-soft) 100%);
+  --venture-detail-card-bg: linear-gradient(180deg, rgba(14, 25, 35, 0.96), rgba(10, 18, 26, 0.98));
+  --venture-detail-card-border: rgba(255, 255, 255, 0.1);
+  --venture-detail-card-shadow: 0 20px 58px rgba(0, 0, 0, 0.28);
+  --venture-detail-card-accent: linear-gradient(180deg, rgba(212, 168, 83, 0.1), transparent 28%);
+  --venture-detail-heading: var(--text-primary);
+  --venture-detail-text: var(--text-secondary);
+  --venture-detail-muted: var(--text-muted);
+  --venture-detail-panel-bg: rgba(255, 255, 255, 0.05);
+  --venture-detail-panel-border: rgba(255, 255, 255, 0.11);
+  --venture-detail-panel-shadow: 0 12px 34px rgba(0, 0, 0, 0.24);
+  --venture-detail-panel-hover-shadow: 0 22px 44px rgba(0, 0, 0, 0.32);
+  --venture-detail-icon-bg: rgba(212, 168, 83, 0.14);
+  --venture-detail-icon-ring: inset 0 0 0 1px rgba(212, 168, 83, 0.14);
+  --venture-detail-gallery-overlay: rgba(7, 16, 23, 0.82);
+  --venture-detail-gallery-overlay-text: var(--text-primary);
+  --venture-detail-map-border: rgba(255, 255, 255, 0.1);
+  --venture-detail-map-highlight: inset 0 0 0 1px rgba(255, 255, 255, 0.06);
 }
 
 .tsn-detail-redesign .venture-rdx-shell {
@@ -18,9 +63,9 @@
   position: relative;
   padding: clamp(24px, 3vw, 40px);
   border-radius: 32px;
-  background: rgba(255, 255, 255, 0.96);
-  border: 1px solid rgba(255, 255, 255, 0.7);
-  box-shadow: 0 18px 52px rgba(24, 34, 43, 0.08);
+  background: var(--venture-detail-card-bg);
+  border: 1px solid var(--venture-detail-card-border);
+  box-shadow: var(--venture-detail-card-shadow);
   overflow: hidden;
 }
 
@@ -28,7 +73,7 @@
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(212, 168, 83, 0.06), transparent 24%);
+  background: var(--venture-detail-card-accent);
   pointer-events: none;
 }
 
@@ -38,7 +83,7 @@
 }
 
 .tsn-detail-redesign .venture-rdx-card h2 {
-  color: #14212c;
+  color: var(--venture-detail-heading);
   font-size: clamp(1.8rem, 3vw, 2.65rem);
   line-height: 1.06;
   margin-bottom: 14px;
@@ -46,7 +91,7 @@
 
 .tsn-detail-redesign .venture-rdx-card p,
 .tsn-detail-redesign .venture-rdx-location {
-  color: rgba(20, 33, 44, 0.72);
+  color: var(--venture-detail-text);
   line-height: 1.82;
 }
 
@@ -84,10 +129,10 @@
   min-height: 92px;
   padding: 18px;
   border-radius: 24px;
-  background: #fff;
-  border: 1px solid rgba(20, 33, 44, 0.08);
-  box-shadow: 0 10px 28px rgba(24, 34, 43, 0.06);
-  color: #14212c;
+  background: var(--venture-detail-panel-bg);
+  border: 1px solid var(--venture-detail-panel-border);
+  box-shadow: var(--venture-detail-panel-shadow);
+  color: var(--venture-detail-heading);
   transition:
     transform 280ms cubic-bezier(0.22, 1, 0.36, 1),
     box-shadow 280ms cubic-bezier(0.22, 1, 0.36, 1),
@@ -102,9 +147,9 @@
   align-items: center;
   justify-content: center;
   border-radius: 14px;
-  background: rgba(212, 168, 83, 0.12);
+  background: var(--venture-detail-icon-bg);
   color: var(--accent);
-  box-shadow: inset 0 0 0 1px rgba(212, 168, 83, 0.08);
+  box-shadow: var(--venture-detail-icon-ring);
 }
 
 .tsn-detail-redesign .venture-rdx-amenity-item span {
@@ -121,9 +166,9 @@
 .tsn-detail-redesign .venture-rdx-stat-item {
   padding: 18px;
   border-radius: 24px;
-  background: rgba(255, 255, 255, 0.98);
-  border: 1px solid rgba(20, 33, 44, 0.08);
-  box-shadow: 0 10px 28px rgba(24, 34, 43, 0.06);
+  background: var(--venture-detail-panel-bg);
+  border: 1px solid var(--venture-detail-panel-border);
+  box-shadow: var(--venture-detail-panel-shadow);
   transition:
     transform 280ms cubic-bezier(0.22, 1, 0.36, 1),
     box-shadow 280ms cubic-bezier(0.22, 1, 0.36, 1),
@@ -138,13 +183,13 @@
   align-items: center;
   justify-content: center;
   border-radius: 12px;
-  background: rgba(212, 168, 83, 0.12);
+  background: var(--venture-detail-icon-bg);
   color: var(--accent);
-  box-shadow: inset 0 0 0 1px rgba(212, 168, 83, 0.08);
+  box-shadow: var(--venture-detail-icon-ring);
 }
 
 .tsn-detail-redesign .venture-rdx-stat-value {
-  color: #14212c;
+  color: var(--venture-detail-heading);
   font-size: 1.1rem;
   font-weight: 800;
   line-height: 1.2;
@@ -152,7 +197,7 @@
 }
 
 .tsn-detail-redesign .venture-rdx-stat-label {
-  color: rgba(20, 33, 44, 0.56);
+  color: var(--venture-detail-muted);
   font-size: 0.74rem;
   font-weight: 700;
   letter-spacing: 0.14em;
@@ -193,8 +238,8 @@
   text-align: left;
   border-radius: 24px;
   overflow: hidden;
-  background: #fff;
-  box-shadow: 0 10px 28px rgba(24, 34, 43, 0.08);
+  background: var(--venture-detail-panel-bg);
+  box-shadow: var(--venture-detail-panel-shadow);
   break-inside: avoid;
   cursor: pointer;
   transition:
@@ -219,8 +264,8 @@
   min-height: 38px;
   padding: 0 14px;
   border-radius: 999px;
-  background: rgba(20, 33, 44, 0.78);
-  color: #fff;
+  background: var(--venture-detail-gallery-overlay);
+  color: var(--venture-detail-gallery-overlay-text);
   font-size: 0.82rem;
   font-weight: 600;
   opacity: 0;
@@ -232,15 +277,15 @@
 
 .tsn-detail-redesign .venture-rdx-gallery-empty {
   margin: 0;
-  color: rgba(20, 33, 44, 0.64);
+  color: var(--venture-detail-muted);
 }
 
 .tsn-detail-redesign .venture-rdx-mapwrap {
   overflow: hidden;
   border-radius: 24px;
-  border: 1px solid rgba(20, 33, 44, 0.08);
+  border: 1px solid var(--venture-detail-map-border);
   margin-top: 20px;
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.4);
+  box-shadow: var(--venture-detail-map-highlight);
 }
 
 .tsn-detail-redesign .venture-rdx-mapwrap iframe {
@@ -268,7 +313,7 @@
   .tsn-detail-redesign .venture-rdx-gallery-item:hover {
     transform: translateY(-4px);
     border-color: rgba(212, 168, 83, 0.24);
-    box-shadow: 0 18px 38px rgba(24, 34, 43, 0.1);
+    box-shadow: var(--venture-detail-panel-hover-shadow);
   }
 
   .tsn-detail-redesign .venture-rdx-gallery-item:hover img {

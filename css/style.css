@@ -146,6 +146,7 @@ html[data-theme="light"] {
 html {
   scroll-behavior: smooth;
   font-size: 16px;
+  overflow-x: clip;
 }
 
 body {
@@ -1832,7 +1833,7 @@ h1, h2, h3, h4, h5, h6 {
     position: fixed;
     top: 0;
     right: 0;
-    width: 80%;
+    width: min(80vw, 350px);
     max-width: 350px;
     height: 100vh;
     background: var(--dark);
@@ -1840,13 +1841,18 @@ h1, h2, h3, h4, h5, h6 {
     justify-content: center;
     gap: 25px;
     transform: translateX(100%);
+    visibility: hidden;
+    pointer-events: none;
     transition: var(--transition-smooth);
     z-index: 1000;
     box-shadow: -5px 0 30px rgba(0,0,0,0.3);
+    overflow-x: clip;
   }
 
   .nav-links.open {
     transform: translateX(0);
+    visibility: visible;
+    pointer-events: auto;
   }
 
   html[data-theme="light"] .nav-links {

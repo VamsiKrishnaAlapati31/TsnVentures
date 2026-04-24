@@ -105,6 +105,7 @@
 
 .tsn-home-redesign .home-rdx-hero__content {
   max-width: 730px;
+  min-width: 0;
 }
 
 .tsn-home-redesign .home-rdx-pill {
@@ -795,6 +796,7 @@
 .tsn-home-redesign .home-rdx-about__media {
   position: relative;
   min-height: 620px;
+  overflow-x: clip;
 }
 
 .tsn-home-redesign .home-rdx-about__frame {
@@ -1192,6 +1194,8 @@
   }
   .tsn-home-redesign .home-rdx-about__media,
   .tsn-home-redesign .home-rdx-about__frame { min-height: 540px; }
+  .tsn-home-redesign .home-rdx-about__card--one { right: 16px; }
+  .tsn-home-redesign .home-rdx-about__card--two { left: 16px; }
 }
 
 @media (max-width: 900px) {
@@ -1234,6 +1238,7 @@
   }
   .tsn-home-redesign .home-rdx-feature-row__actions .btn {
     width: 100%;
+    min-width: 0;
   }
   .tsn-home-redesign .home-rdx-feature-row__stats {
     grid-template-columns: 1fr;
@@ -1325,6 +1330,9 @@
 @media (max-width: 560px) {
   .tsn-home-redesign .home-rdx-identity span,
   .tsn-home-redesign .home-rdx-pill { width: 100%; justify-content: center; text-align: center; }
+  .tsn-home-redesign .home-rdx-actions,
+  .tsn-home-redesign .home-rdx-hero__content,
+  .tsn-home-redesign .home-rdx-hero__panel { min-width: 0; }
   .tsn-home-redesign .home-rdx-trust-step { flex-direction: column; }
   .tsn-home-redesign .home-rdx-about__frame { min-height: 320px; }
 }
