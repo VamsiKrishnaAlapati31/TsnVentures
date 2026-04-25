@@ -135,9 +135,11 @@ body.loaded > :not(.preloader) {
   }
 
   .preloader-wordmark {
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
-    gap: 4px;
+    justify-content: center;
+    gap: 8px;
+    white-space: nowrap;
     font-size: clamp(1.9rem, 9vw, 2.5rem);
   }
 }

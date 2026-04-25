@@ -118,8 +118,7 @@
 
   function renderVentureLocationSection(venture) {
     const fallbackMapSrc = `https://maps.google.com/maps?q=${venture.mapQuery}&output=embed&z=14`;
-    const isLocalHost = /^(localhost|127\.0\.0\.1)$/i.test(window.location.hostname);
-    const mapSrc = isLocalHost ? fallbackMapSrc : (venture.mapEmbed || fallbackMapSrc);
+    const mapSrc = fallbackMapSrc;
 
     return `
       <article class="venture-rdx-card venture-rdx-location-card reveal" data-animated-card data-motion-direction="up">
