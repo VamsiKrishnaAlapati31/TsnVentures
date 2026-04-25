@@ -35,6 +35,12 @@
 }
 
 .tsn-home-redesign .home-rdx-hero {
+  --hero-dot-primary: rgba(231, 185, 87, 0.75);
+  --hero-dot-glow: rgba(231, 185, 87, 0.25);
+  --hero-line-primary: rgba(231, 185, 87, 0.18);
+  --hero-line-secondary: rgba(255, 215, 120, 0.12);
+  --hero-particle-opacity: 0.84;
+  --tsn-particle-opacity: var(--hero-particle-opacity);
   position: relative;
   min-height: 100vh;
   padding: 126px 0 0;
@@ -48,6 +54,11 @@
 .tsn-home-redesign .home-rdx-hero__glow {
   position: absolute;
   inset: 0;
+}
+
+.tsn-home-redesign .home-rdx-hero__bg,
+.tsn-home-redesign .home-rdx-hero__overlay {
+  z-index: 0;
 }
 
 .tsn-home-redesign .home-rdx-hero__bg img {
@@ -65,6 +76,7 @@
 }
 
 .tsn-home-redesign .home-rdx-hero__grid {
+  z-index: 2;
   background-image:
     linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
     linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
@@ -73,6 +85,7 @@
 }
 
 .tsn-home-redesign .home-rdx-hero__glow {
+  z-index: 2;
   pointer-events: none;
   filter: blur(90px);
   opacity: 0.54;
@@ -94,7 +107,7 @@
 
 .tsn-home-redesign .home-rdx-hero__container {
   position: relative;
-  z-index: 2;
+  z-index: 3;
   display: grid;
   grid-template-columns: minmax(0, 1.05fr) minmax(360px, 0.95fr);
   gap: clamp(28px, 3vw, 48px);
@@ -1135,6 +1148,12 @@
     background: rgba(7,16,23,0.84);
   }
 
+  html[data-theme="light"] .tsn-home-redesign .home-rdx-feature-row:hover .home-rdx-feature-row__badge {
+    background: rgba(255,255,255,0.92);
+    border-color: rgba(20,33,44,0.1);
+    color: #14212c;
+  }
+
   .tsn-home-redesign .home-rdx-trust-card:hover,
   .tsn-home-redesign .home-rdx-trust-step:hover {
     transform: translateY(-8px);
@@ -1256,7 +1275,10 @@
   .tsn-home-redesign .nav-links a,
   .tsn-home-redesign .nav-links .nav-cta { display: block; width: 100%; text-align: left; }
   .tsn-home-redesign .nav-links .nav-cta { display: inline-flex; justify-content: center; text-align: center; }
-  .tsn-home-redesign .home-rdx-hero { padding-top: 108px; }
+  .tsn-home-redesign .home-rdx-hero {
+    --hero-particle-opacity: 0.72;
+    padding-top: 108px;
+  }
   .tsn-home-redesign .home-rdx-hero__container { gap: 24px; padding-bottom: 72px; }
   .tsn-home-redesign .home-rdx-pill {
     max-width: 100%;
@@ -1452,6 +1474,11 @@ html[data-theme="light"] .tsn-home-redesign .home-rdx-cta__content p {
 }
 
 html[data-theme="light"] .tsn-home-redesign .home-rdx-hero {
+  --hero-dot-primary: rgba(166, 120, 32, 0.72);
+  --hero-dot-glow: rgba(166, 120, 32, 0.16);
+  --hero-line-primary: rgba(99, 92, 84, 0.16);
+  --hero-line-secondary: rgba(140, 129, 112, 0.12);
+  --hero-particle-opacity: 0.92;
   background:
     radial-gradient(circle at 84% 16%, rgba(212,168,83,0.14), transparent 28%),
     linear-gradient(180deg, #f3efe7 0%, #f8f5ee 52%, #fbf8f2 100%);
@@ -1600,6 +1627,20 @@ html[data-theme="light"] .tsn-home-redesign #services-overview .service-card p,
 html[data-theme="light"] .tsn-home-redesign #blog-preview .blog-card .blog-content p,
 html[data-theme="light"] .tsn-home-redesign #blog-preview .blog-card .blog-date {
   color: rgba(20,33,44,0.64);
+}
+
+html[data-theme="light"] .tsn-home-redesign .home-rdx-feature-row__actions .btn.btn-outline {
+  background: linear-gradient(180deg, rgba(255,255,255,0.94), rgba(247,242,232,0.92));
+  color: #14212c;
+  border-color: rgba(20,33,44,0.08);
+  box-shadow: 0 14px 34px rgba(24,34,43,0.08);
+}
+
+html[data-theme="light"] .tsn-home-redesign .home-rdx-feature-row__actions .btn.btn-outline:hover {
+  background: linear-gradient(180deg, rgba(251,246,237,0.98), rgba(244,236,220,0.96));
+  color: #14212c;
+  border-color: rgba(183,134,43,0.28);
+  box-shadow: 0 18px 38px rgba(212,168,83,0.14);
 }
 
 html[data-theme="light"] .tsn-home-redesign .home-rdx-hero__panel,

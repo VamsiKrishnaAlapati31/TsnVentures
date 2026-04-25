@@ -387,6 +387,20 @@ html[data-theme="light"] .tsn-ventures-redesign .ventures-rdx-feature-row__stat 
   color: rgba(20,33,44,0.64);
 }
 
+html[data-theme="light"] .tsn-ventures-redesign .ventures-rdx-feature-row__actions .btn.btn-outline {
+  background: linear-gradient(180deg, rgba(255,255,255,0.94), rgba(247,242,232,0.92));
+  color: #14212c;
+  border-color: rgba(20,33,44,0.08);
+  box-shadow: 0 14px 34px rgba(24,34,43,0.08);
+}
+
+html[data-theme="light"] .tsn-ventures-redesign .ventures-rdx-feature-row__actions .btn.btn-outline:hover {
+  background: linear-gradient(180deg, rgba(251,246,237,0.98), rgba(244,236,220,0.96));
+  color: #14212c;
+  border-color: rgba(183,134,43,0.28);
+  box-shadow: 0 18px 38px rgba(212,168,83,0.14);
+}
+
 html[data-theme="light"] .tsn-ventures-redesign .ventures-rdx-feature-row__stat,
 html[data-theme="light"] .tsn-ventures-redesign .ventures-rdx-cta__container {
   background: rgba(255,255,255,0.82);

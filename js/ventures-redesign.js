@@ -268,7 +268,7 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>
             <div class="ventures-rdx-feature-row__actions">
               <a href="venture-detail.html?id=${venture.id}" class="btn btn-accent">View Details</a>
-              <a href="${venture.mapLink}" target="_blank" rel="noreferrer" class="btn btn-outline">Open Map</a>
+              <a href="${venture.mapLink}" target="_blank" rel="noreferrer" class="btn btn-outline"><i class="fas fa-location-dot"></i> Open Map</a>
             </div>
           </div>
         </article>

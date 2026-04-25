@@ -31,6 +31,12 @@
     return el.dataset[key];
   };
 
+  const computedValue = (styles, property, fallback) => {
+    if (!styles || typeof styles.getPropertyValue !== 'function') return fallback;
+    const value = styles.getPropertyValue(property).trim();
+    return value || fallback;
+  };
+
   const inferDirection = (el, fallback = 'up') => {
     if (!el) return fallback;
     if (el.classList.contains('reveal-left')) return 'left';
@@ -299,23 +305,146 @@
     let active = !document.hidden;
     let width = 0;
     let height = 0;
+    let currentTier = 'desktop';
+    let currentConfig = null;
+    let palette = null;
 
     const devicePixelRatio = Math.min(window.devicePixelRatio || 1, 1.5);
     const maxDots = toNumber(options.count ?? datasetValue(el, 'particleCount'), 44);
     const linkDistance = toNumber(options.linkDistance ?? datasetValue(el, 'particleLinkDistance'), 130);
     const speed = toNumber(options.speed ?? datasetValue(el, 'particleSpeed'), 0.14);
+    const density = toNumber(options.density ?? datasetValue(el, 'particleDensity'), 1);
+    const maxDotsTablet = toNumber(options.countTablet ?? datasetValue(el, 'particleCountTablet'), maxDots);
+    const maxDotsMobile = toNumber(options.countMobile ?? datasetValue(el, 'particleCountMobile'), maxDotsTablet);
+    const densityTablet = toNumber(options.densityTablet ?? datasetValue(el, 'particleDensityTablet'), density);
+    const densityMobile = toNumber(options.densityMobile ?? datasetValue(el, 'particleDensityMobile'), densityTablet);
+    const linkDistanceTablet = toNumber(options.linkDistanceTablet ?? datasetValue(el, 'particleLinkDistanceTablet'), linkDistance);
+    const linkDistanceMobile = toNumber(options.linkDistanceMobile ?? datasetValue(el, 'particleLinkDistanceMobile'), linkDistanceTablet);
+    const speedTablet = toNumber(options.speedTablet ?? datasetValue(el, 'particleSpeedTablet'), speed);
+    const speedMobile = toNumber(options.speedMobile ?? datasetValue(el, 'particleSpeedMobile'), speedTablet);
+    const layout = options.layout || datasetValue(el, 'particleLayout') || 'default';
 
-    const createParticle = () => ({
+    const randomBetween = (min, max) => min + (Math.random() * (max - min));
+
+    const resolvePalette = () => {
+      const styles = window.getComputedStyle(el);
+      return {
+        dot: options.dotColor
+          || datasetValue(el, 'particleDotColor')
+          || computedValue(styles, '--hero-dot-primary', 'rgba(244, 202, 88, 0.7)'),
+        glow: options.glowColor
+          || datasetValue(el, 'particleGlowColor')
+          || computedValue(styles, '--hero-dot-glow', 'rgba(244, 202, 88, 0.22)'),
+        line: options.lineColor
+          || datasetValue(el, 'particleLineColor')
+          || computedValue(styles, '--hero-line-primary', 'rgba(161, 214, 255, 0.14)'),
+        accent: options.lineAccentColor
+          || datasetValue(el, 'particleLineSecondary')
+          || computedValue(styles, '--hero-line-secondary', 'rgba(255, 255, 255, 0.08)')
+      };
+    };
+
+    const resolveConfig = () => {
+      if (window.innerWidth <= 768) {
+        currentTier = 'mobile';
+        return {
+          maxDots: maxDotsMobile,
+          density: densityMobile,
+          linkDistance: linkDistanceMobile,
+          speed: speedMobile
+        };
+      }
+
+      if (window.innerWidth <= 1024) {
+        currentTier = 'tablet';
+        return {
+          maxDots: maxDotsTablet,
+          density: densityTablet,
+          linkDistance: linkDistanceTablet,
+          speed: speedTablet
+        };
+      }
+
+      currentTier = 'desktop';
+      return {
+        maxDots,
+        density,
+        linkDistance,
+        speed
+      };
+    };
+
+    const createDefaultParticle = () => ({
       x: Math.random() * width,
       y: Math.random() * height,
-      vx: (Math.random() - 0.5) * speed,
-      vy: (Math.random() - 0.5) * speed,
-      radius: Math.random() * 1.6 + 1.1
+      vx: (Math.random() - 0.5) * currentConfig.speed,
+      vy: (Math.random() - 0.5) * currentConfig.speed,
+      radius: Math.random() * 1.6 + 1.1,
+      glow: Math.random() < 0.12,
+      accent: Math.random() < 0.06
     });
+
+    const heroZones = {
+      desktop: [
+        { x: [0.03, 0.24], y: [0.08, 0.9], weight: 24 },
+        { x: [0.7, 0.98], y: [0.06, 0.94], weight: 28 },
+        { x: [0.24, 0.74], y: [0.03, 0.22], weight: 18 },
+        { x: [0.28, 0.78], y: [0.76, 0.96], weight: 18 },
+        { x: [0.38, 0.62], y: [0.3, 0.62], weight: 8 }
+      ],
+      tablet: [
+        { x: [0.04, 0.22], y: [0.08, 0.9], weight: 28 },
+        { x: [0.78, 0.98], y: [0.06, 0.94], weight: 30 },
+        { x: [0.24, 0.76], y: [0.03, 0.2], weight: 22 },
+        { x: [0.28, 0.8], y: [0.8, 0.97], weight: 16 },
+        { x: [0.42, 0.64], y: [0.34, 0.58], weight: 4 }
+      ],
+      mobile: [
+        { x: [0.04, 0.96], y: [0.03, 0.18], weight: 36 },
+        { x: [0.04, 0.96], y: [0.8, 0.97], weight: 34 },
+        { x: [0.02, 0.18], y: [0.18, 0.82], weight: 16 },
+        { x: [0.82, 0.98], y: [0.2, 0.82], weight: 14 }
+      ]
+    };
+
+    const pickZone = (zones) => {
+      const total = zones.reduce((sum, zone) => sum + zone.weight, 0);
+      let threshold = Math.random() * total;
+
+      for (let index = 0; index < zones.length; index += 1) {
+        threshold -= zones[index].weight;
+        if (threshold <= 0) return zones[index];
+      }
+
+      return zones[zones.length - 1];
+    };
+
+    const createHeroParticle = () => {
+      const zones = heroZones[currentTier] || heroZones.desktop;
+      const zone = pickZone(zones);
+      const edgeBias = currentTier === 'desktop' ? 0.7 : 0.55;
+      return {
+        x: randomBetween(zone.x[0], zone.x[1]) * width,
+        y: randomBetween(zone.y[0], zone.y[1]) * height,
+        vx: (Math.random() - edgeBias) * currentConfig.speed,
+        vy: (Math.random() - 0.5) * currentConfig.speed,
+        radius: randomBetween(1.05, currentTier === 'mobile' ? 2 : 2.35),
+        glow: Math.random() < (currentTier === 'mobile' ? 0.09 : 0.15),
+        accent: Math.random() < (currentTier === 'mobile' ? 0.04 : 0.08)
+      };
+    };
+
+    const createParticle = () => (
+      layout === 'hero-network'
+        ? createHeroParticle()
+        : createDefaultParticle()
+    );
 
     const resize = () => {
       width = Math.max(el.clientWidth, 320);
       height = Math.max(el.clientHeight, 320);
+      currentConfig = resolveConfig();
+      palette = resolvePalette();
 
       canvas.width = Math.round(width * devicePixelRatio);
       canvas.height = Math.round(height * devicePixelRatio);
@@ -323,7 +452,9 @@
       canvas.style.height = `${height}px`;
       context.setTransform(devicePixelRatio, 0, 0, devicePixelRatio, 0, 0);
 
-      const count = Math.min(maxDots, Math.max(16, Math.round((width * height) / 32000)));
+      const baseCount = Math.round(((width * height) / 32000) * currentConfig.density);
+      const minDots = currentTier === 'mobile' ? 10 : currentTier === 'tablet' ? 14 : 18;
+      const count = Math.min(currentConfig.maxDots, Math.max(minDots, baseCount));
       particles.length = 0;
       for (let index = 0; index < count; index += 1) {
         particles.push(createParticle());
@@ -334,8 +465,6 @@
       if (!active) return;
 
       context.clearRect(0, 0, width, height);
-      context.fillStyle = 'rgba(244, 202, 88, 0.7)';
-      context.strokeStyle = 'rgba(161, 214, 255, 0.14)';
 
       particles.forEach((particle) => {
         particle.x += particle.vx;
@@ -344,9 +473,26 @@
         if (particle.x <= 0 || particle.x >= width) particle.vx *= -1;
         if (particle.y <= 0 || particle.y >= height) particle.vy *= -1;
 
+        if (particle.glow) {
+          context.save();
+          context.fillStyle = palette.glow;
+          context.globalAlpha = currentTier === 'mobile' ? 0.65 : 0.78;
+          context.beginPath();
+          context.arc(particle.x, particle.y, particle.radius * 3.2, 0, Math.PI * 2);
+          context.fill();
+          context.restore();
+        }
+
+        context.save();
+        context.fillStyle = palette.dot;
+        if (particle.accent) {
+          context.shadowBlur = currentTier === 'mobile' ? 10 : 16;
+          context.shadowColor = palette.glow;
+        }
         context.beginPath();
         context.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2);
         context.fill();
+        context.restore();
       });
 
       for (let i = 0; i < particles.length; i += 1) {
@@ -357,14 +503,22 @@
           const dy = a.y - b.y;
           const distance = Math.sqrt((dx * dx) + (dy * dy));
 
-          if (distance > linkDistance) continue;
+          if (distance > currentConfig.linkDistance) continue;
 
           context.save();
-          context.globalAlpha = 1 - (distance / linkDistance);
+          context.strokeStyle = palette.line;
+          context.lineWidth = 1;
+          context.globalAlpha = (1 - (distance / currentConfig.linkDistance)) * (currentTier === 'mobile' ? 0.44 : 0.62);
           context.beginPath();
           context.moveTo(a.x, a.y);
           context.lineTo(b.x, b.y);
           context.stroke();
+
+          if ((a.accent || b.accent) && distance < currentConfig.linkDistance * 0.58) {
+            context.strokeStyle = palette.accent;
+            context.globalAlpha = (1 - (distance / (currentConfig.linkDistance * 0.58))) * 0.32;
+            context.stroke();
+          }
           context.restore();
         }
       }
@@ -387,6 +541,15 @@
 
     window.addEventListener('resize', resize, { passive: true });
     document.addEventListener('visibilitychange', syncVisibility);
+    if ('MutationObserver' in window) {
+      const themeObserver = new MutationObserver(() => {
+        palette = resolvePalette();
+      });
+      themeObserver.observe(document.documentElement, {
+        attributes: true,
+        attributeFilter: ['data-theme', 'class']
+      });
+    }
     return canvas;
   }
 

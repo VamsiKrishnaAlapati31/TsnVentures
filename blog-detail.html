@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Short project updates from TSN Ventures, plus a simple buyer checklist built from our real venture data.">
-  <title>Project Updates — TSN Ventures</title>
+  <meta name="description" content="Read TSN Ventures buyer guides, venture checks, and project stories built from real venture data.">
+  <title>Project Update | TSN Ventures</title>
   <script>
     (function() {
       const key = 'tsn-theme';
@@ -44,7 +44,6 @@
     </div>
   </div>
 
-  <!-- NAVBAR -->
   <nav class="navbar scrolled">
     <div class="container">
       <a href="index.html" class="nav-logo">
@@ -65,36 +64,10 @@
     </div>
   </nav>
 
-  <section class="rdx-align-section rdx-align-section--deep blog-page-section">
-    <div class="container">
-      <div class="rdx-align-head reveal" data-animated-section data-animate-children="children" data-child-animation="section" data-child-direction="up" data-stagger="100">
-        <div class="section-label">Project Updates</div>
-        <h1 data-animated-heading>Three simple stories from our ventures</h1>
-        <p>Read buyer guides, infrastructure checks, and project stories based on TSN Ventures data.</p>
-      </div>
-      <div class="blog-card-grid stagger-children" id="blogList"></div>
-    </div>
-  </section>
+  <main class="blog-detail-page">
+    <article id="blogDetail" class="blog-detail-container"></article>
+  </main>
 
-  <!-- NEWSLETTER CTA -->
-  <section class="cta-banner">
-    <div class="container" style="position: relative; z-index: 2;">
-      <div class="reveal" data-animated-section data-animate-children="children" data-child-animation="section" data-child-direction="up" data-stagger="100">
-        <h2 data-animated-heading>Stay Updated</h2>
-        <p>Follow us on Instagram for real-time updates on our latest ventures, construction progress, and community events.</p>
-        <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; margin-top: 2rem;">
-          <a href="https://www.instagram.com/tsn_ventures/" target="_blank" class="btn btn-accent">
-            <i class="fab fa-instagram"></i> Follow on Instagram
-          </a>
-          <a href="index.html#contact" class="btn btn-outline">
-            <i class="fas fa-phone"></i> Contact Us
-          </a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- FOOTER -->
   <footer class="footer">
     <div class="container">
       <div class="footer-grid">
@@ -163,7 +136,7 @@
 
   <script src="js/blog-data.js"></script>
   <script src="js/blog-shared.js"></script>
-  <script src="js/blog-page.js"></script>
+  <script src="js/blog-detail.js"></script>
   <script src="js/animation-system.js"></script>
   <script src="js/main.js"></script>
 </body>
