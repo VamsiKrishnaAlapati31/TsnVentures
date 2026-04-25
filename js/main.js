@@ -73,12 +73,35 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const preloader = document.querySelector('.preloader');
   if (preloader) {
+    const preloaderStart = performance.now();
+    const minimumVisibleMs = 1200;
+    const fallbackHideMs = 1900;
+    const fadeDurationMs = 500;
+    let preloaderHidden = false;
+
     const hidePreloader = () => {
-      preloader.classList.add('hidden');
+      if (preloaderHidden) return;
+      preloaderHidden = true;
       document.body.classList.add('loaded');
+      preloader.classList.add('hidden');
+      window.setTimeout(() => {
+        preloader.setAttribute('aria-hidden', 'true');
+      }, fadeDurationMs);
     };
-    window.addEventListener('load', () => setTimeout(hidePreloader, 350));
-    setTimeout(hidePreloader, 2400);
+
+    const scheduleHide = () => {
+      const elapsed = performance.now() - preloaderStart;
+      const remaining = Math.max(0, minimumVisibleMs - elapsed);
+      window.setTimeout(hidePreloader, remaining);
+    };
+
+    if (document.readyState === 'complete') {
+      scheduleHide();
+    } else {
+      window.addEventListener('load', scheduleHide, { once: true });
+    }
+
+    window.setTimeout(hidePreloader, fallbackHideMs);
   }
 
   const navbar = document.querySelector('.navbar');

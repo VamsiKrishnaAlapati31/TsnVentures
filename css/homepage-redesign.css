@@ -111,16 +111,56 @@
 .tsn-home-redesign .home-rdx-pill {
   display: inline-flex;
   align-items: center;
-  padding: 11px 18px;
+  justify-content: center;
+  width: fit-content;
+  max-width: min(100%, 820px);
+  padding: 15px 24px;
   border-radius: 999px;
   background: rgba(212,168,83,0.14);
   border: 1px solid rgba(212,168,83,0.32);
   color: #f5ce6e;
-  font-size: 0.82rem;
+  font-size: 0.88rem;
   font-weight: 700;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.25em;
+  line-height: 1.45;
+  text-align: center;
+  white-space: normal;
   text-transform: uppercase;
   margin-bottom: 18px;
+}
+
+.tsn-home-redesign .home-rdx-hero__media {
+  width: min(100%, 620px);
+  margin-bottom: 22px;
+}
+
+.tsn-home-redesign .home-rdx-hero__video-shell {
+  position: relative;
+  overflow: hidden;
+  padding: 10px;
+  border-radius: 30px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.04));
+  border: 1px solid rgba(255,255,255,0.12);
+  box-shadow: 0 26px 60px rgba(0,0,0,0.34), 0 0 50px rgba(212,168,83,0.08);
+  backdrop-filter: blur(22px);
+}
+
+.tsn-home-redesign .home-rdx-hero__video-shell::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  border: 1px solid rgba(255,255,255,0.05);
+  pointer-events: none;
+}
+
+.tsn-home-redesign .home-rdx-hero__video {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-radius: 22px;
+  background: #03080c;
 }
 
 .tsn-home-redesign .home-rdx-identity {
@@ -1218,6 +1258,24 @@
   .tsn-home-redesign .nav-links .nav-cta { display: inline-flex; justify-content: center; text-align: center; }
   .tsn-home-redesign .home-rdx-hero { padding-top: 108px; }
   .tsn-home-redesign .home-rdx-hero__container { gap: 24px; padding-bottom: 72px; }
+  .tsn-home-redesign .home-rdx-pill {
+    max-width: 100%;
+    padding: 13px 18px;
+    font-size: 0.76rem;
+    letter-spacing: 0.18em;
+    line-height: 1.6;
+  }
+  .tsn-home-redesign .home-rdx-hero__media {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+  .tsn-home-redesign .home-rdx-hero__video-shell {
+    padding: 8px;
+    border-radius: 24px;
+  }
+  .tsn-home-redesign .home-rdx-hero__video {
+    border-radius: 18px;
+  }
   .tsn-home-redesign .home-rdx-title { font-size: clamp(2.4rem, 11vw, 3.7rem); line-height: 0.98; }
   .tsn-home-redesign .home-rdx-lead { font-size: 1rem; line-height: 1.78; }
   .tsn-home-redesign .home-rdx-actions,
@@ -1333,6 +1391,11 @@
   .tsn-home-redesign .home-rdx-actions,
   .tsn-home-redesign .home-rdx-hero__content,
   .tsn-home-redesign .home-rdx-hero__panel { min-width: 0; }
+  .tsn-home-redesign .home-rdx-pill {
+    font-size: 0.72rem;
+    letter-spacing: 0.16em;
+    line-height: 1.7;
+  }
   .tsn-home-redesign .home-rdx-trust-step { flex-direction: column; }
   .tsn-home-redesign .home-rdx-about__frame { min-height: 320px; }
 }
@@ -1417,6 +1480,7 @@ html[data-theme="light"] .tsn-home-redesign .home-rdx-feature-row__slide {
 
 html[data-theme="light"] .tsn-home-redesign .home-rdx-pill,
 html[data-theme="light"] .tsn-home-redesign .home-rdx-identity span,
+html[data-theme="light"] .tsn-home-redesign .home-rdx-hero__video-shell,
 html[data-theme="light"] .tsn-home-redesign .home-rdx-hero__panel,
 html[data-theme="light"] .tsn-home-redesign .home-rdx-feature-row,
 html[data-theme="light"] .tsn-home-redesign .home-rdx-feature-row__stat,
@@ -1433,6 +1497,20 @@ html[data-theme="light"] .tsn-home-redesign .home-rdx-cta__panel-card {
 html[data-theme="light"] .tsn-home-redesign .home-rdx-pill {
   background: rgba(212,168,83,0.16);
   color: #7d5d17;
+}
+
+html[data-theme="light"] .tsn-home-redesign .home-rdx-hero__video-shell {
+  background: linear-gradient(180deg, rgba(255,255,255,0.92), rgba(248,245,238,0.84));
+  border-color: rgba(20,33,44,0.1);
+  box-shadow: 0 22px 64px rgba(24,34,43,0.12);
+}
+
+html[data-theme="light"] .tsn-home-redesign .home-rdx-hero__video-shell::after {
+  border-color: rgba(20,33,44,0.06);
+}
+
+html[data-theme="light"] .tsn-home-redesign .home-rdx-hero__video {
+  background: #eef3f5;
 }
 
 html[data-theme="light"] .tsn-home-redesign .home-rdx-identity span {

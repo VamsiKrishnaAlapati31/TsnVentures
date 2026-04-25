@@ -31,8 +31,17 @@
 </head>
 <body class="tsn-home-redesign">
   <div class="preloader">
-    <div class="preloader-logo">
-      <img src="assets/images/logo.png" alt="TSN Ventures">
+    <div class="preloader-shell" aria-live="polite" aria-label="Loading TSN Ventures">
+      <div class="preloader-brand-mark">
+        <div class="preloader-brand-glow"></div>
+        <div class="preloader-logo">
+          <img src="assets/images/logo.png" alt="TSN Ventures logo">
+        </div>
+      </div>
+      <div class="preloader-wordmark">
+        <span class="preloader-wordmark__tsn">TSN</span>
+        <span class="preloader-wordmark__ventures">Ventures</span>
+      </div>
     </div>
   </div>
 
@@ -67,23 +76,31 @@
 
     <div class="container home-rdx-hero__container">
       <div class="home-rdx-hero__content">
-        <div class="home-rdx-pill reveal" data-animated-section data-motion-delay="80">Trusted land development partner in Andhra Pradesh</div>
-        <div class="home-rdx-identity reveal" data-animated-section data-motion-delay="180" data-animate-children="children" data-child-animation="section" data-child-direction="up" data-stagger="90">
-          <span><i class="fas fa-location-dot"></i> Gantavarigudem & Dubacherla</span>
+        <div class="home-rdx-pill reveal" data-animated-section data-motion-delay="80">TRUSTED LAND DEVELOPMENT PARTNER IN ANDHRA PRADESH (EAST &amp; WEST GODAVARI DIST.)</div>
+        <div class="home-rdx-hero__media reveal-scale" data-animated-card data-motion-direction="up" data-motion-delay="170">
+          <div class="home-rdx-hero__video-shell">
+            <video class="home-rdx-hero__video" autoplay muted loop playsinline preload="auto" poster="assets/images/venture-video-poster.jpg" aria-label="TSN Ventures venture showcase video">
+              <source src="assets/videos/venture-promo.mp4" type="video/mp4">
+              Your browser does not support the venture showcase video.
+            </video>
+          </div>
+        </div>
+        <div class="home-rdx-identity reveal" data-animated-section data-motion-delay="250" data-animate-children="children" data-child-animation="section" data-child-direction="up" data-stagger="90">
+          <span><i class="fas fa-location-dot"></i> Nallajerla &amp; Dubacherla</span>
           <span><i class="fas fa-file-shield"></i> Approved layouts</span>
           <span><i class="fas fa-phone-volume"></i> Direct enquiry paths</span>
         </div>
 
-        <h1 class="home-rdx-title reveal" data-animated-heading data-motion-delay="260">
+        <h1 class="home-rdx-title reveal" data-animated-heading data-motion-delay="340">
           Buy Land Today.<br>
           <span>Build a Better Future.</span>
         </h1>
 
-        <p class="home-rdx-lead reveal" data-animated-section data-motion-delay="520">
+        <p class="home-rdx-lead reveal" data-animated-section data-motion-delay="560">
           Compare completed layouts, ongoing ventures, pre-booking opportunities, and construction-backed projects with clearer infrastructure visibility, stronger local context, and faster buyer action paths.
         </p>
 
-        <div class="home-rdx-actions reveal" data-animated-section data-motion-direction="scale" data-motion-delay="660" data-animate-children=".home-rdx-btn" data-child-animation="card" data-child-direction="scale" data-stagger="90">
+        <div class="home-rdx-actions reveal" data-animated-section data-motion-direction="scale" data-motion-delay="700" data-animate-children=".home-rdx-btn" data-child-animation="card" data-child-direction="scale" data-stagger="90">
           <a href="#rdx-discovery" class="btn btn-accent home-rdx-btn home-rdx-btn--primary">
             <i class="fas fa-building"></i> Explore Ventures
           </a>

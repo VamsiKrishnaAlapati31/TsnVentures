@@ -16,23 +16,58 @@
 .preloader {
   position: fixed;
   inset: 0;
-  background: var(--dark);
+  background: #0d1922;
   z-index: 999999;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: opacity 0.6s var(--ease-out-expo), visibility 0.6s;
+  transition: opacity 0.5s var(--ease-smooth), visibility 0.5s var(--ease-smooth);
+  overflow: hidden;
 }
 
 .preloader.hidden {
   opacity: 0;
   visibility: hidden;
+  pointer-events: none;
+}
+
+.preloader-shell {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  padding: 28px 34px;
+  text-align: center;
+}
+
+.preloader-brand-mark {
+  position: relative;
+  width: 88px;
+  height: 88px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.preloader-brand-glow {
+  position: absolute;
+  inset: 10px;
+  border-radius: 50%;
+  background: rgba(231, 185, 87, 0.18);
+  filter: blur(24px);
+  pointer-events: none;
 }
 
 .preloader-logo {
-  width: 80px;
-  height: 80px;
-  animation: preloaderPulse 1.2s ease-in-out infinite;
+  position: relative;
+  z-index: 1;
+  width: 88px;
+  height: 88px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: logoSmoothRotate 3.2s linear infinite;
+  will-change: transform;
 }
 
 .preloader-logo img {
@@ -41,9 +76,70 @@
   object-fit: contain;
 }
 
-@keyframes preloaderPulse {
-  0%, 100% { transform: scale(1); opacity: 0.7; }
-  50% { transform: scale(1.15); opacity: 1; }
+.preloader-wordmark {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  font-family: var(--font-heading, 'Outfit', sans-serif);
+  font-size: clamp(2rem, 4vw, 3.6rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  animation: preloaderTextFade 0.8s var(--ease-out-expo) both;
+}
+
+.preloader-wordmark__tsn {
+  color: #ffffff;
+}
+
+.preloader-wordmark__ventures {
+  color: #e7b957;
+}
+
+body.loaded > :not(.preloader) {
+  animation: pageContentReveal 0.5s var(--ease-out-expo) both;
+}
+
+@keyframes logoSmoothRotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes preloaderTextFade {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pageContentReveal {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@media (max-width: 640px) {
+  .preloader-shell {
+    flex-direction: column;
+    gap: 18px;
+    padding: 24px;
+  }
+
+  .preloader-brand-mark,
+  .preloader-logo {
+    width: 76px;
+    height: 76px;
+  }
+
+  .preloader-wordmark {
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    font-size: clamp(1.9rem, 9vw, 2.5rem);
+  }
 }
 
 /* ---- Floating Particles (refined) ---- */
@@ -581,6 +677,22 @@ html {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+
+  .preloader,
+  .preloader.hidden {
+    transition-duration: 0.35s !important;
+  }
+
+  .preloader-logo,
+  .preloader-wordmark,
+  body.loaded > :not(.preloader) {
+    animation: none !important;
+  }
+
+  .preloader-wordmark,
+  body.loaded > :not(.preloader) {
+    transition: opacity 0.35s ease !important;
   }
 }
 
