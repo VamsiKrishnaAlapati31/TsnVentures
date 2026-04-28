@@ -3107,9 +3107,18 @@ h1, h2, h3, h4, h5, h6 {
   .home-trust-flow,
   .hero-stats--premium .container,
   .cards-grid,
-  .testimonials-grid,
-  .footer-grid {
+  .testimonials-grid {
     grid-template-columns: 1fr;
+  }
+
+  .footer-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px 18px;
+  }
+
+  .footer-about,
+  .footer-col:last-child {
+    grid-column: 1 / -1;
   }
 
   .hero-premium-actions {

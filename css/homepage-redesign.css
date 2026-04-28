@@ -996,9 +996,10 @@
   position: relative;
   z-index: 1;
   display: grid;
-  grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
-  gap: 34px;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0;
   align-items: center;
+  justify-items: start;
 }
 
 .tsn-home-redesign .home-rdx-cta__content h2 {
@@ -1015,80 +1016,14 @@
   margin-bottom: 28px;
 }
 
+.tsn-home-redesign .home-rdx-cta__content {
+  max-width: 760px;
+}
+
 .tsn-home-redesign .home-rdx-cta__actions {
   display: flex;
   flex-wrap: wrap;
   gap: 14px;
-}
-
-.tsn-home-redesign .home-rdx-cta__panel {
-  position: relative;
-  padding: 34px;
-  border-radius: 32px;
-  background: linear-gradient(180deg, rgba(13,22,31,0.92), rgba(8,16,22,0.98));
-  border: 1px solid rgba(255,255,255,0.1);
-  box-shadow: 0 28px 90px rgba(0,0,0,0.3);
-  overflow: hidden;
-}
-
-.tsn-home-redesign .home-rdx-cta__panel::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(140deg, rgba(212,168,83,0.16), transparent 28%, transparent 72%, rgba(26,125,71,0.18));
-  pointer-events: none;
-}
-
-.tsn-home-redesign .home-rdx-cta__panel-card {
-  position: relative;
-  z-index: 1;
-  padding: 18px 20px;
-  border-radius: 24px;
-  margin-bottom: 20px;
-  background: rgba(255,255,255,0.05);
-  border: 1px solid rgba(255,255,255,0.08);
-}
-
-.tsn-home-redesign .home-rdx-cta__panel-card span {
-  display: block;
-  color: rgba(255,255,255,0.58);
-  font-size: 0.74rem;
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  margin-bottom: 8px;
-}
-
-.tsn-home-redesign .home-rdx-cta__panel-card strong {
-  color: #fff;
-  line-height: 1.6;
-}
-
-.tsn-home-redesign .home-rdx-cta__form {
-  position: relative;
-  z-index: 1;
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 14px;
-}
-
-.tsn-home-redesign .home-rdx-cta__form-wide { grid-column: 1 / -1; }
-
-.tsn-home-redesign .home-rdx-cta__form input,
-.tsn-home-redesign .home-rdx-cta__form select,
-.tsn-home-redesign .home-rdx-cta__form textarea {
-  background: rgba(255,255,255,0.08);
-  border: 1px solid rgba(255,255,255,0.12);
-  color: #fff;
-  backdrop-filter: blur(10px);
-}
-
-.tsn-home-redesign .home-rdx-cta__form input::placeholder,
-.tsn-home-redesign .home-rdx-cta__form textarea::placeholder { color: rgba(255,255,255,0.52); }
-
-.tsn-home-redesign .home-rdx-cta__submit {
-  display: flex;
-  justify-content: flex-start;
 }
 
 .tsn-home-redesign #services-overview .service-card,
