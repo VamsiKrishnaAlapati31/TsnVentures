@@ -149,7 +149,7 @@
         </div>
         <div class="venture-rdx-enquiry-actions">
           <a href="${escapeHtml(buildWhatsappHref(venture))}" target="_blank" class="btn btn-accent"><i class="fab fa-whatsapp"></i> Enquire on WhatsApp</a>
-          <a href="index.html#contact" class="btn btn-outline"><i class="fas fa-paper-plane"></i> Send Message</a>
+          <a href="/contact.html" class="btn btn-outline"><i class="fas fa-paper-plane"></i> Contact</a>
         </div>
       </article>
     `;
