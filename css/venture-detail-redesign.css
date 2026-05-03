@@ -93,6 +93,7 @@ html[data-theme="dark"] .tsn-detail-redesign {
 .tsn-detail-redesign .venture-rdx-location {
   color: var(--venture-detail-text);
   line-height: 1.82;
+  overflow-wrap: anywhere;
 }
 
 .tsn-detail-redesign .venture-rdx-copy p + p {
@@ -157,6 +158,33 @@ html[data-theme="dark"] .tsn-detail-redesign {
   line-height: 1.55;
 }
 
+.tsn-detail-redesign .venture-rdx-amenities-toggle {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 42px;
+  margin-top: 18px;
+  padding: 0 18px;
+  border: 1px solid rgba(212, 168, 83, 0.22);
+  border-radius: 999px;
+  background: var(--venture-detail-panel-bg);
+  box-shadow: var(--venture-detail-panel-shadow);
+  color: var(--venture-detail-heading);
+  font-size: 0.86rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  transition:
+    transform 220ms ease,
+    box-shadow 220ms ease,
+    border-color 220ms ease;
+}
+
+.tsn-detail-redesign .venture-rdx-amenities-toggle[hidden] {
+  display: none !important;
+}
+
 .tsn-detail-redesign .venture-rdx-stats-section {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -164,6 +192,9 @@ html[data-theme="dark"] .tsn-detail-redesign {
 }
 
 .tsn-detail-redesign .venture-rdx-stat-item {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
   padding: 18px;
   border-radius: 24px;
   background: var(--venture-detail-panel-bg);
@@ -194,6 +225,7 @@ html[data-theme="dark"] .tsn-detail-redesign {
   font-weight: 800;
   line-height: 1.2;
   margin-bottom: 8px;
+  overflow-wrap: anywhere;
 }
 
 .tsn-detail-redesign .venture-rdx-stat-label {
@@ -201,6 +233,7 @@ html[data-theme="dark"] .tsn-detail-redesign {
   font-size: 0.74rem;
   font-weight: 700;
   letter-spacing: 0.14em;
+  line-height: 1.45;
   text-transform: uppercase;
 }
 
@@ -307,10 +340,27 @@ html[data-theme="dark"] .tsn-detail-redesign {
   justify-content: center;
 }
 
+.tsn-detail-redesign .lightbox-figure {
+  touch-action: pan-y pinch-zoom;
+}
+
+.tsn-detail-redesign .lightbox-content img {
+  transition:
+    opacity 180ms ease,
+    transform 220ms ease;
+  will-change: opacity, transform;
+}
+
+.tsn-detail-redesign .lightbox-content img.is-changing {
+  opacity: 0.74;
+  transform: scale(0.985);
+}
+
 @media (hover: hover) and (pointer: fine) {
   .tsn-detail-redesign .venture-rdx-amenity-item:hover,
   .tsn-detail-redesign .venture-rdx-stat-item:hover,
-  .tsn-detail-redesign .venture-rdx-gallery-item:hover {
+  .tsn-detail-redesign .venture-rdx-gallery-item:hover,
+  .tsn-detail-redesign .venture-rdx-amenities-toggle:hover {
     transform: translateY(-4px);
     border-color: rgba(212, 168, 83, 0.24);
     box-shadow: var(--venture-detail-panel-hover-shadow);
@@ -366,12 +416,26 @@ html[data-theme="dark"] .tsn-detail-redesign {
 
 @media (max-width: 768px) {
   .tsn-detail-redesign .venture-rdx-shell {
-    padding: 104px 0 72px;
+    padding: 98px 0 max(118px, calc(118px + env(safe-area-inset-bottom)));
+  }
+
+  .tsn-detail-redesign .venture-rdx-main {
+    gap: 18px;
   }
 
   .tsn-detail-redesign .venture-rdx-card {
-    padding: 24px;
-    border-radius: 26px;
+    padding: 20px;
+    border-radius: 24px;
+  }
+
+  .tsn-detail-redesign .venture-rdx-card h2 {
+    font-size: clamp(1.45rem, 6vw, 1.9rem);
+    line-height: 1.12;
+    margin-bottom: 10px;
+  }
+
+  .tsn-detail-redesign .venture-rdx-card .section-label {
+    margin-bottom: 14px;
   }
 
   .tsn-detail-redesign .venture-rdx-sectionhead,
@@ -381,16 +445,151 @@ html[data-theme="dark"] .tsn-detail-redesign {
     align-items: stretch;
   }
 
+  .tsn-detail-redesign .venture-rdx-sectionhead,
+  .tsn-detail-redesign .venture-rdx-bottomhead {
+    gap: 14px;
+    margin-bottom: 16px;
+  }
+
+  .tsn-detail-redesign .venture-rdx-amenities {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .tsn-detail-redesign .venture-rdx-amenities.is-collapsed .venture-rdx-amenity-item:nth-child(n + 5) {
+    display: none;
+  }
+
+  .tsn-detail-redesign .venture-rdx-amenity-item {
+    gap: 10px;
+    min-height: 0;
+    padding: 14px;
+    border-radius: 18px;
+  }
+
+  .tsn-detail-redesign .venture-rdx-amenity-icon {
+    width: 38px;
+    height: 38px;
+    border-radius: 12px;
+  }
+
+  .tsn-detail-redesign .venture-rdx-amenity-item span {
+    font-size: 0.92rem;
+    line-height: 1.42;
+  }
+
+  .tsn-detail-redesign .venture-rdx-amenities-toggle {
+    display: inline-flex;
+    align-self: flex-start;
+    min-height: 40px;
+    margin-top: 14px;
+    padding: 0 16px;
+    font-size: 0.78rem;
+  }
+
   .tsn-detail-redesign .venture-rdx-stats-section {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .tsn-detail-redesign .venture-rdx-stat-item {
+    padding: 14px;
+    border-radius: 18px;
+  }
+
+  .tsn-detail-redesign .venture-rdx-stat-icon {
+    width: 34px;
+    height: 34px;
+    margin-bottom: 10px;
+    border-radius: 11px;
+    font-size: 0.9rem;
+  }
+
+  .tsn-detail-redesign .venture-rdx-stat-value {
+    font-size: 0.98rem;
+    line-height: 1.28;
+    margin-bottom: 6px;
+  }
+
+  .tsn-detail-redesign .venture-rdx-stat-label {
+    font-size: 0.66rem;
+    letter-spacing: 0.12em;
+  }
+
+  .tsn-detail-redesign .venture-rdx-gallery-grid {
+    column-count: 2;
+    column-gap: 12px;
+  }
+
+  .tsn-detail-redesign .venture-rdx-gallery-item {
+    margin-bottom: 12px;
+    border-radius: 18px;
+  }
+
+  .tsn-detail-redesign .venture-rdx-gallery-item__overlay {
+    inset: auto 10px 10px 10px;
+    min-height: 32px;
+    padding: 0 11px;
+    font-size: 0.72rem;
+    opacity: 1;
+    transform: none;
+  }
+
+  .tsn-detail-redesign .venture-rdx-enquiry-actions {
+    gap: 10px;
+  }
+
+  .tsn-detail-redesign .venture-rdx-enquiry-actions .btn,
+  .tsn-detail-redesign .venture-rdx-bottomhead .btn {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .tsn-detail-redesign .venture-rdx-mapwrap {
+    margin-top: 16px;
+    border-radius: 18px;
   }
 
   .tsn-detail-redesign .venture-rdx-mapwrap iframe {
-    height: 300px;
+    height: 260px;
+  }
+
+  .tsn-detail-redesign .theme-switch {
+    right: max(14px, calc(env(safe-area-inset-right) + 14px));
+    bottom: max(88px, calc(env(safe-area-inset-bottom) + 88px));
+    min-width: 44px;
+    min-height: 44px;
+    padding: 4px;
+  }
+
+  .tsn-detail-redesign .theme-switch__icon {
+    width: 32px;
+    height: 32px;
+    font-size: 0.88rem;
+  }
+
+  .tsn-detail-redesign .whatsapp-btn {
+    right: max(14px, calc(env(safe-area-inset-right) + 14px));
+    bottom: max(14px, calc(env(safe-area-inset-bottom) + 14px));
+    width: 52px;
+    height: 52px;
+    font-size: 1.32rem;
   }
 }
 
 @media (max-width: 520px) {
+  .tsn-detail-redesign .venture-rdx-stats-section {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 359px) {
+  .tsn-detail-redesign .venture-rdx-card {
+    padding: 18px;
+    border-radius: 22px;
+  }
+
+  .tsn-detail-redesign .venture-rdx-amenities,
   .tsn-detail-redesign .venture-rdx-stats-section {
     grid-template-columns: 1fr;
   }

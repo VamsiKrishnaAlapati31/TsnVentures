@@ -1,4 +1,7 @@
 (function attachVentureDetailPage() {
+  const MOBILE_AMENITIES_LIMIT = 4;
+  const MOBILE_AMENITIES_BREAKPOINT = '(max-width: 768px)';
+
   function escapeHtml(value) {
     return String(value).replace(/[&<>"']/g, (char) => ({
       '&': '&amp;',
@@ -39,12 +42,23 @@
 
   function renderVentureAmenitiesSection(venture) {
     const amenities = Array.isArray(venture.amenities) ? venture.amenities : [];
+    const amenitiesGridId = `ventureAmenities-${venture.id}`;
 
     return `
-      <article class="venture-rdx-card reveal" data-animated-card data-motion-direction="up">
+      <article class="venture-rdx-card venture-rdx-amenities-card reveal" data-animated-card data-motion-direction="up">
         <div class="section-label">Amenities & Features</div>
         <h2 data-animated-heading>Infrastructure and lifestyle cues</h2>
-        <div class="venture-rdx-amenities" data-animated-section data-animate-children="children" data-child-animation="card" data-child-direction="up" data-stagger="80">
+        <div
+          class="venture-rdx-amenities"
+          id="${escapeHtml(amenitiesGridId)}"
+          data-amenities-grid
+          data-mobile-limit="${MOBILE_AMENITIES_LIMIT}"
+          data-animated-section
+          data-animate-children="children"
+          data-child-animation="card"
+          data-child-direction="up"
+          data-stagger="80"
+        >
           ${amenities.map((amenity) => `
             <div class="venture-rdx-amenity-item" data-animated-card data-motion-direction="up">
               <div class="venture-rdx-amenity-icon"><i class="${escapeHtml(amenity.icon || 'fas fa-star')}"></i></div>
@@ -52,6 +66,18 @@
             </div>
           `).join('')}
         </div>
+        <button
+          type="button"
+          class="venture-rdx-amenities-toggle"
+          data-amenities-toggle
+          data-collapsed-label="Show more"
+          data-expanded-label="Show less"
+          aria-controls="${escapeHtml(amenitiesGridId)}"
+          aria-expanded="false"
+          hidden
+        >
+          Show more
+        </button>
       </article>
     `;
   }
@@ -170,6 +196,51 @@
     return heroImage ? [heroImage] : [];
   }
 
+  function initAmenitiesToggle(root = document) {
+    const amenitiesGrid = root.querySelector('[data-amenities-grid]');
+    const toggle = root.querySelector('[data-amenities-toggle]');
+    if (!amenitiesGrid || !toggle) return;
+
+    const amenityItems = Array.from(amenitiesGrid.querySelectorAll('.venture-rdx-amenity-item'));
+    const mobileLimit = Number(amenitiesGrid.getAttribute('data-mobile-limit')) || MOBILE_AMENITIES_LIMIT;
+    const mobileQuery = window.matchMedia(MOBILE_AMENITIES_BREAKPOINT);
+    const collapsedLabel = toggle.getAttribute('data-collapsed-label') || 'Show more';
+    const expandedLabel = toggle.getAttribute('data-expanded-label') || 'Show less';
+    let isExpanded = false;
+
+    function applyAmenitiesState() {
+      const shouldCollapse = mobileQuery.matches && amenityItems.length > mobileLimit;
+
+      if (!shouldCollapse) {
+        isExpanded = false;
+        amenitiesGrid.classList.remove('is-collapsed', 'is-expanded');
+        toggle.setAttribute('aria-expanded', 'false');
+        toggle.textContent = collapsedLabel;
+        toggle.hidden = true;
+        return;
+      }
+
+      amenitiesGrid.classList.toggle('is-collapsed', !isExpanded);
+      amenitiesGrid.classList.toggle('is-expanded', isExpanded);
+      toggle.setAttribute('aria-expanded', String(isExpanded));
+      toggle.textContent = isExpanded ? expandedLabel : collapsedLabel;
+      toggle.hidden = false;
+    }
+
+    toggle.addEventListener('click', () => {
+      isExpanded = !isExpanded;
+      applyAmenitiesState();
+    });
+
+    if (typeof mobileQuery.addEventListener === 'function') {
+      mobileQuery.addEventListener('change', applyAmenitiesState);
+    } else if (typeof mobileQuery.addListener === 'function') {
+      mobileQuery.addListener(applyAmenitiesState);
+    }
+
+    applyAmenitiesState();
+  }
+
   function renderVentureDetail(venture) {
     const mount = document.getElementById('ventureDetailSections');
     if (!mount) return;
@@ -184,6 +255,8 @@
       renderVentureLocationSection(venture),
       renderVentureEnquirySection(venture)
     ].join('');
+
+    initAmenitiesToggle(mount);
 
     if (window.TsnAnimations && typeof window.TsnAnimations.initAll === 'function') {
       window.TsnAnimations.initAll(mount);
