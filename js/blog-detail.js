@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const container = document.getElementById('blogDetail');
   const posts = Array.isArray(window.projectUpdates) ? window.projectUpdates : [];
   const renderer = window.TSNBlogShared;
+  const language = window.TSNLanguage;
 
   if (!container || posts.length === 0 || !renderer || typeof renderer.escapeHtml !== 'function') return;
 
@@ -9,15 +10,56 @@ document.addEventListener('DOMContentLoaded', () => {
   const slug = params.get('slug');
   const blog = posts.find((item) => item.slug === slug);
 
+  const translate = (key, fallback) => (
+    language && typeof language.t === 'function'
+      ? language.t(key, fallback)
+      : (fallback || key)
+  );
+
+  const renderBody = (body) => {
+    const blocks = Array.isArray(body) ? body : [];
+
+    return blocks.map((block) => {
+      if (!block || typeof block !== 'object') return '';
+
+      if (block.type === 'heading') {
+        const level = [1, 2, 3, 4, 5, 6].includes(block.level) ? block.level : 3;
+        return `<h${level} lang="en">${renderer.escapeHtml(block.text || '')}</h${level}>`;
+      }
+
+      if (block.type === 'list') {
+        const items = Array.isArray(block.items) ? block.items : [];
+        return `
+          <ul>
+            ${items.map((itemKey) => {
+              const value = translate(itemKey, itemKey);
+              return `<li class="tsn-i18n-copy" data-i18n="${renderer.escapeHtml(itemKey)}">${renderer.escapeHtml(value)}</li>`;
+            }).join('')}
+          </ul>
+        `;
+      }
+
+      if (block.type === 'p' && block.key) {
+        const value = translate(block.key, block.key);
+        return `<p class="tsn-i18n-copy" data-i18n="${renderer.escapeHtml(block.key)}">${renderer.escapeHtml(value)}</p>`;
+      }
+
+      return '';
+    }).join('');
+  };
+
   if (!blog) {
     document.title = 'Blog Not Found | TSN Ventures';
     container.innerHTML = `
       <div class="blog-detail-empty">
         <h1>Blog not found</h1>
-        <p>The blog you are looking for is not available.</p>
+        <p class="tsn-i18n-copy" data-i18n="shared.blog.notFound.body">${renderer.escapeHtml(translate('shared.blog.notFound.body', 'The blog you are looking for is not available.'))}</p>
         <a href="blog.html" class="back-to-blog">← Back to Blog</a>
       </div>
     `;
+    if (language && typeof language.applyTranslations === 'function') {
+      language.applyTranslations(container);
+    }
     return;
   }
 
@@ -43,10 +85,14 @@ document.addEventListener('DOMContentLoaded', () => {
       <img src="${renderer.escapeHtml(blog.image || '')}" alt="${renderer.escapeHtml(blog.alt || blog.title || '')}" class="blog-detail-image">
     </div>
     <div class="blog-detail-content reveal" data-animated-section data-motion-direction="up">
-      ${String(blog.content || '')}
+      ${renderBody(blog.body)}
     </div>
     <a href="blog.html" class="back-to-blog reveal" data-animated-section data-motion-direction="up">← Back to Blog</a>
   `;
+
+  if (language && typeof language.applyTranslations === 'function') {
+    language.applyTranslations(container);
+  }
 
   if (window.TsnAnimations && typeof window.TsnAnimations.initAll === 'function') {
     window.TsnAnimations.initAll(container);

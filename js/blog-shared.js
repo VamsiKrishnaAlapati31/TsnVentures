@@ -1,4 +1,12 @@
 (function attachBlogShared() {
+  function translateText(key, fallback) {
+    if (window.TSNLanguage && typeof window.TSNLanguage.t === 'function') {
+      return window.TSNLanguage.t(key, fallback);
+    }
+
+    return fallback || key || '';
+  }
+
   function escapeHtml(value) {
     return String(value).replace(/[&<>"']/g, (char) => ({
       '&': '&amp;',
@@ -14,6 +22,8 @@
   }
 
   function createBlogCard(blog) {
+    const excerptText = translateText(blog.excerptKey, blog.excerpt || '');
+
     return `
       <article class="blog-card" data-animated-card data-motion-direction="up">
         <div class="blog-image-wrap blog-img">
@@ -25,7 +35,7 @@
             <span class="blog-category ${escapeHtml(getCategoryClass(blog.category))}">${escapeHtml(blog.category || '')}</span>
           </div>
           <h3 class="blog-title">${escapeHtml(blog.title || '')}</h3>
-          <p class="blog-excerpt">${escapeHtml(blog.excerpt || '')}</p>
+          <p class="blog-excerpt tsn-i18n-copy" data-i18n="${escapeHtml(blog.excerptKey || '')}">${escapeHtml(excerptText)}</p>
           <a href="blog-detail.html?slug=${encodeURIComponent(blog.slug || '')}" class="blog-read-more read-more">
             Read More <span aria-hidden="true">→</span>
           </a>
@@ -37,6 +47,7 @@
   window.TSNBlogShared = {
     escapeHtml,
     getCategoryClass,
-    createBlogCard
+    createBlogCard,
+    translateText
   };
 })();

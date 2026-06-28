@@ -19,14 +19,20 @@
   <title>TSN Ventures — Premium Real Estate Development</title>
   <script>
     (function() {
-      const key = 'tsn-theme';
+      const themeKey = 'tsn-theme';
+      const languageKey = 'tsn-preferred-language';
       let theme = 'light';
+      let language = 'en';
       try {
-        const storedTheme = localStorage.getItem(key);
+        const storedTheme = localStorage.getItem(themeKey);
+        const storedLanguage = localStorage.getItem(languageKey);
         if (storedTheme === 'light' || storedTheme === 'dark') {
           theme = storedTheme;
         } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
           theme = 'dark';
+        }
+        if (storedLanguage === 'en' || storedLanguage === 'te') {
+          language = storedLanguage;
         }
       } catch (error) {
         if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
@@ -34,6 +40,11 @@
         }
       }
       document.documentElement.setAttribute('data-theme', theme);
+      document.documentElement.setAttribute('lang', language);
+      document.documentElement.setAttribute('data-language', language);
+      if (language === 'te') {
+        document.documentElement.setAttribute('data-language-pending', 'te');
+      }
     })();
   </script>
   <link rel="icon" href="favicon.ico" sizes="any">
@@ -69,11 +80,19 @@
         <div class="logo-text">TSN <span>Ventures</span></div>
       </a>
       <div class="nav-links" id="navLinks">
+        <div class="nav-language-switch nav-language-switch--mobile" role="group" data-i18n-attr="aria-label:ui.language.groupLabel">
+          <button class="language-switch__button is-active" type="button" data-language-option="en" aria-pressed="true">English</button>
+          <button class="language-switch__button" type="button" data-language-option="te" aria-pressed="false">తెలుగు</button>
+        </div>
         <a href="index.html" class="active">Home</a>
         <a href="about.html">About</a>
         <a href="ventures.html">Ventures</a>
         <a href="services.html">Services</a>
         <a href="blog.html">Blog</a>
+        <div class="nav-language-switch nav-language-switch--desktop" role="group" data-i18n-attr="aria-label:ui.language.groupLabel">
+          <button class="language-switch__button is-active" type="button" data-language-option="en" aria-pressed="true">EN</button>
+          <button class="language-switch__button" type="button" data-language-option="te" aria-pressed="false">తెలుగు</button>
+        </div>
         <a href="/contact.html" class="nav-cta">Contact</a>
       </div>
       <button class="nav-toggle" id="navToggle" aria-label="Toggle Menu">
@@ -127,7 +146,7 @@
           <span>Build a Better Future.</span>
         </h1>
 
-        <p class="home-rdx-lead reveal" data-animated-section data-motion-delay="560">
+        <p class="home-rdx-lead reveal tsn-i18n-copy" data-animated-section data-motion-delay="560" data-i18n="home.hero.lead">
           Compare completed layouts, ongoing ventures, pre-booking opportunities, and construction-backed projects with clearer infrastructure visibility, stronger local context, and faster buyer action paths.
         </p>
 
@@ -150,16 +169,16 @@
       <div class="home-rdx-hero__panel reveal-scale" data-animated-card data-motion-direction="right" data-motion-delay="420" data-animate-children=".home-rdx-stat-card, .home-rdx-point" data-child-animation="card" data-child-direction="up" data-stagger="100" data-children-delay="220">
         <div class="home-rdx-panel__eyebrow">Buyer Decision Dashboard</div>
         <h3>See the exact signals serious buyers check before they enquire.</h3>
-        <p>Location clarity, infrastructure progress, legal context, and immediate contact actions stay visible in one premium decision panel.</p>
+        <p class="tsn-i18n-copy" data-i18n="home.dashboard.description">Location clarity, infrastructure progress, legal context, and immediate contact actions stay visible in one premium decision panel.</p>
 
         <div class="home-rdx-panel__stats">
           <div class="home-rdx-stat-card">
             <strong>Buyer support</strong>
-            <span>Guidance and follow-up</span>
+            <span class="tsn-i18n-copy" data-i18n="home.dashboard.support.helper">Guidance and follow-up</span>
           </div>
           <div class="home-rdx-stat-card">
             <strong>Site visits</strong>
-            <span>On-ground help</span>
+            <span class="tsn-i18n-copy" data-i18n="home.dashboard.visits.helper">On-ground help</span>
           </div>
         </div>
 
@@ -168,33 +187,33 @@
             <i class="fas fa-circle-check"></i>
             <div>
               <strong>Documentation-led positioning</strong>
-              <span>Approved layout signals and legal clarity visible before the first call.</span>
+              <span class="tsn-i18n-copy" data-i18n="home.dashboard.docs.body">Approved layout signals and legal clarity visible before the first call.</span>
             </div>
           </div>
           <div class="home-rdx-point">
             <i class="fas fa-road"></i>
             <div>
               <strong>Infrastructure-first evaluation</strong>
-              <span>Roads, drainage, and water readiness appear as core buying cues.</span>
+              <span class="tsn-i18n-copy" data-i18n="home.dashboard.infrastructure.body">Roads, drainage, and water readiness appear as core buying cues.</span>
             </div>
           </div>
           <div class="home-rdx-point">
             <i class="fas fa-comments"></i>
             <div>
               <strong>Fast response channels</strong>
-              <span>WhatsApp, direct calls, and site-visit actions stay close to every venture.</span>
+              <span class="tsn-i18n-copy" data-i18n="home.dashboard.response.body">WhatsApp, direct calls, and site-visit actions stay close to every venture.</span>
             </div>
           </div>
         </div>
       </div>
 
       <div class="home-rdx-float home-rdx-float--one" data-animated-card data-motion-direction="right" data-motion-delay="760" data-floating-element data-floating-delay="500">
-        <span>Clear legal context</span>
-        <strong>Government-approved layouts with visible documentation cues</strong>
+        <span class="tsn-i18n-copy" data-i18n="home.floats.legal.label">Clear legal context</span>
+        <strong class="tsn-i18n-copy" data-i18n="home.floats.legal.body">Government-approved layouts with visible documentation cues</strong>
       </div>
       <div class="home-rdx-float home-rdx-float--two" data-animated-card data-motion-direction="right" data-motion-delay="860" data-floating-element data-floating-delay="1100">
-        <span>Local trust signal</span>
-        <strong>Strong Dubacherla and Gantavarigudem presence</strong>
+        <span class="tsn-i18n-copy" data-i18n="home.floats.local.label">Local trust signal</span>
+        <strong class="tsn-i18n-copy" data-i18n="home.floats.local.body">Strong Dubacherla and Gantavarigudem presence</strong>
       </div>
     </div>
 
@@ -221,7 +240,7 @@
       <div class="home-rdx-heading reveal" data-animated-section data-animate-children="children" data-child-animation="section" data-child-direction="up" data-stagger="100">
         <div class="section-label">Project Discovery</div>
         <h2 data-animated-heading>Explore the Featured Ventures in a Larger Visual Format</h2>
-        <p>Each project rotates through its own gallery automatically, so the page opens with live site photography instead of a static hero block.</p>
+        <p class="tsn-i18n-copy" data-i18n="home.discovery.description">Each project rotates through its own gallery automatically, so the page opens with live site photography instead of a static hero block.</p>
       </div>
       <div class="home-rdx-feature-list" id="rdxShowcase"></div>
     </div>
@@ -232,29 +251,29 @@
       <div class="home-rdx-heading reveal" data-animated-section data-animate-children="children" data-child-animation="section" data-child-direction="up" data-stagger="100">
         <div class="section-label">Why Buyers Trust TSN</div>
         <h2 data-animated-heading>Designed Around Real Decision Points</h2>
-        <p>Approvals, infrastructure, geography, and fast enquiry actions are positioned like buyer checkpoints — with a darker, more premium hover system instead of bright color shifts.</p>
+        <p class="tsn-i18n-copy" data-i18n="home.trust.description">Approvals, infrastructure, geography, and fast enquiry actions are positioned like buyer checkpoints — with a darker, more premium hover system instead of bright color shifts.</p>
       </div>
 
       <div class="home-rdx-trust-grid">
         <article class="home-rdx-trust-card reveal-scale" data-animated-card data-motion-direction="scale">
           <i class="fas fa-file-contract"></i>
           <h3>Approvals and documentation</h3>
-          <p>Legal clarity and approval-oriented messaging help buyers identify lower-friction ventures quickly.</p>
+          <p class="tsn-i18n-copy" data-i18n="home.trust.approvals.body">Legal clarity and approval-oriented messaging help buyers identify lower-friction ventures quickly.</p>
         </article>
         <article class="home-rdx-trust-card reveal-scale" data-animated-card data-motion-direction="scale">
           <i class="fas fa-road"></i>
           <h3>Infrastructure readiness</h3>
-          <p>Roads, drainage, water supply, and real development progress are treated as primary buying signals.</p>
+          <p class="tsn-i18n-copy" data-i18n="home.trust.infrastructure.body">Roads, drainage, water supply, and real development progress are treated as primary buying signals.</p>
         </article>
         <article class="home-rdx-trust-card reveal-scale" data-animated-card data-motion-direction="scale">
           <i class="fas fa-location-dot"></i>
           <h3>Local market identity</h3>
-          <p>Strong Andhra Pradesh and Dubacherla / Gantavarigudem references anchor the business immediately.</p>
+          <p class="tsn-i18n-copy" data-i18n="home.trust.identity.body">Strong Andhra Pradesh and Dubacherla / Gantavarigudem references anchor the business immediately.</p>
         </article>
         <article class="home-rdx-trust-card reveal-scale" data-animated-card data-motion-direction="scale">
           <i class="fas fa-phone-volume"></i>
           <h3>Fast enquiry paths</h3>
-          <p>Direct call and WhatsApp CTAs reduce delay between interest, discussion, and a scheduled site visit.</p>
+          <p class="tsn-i18n-copy" data-i18n="home.trust.enquiry.body">Direct call and WhatsApp CTAs reduce delay between interest, discussion, and a scheduled site visit.</p>
         </article>
       </div>
 
@@ -263,21 +282,21 @@
           <span>01</span>
           <div>
             <h4>Discover by stage</h4>
-            <p>Users can immediately separate completed, ongoing, pre-booking, and construction opportunities.</p>
+            <p class="tsn-i18n-copy" data-i18n="home.trust.step1.body">Users can immediately separate completed, ongoing, pre-booking, and construction opportunities.</p>
           </div>
         </div>
         <div class="home-rdx-trust-step reveal" data-animated-card data-motion-direction="up">
           <span>02</span>
           <div>
             <h4>Evaluate faster</h4>
-            <p>Each card surfaces location, scale, availability, and direct next actions without visual clutter.</p>
+            <p class="tsn-i18n-copy" data-i18n="home.trust.step2.body">Each card surfaces location, scale, availability, and direct next actions without visual clutter.</p>
           </div>
         </div>
         <div class="home-rdx-trust-step reveal" data-animated-card data-motion-direction="up">
           <span>03</span>
           <div>
             <h4>Move to conversation</h4>
-            <p>WhatsApp, phone, and detail-page actions stay visible through the full buying journey.</p>
+            <p class="tsn-i18n-copy" data-i18n="home.trust.step3.body">WhatsApp, phone, and detail-page actions stay visible through the full buying journey.</p>
           </div>
         </div>
       </div>
@@ -292,31 +311,31 @@
             <img src="assets/images/home-about-iconcity.jpeg" alt="TSN Ventures Project">
           </div>
           <div class="home-rdx-about__card home-rdx-about__card--one" data-animated-card data-motion-direction="right" data-floating-element data-floating-delay="400">
-            <span>Local strength</span>
-            <strong>Deep roots in Gantavarigudem and Dubacherla</strong>
+            <span class="tsn-i18n-copy" data-i18n="home.about.floatLocal.label">Local strength</span>
+            <strong class="tsn-i18n-copy" data-i18n="home.about.floatLocal.body">Deep roots in Gantavarigudem and Dubacherla</strong>
           </div>
           <div class="home-rdx-about__card home-rdx-about__card--two" data-animated-card data-motion-direction="right" data-floating-element data-floating-delay="900">
-            <span>Delivery focus</span>
-            <strong>Layouts, infrastructure, and build support under one brand</strong>
+            <span class="tsn-i18n-copy" data-i18n="home.about.floatDelivery.label">Delivery focus</span>
+            <strong class="tsn-i18n-copy" data-i18n="home.about.floatDelivery.body">Layouts, infrastructure, and build support under one brand</strong>
           </div>
         </div>
         <div class="home-rdx-about__content reveal-right" data-animated-section data-motion-direction="right" data-animate-children=".home-rdx-about__metrics > div, .home-rdx-about__actions .btn" data-child-animation="card" data-child-direction="up" data-stagger="90" data-children-delay="180">
           <div class="section-label">Who We Are</div>
           <h2 data-animated-heading>Transforming Raw Land Into Premium, Buyer-Ready Living Spaces</h2>
-          <p>TSN Ventures is a local real estate development company based in Gantavarigudem, Andhra Pradesh. We turn raw land into residential layouts with roads, drainage, water supply, and practical buyer guidance from the first enquiry to the site visit.</p>
-          <p>Our positioning is simple: help families and investors understand each project faster, keep the process clear, and stay available when they need support.</p>
+          <p class="tsn-i18n-copy" data-i18n="home.about.p1">TSN Ventures is a local real estate development company based in Gantavarigudem, Andhra Pradesh. We turn raw land into residential layouts with roads, drainage, water supply, and practical buyer guidance from the first enquiry to the site visit.</p>
+          <p class="tsn-i18n-copy" data-i18n="home.about.p2">Our positioning is simple: help families and investors understand each project faster, keep the process clear, and stay available when they need support.</p>
           <div class="home-rdx-about__metrics reveal" data-animated-section data-motion-delay="120">
             <div>
               <strong>Local</strong>
-              <span>Roots in Gantavarigudem</span>
+              <span class="tsn-i18n-copy" data-i18n="home.about.metricLocal.helper">Roots in Gantavarigudem</span>
             </div>
             <div>
               <strong>Buyer support</strong>
-              <span>Guidance and follow-up</span>
+              <span class="tsn-i18n-copy" data-i18n="home.about.metricSupport.helper">Guidance and follow-up</span>
             </div>
             <div>
               <strong>Site visits</strong>
-              <span>On-ground support</span>
+              <span class="tsn-i18n-copy" data-i18n="home.about.metricVisits.helper">On-ground support</span>
             </div>
           </div>
           <div class="home-rdx-about__actions reveal" data-animated-section data-motion-direction="scale" data-motion-delay="220">
@@ -334,7 +353,7 @@
       <div class="home-rdx-heading reveal" data-animated-section data-animate-children="children" data-child-animation="section" data-child-direction="up" data-stagger="100">
         <div class="section-label">How it works</div>
         <h2 data-animated-heading>One guided path from ready layout to handover</h2>
-        <p>Follow the process in order: discover an approved layout, choose the right plot, then move toward construction with the same team.</p>
+        <p class="tsn-i18n-copy" data-i18n="home.services.description">Follow the process in order: discover an approved layout, choose the right plot, then move toward construction with the same team.</p>
       </div>
 
       <div class="home-rdx-flow stagger-children" data-animated-section data-animate-children=".home-rdx-flow-card" data-child-animation="card" data-child-direction="up" data-stagger="120">
@@ -350,11 +369,11 @@
             </div>
           </div>
           <div class="home-rdx-flow-card__body">
-            <p>We prepare residential layouts with roads, drainage, water supply, and approvals in place before buyers visit.</p>
+            <p class="tsn-i18n-copy" data-i18n="home.services.step1.body">We prepare residential layouts with roads, drainage, water supply, and approvals in place before buyers visit.</p>
             <div class="rdx-align-metrics home-rdx-flow-card__metrics">
-              <div class="rdx-align-metric"><i class="fas fa-road"></i><span>What we do</span><strong>Prepare the layout</strong></div>
-              <div class="rdx-align-metric"><i class="fas fa-file-contract"></i><span>What you check</span><strong>Approvals</strong></div>
-              <div class="rdx-align-metric"><i class="fas fa-map-location-dot"></i><span>Next step</span><strong>Site Visit</strong></div>
+              <div class="rdx-align-metric"><i class="fas fa-road"></i><span class="tsn-i18n-copy" data-i18n="home.services.step1.metric1.label">What we do</span><strong>Prepare the layout</strong></div>
+              <div class="rdx-align-metric"><i class="fas fa-file-contract"></i><span class="tsn-i18n-copy" data-i18n="home.services.step1.metric2.label">What you check</span><strong>Approvals</strong></div>
+              <div class="rdx-align-metric"><i class="fas fa-map-location-dot"></i><span class="tsn-i18n-copy" data-i18n="home.services.step1.metric3.label">Next step</span><strong>Site Visit</strong></div>
             </div>
           </div>
         </article>
@@ -375,11 +394,11 @@
             </div>
           </div>
           <div class="home-rdx-flow-card__body">
-            <p>We help buyers compare plot size, location, and budget so they can choose faster and with less back-and-forth.</p>
+            <p class="tsn-i18n-copy" data-i18n="home.services.step2.body">We help buyers compare plot size, location, and budget so they can choose faster and with less back-and-forth.</p>
             <div class="rdx-align-metrics home-rdx-flow-card__metrics">
-              <div class="rdx-align-metric"><i class="fas fa-ruler-combined"></i><span>Compare</span><strong>Plot size</strong></div>
-              <div class="rdx-align-metric"><i class="fas fa-indian-rupee-sign"></i><span>Check</span><strong>Budget</strong></div>
-              <div class="rdx-align-metric"><i class="fas fa-phone-volume"></i><span>Next step</span><strong>Talk to us</strong></div>
+              <div class="rdx-align-metric"><i class="fas fa-ruler-combined"></i><span class="tsn-i18n-copy" data-i18n="home.services.step2.metric1.label">Compare</span><strong>Plot size</strong></div>
+              <div class="rdx-align-metric"><i class="fas fa-indian-rupee-sign"></i><span class="tsn-i18n-copy" data-i18n="home.services.step2.metric2.label">Check</span><strong>Budget</strong></div>
+              <div class="rdx-align-metric"><i class="fas fa-phone-volume"></i><span class="tsn-i18n-copy" data-i18n="home.services.step2.metric3.label">Next step</span><strong>Talk to us</strong></div>
             </div>
           </div>
         </article>
@@ -400,11 +419,11 @@
             </div>
           </div>
           <div class="home-rdx-flow-card__body">
-            <p>Move from land purchase to a finished home with one team handling design, build quality, and handover.</p>
+            <p class="tsn-i18n-copy" data-i18n="home.services.step3.body">Move from land purchase to a finished home with one team handling design, build quality, and handover.</p>
             <div class="rdx-align-metrics home-rdx-flow-card__metrics">
-              <div class="rdx-align-metric"><i class="fas fa-drafting-compass"></i><span>Plan</span><strong>Design</strong></div>
-              <div class="rdx-align-metric"><i class="fas fa-hard-hat"></i><span>Build</span><strong>Execution</strong></div>
-              <div class="rdx-align-metric"><i class="fas fa-key"></i><span>Close</span><strong>Handover</strong></div>
+              <div class="rdx-align-metric"><i class="fas fa-drafting-compass"></i><span class="tsn-i18n-copy" data-i18n="home.services.step3.metric1.label">Plan</span><strong>Design</strong></div>
+              <div class="rdx-align-metric"><i class="fas fa-hard-hat"></i><span class="tsn-i18n-copy" data-i18n="home.services.step3.metric2.label">Build</span><strong>Execution</strong></div>
+              <div class="rdx-align-metric"><i class="fas fa-key"></i><span class="tsn-i18n-copy" data-i18n="home.services.step3.metric3.label">Close</span><strong>Handover</strong></div>
             </div>
           </div>
         </article>
@@ -421,31 +440,31 @@
       <div class="section-header reveal" data-animated-section data-animate-children="children" data-child-animation="section" data-child-direction="up" data-stagger="100">
         <div class="section-label">Testimonials</div>
         <h2 data-animated-heading>Buyer Confidence, In Their Words</h2>
-        <p>Real reviews from families who trusted TSN Ventures for quality, value, and infrastructure.</p>
+        <p class="tsn-i18n-copy" data-i18n="home.testimonials.description">Real reviews from families who trusted TSN Ventures for quality, value, and infrastructure.</p>
       </div>
       <div class="testimonials-grid stagger-children">
         <div class="tcard reveal-scale" data-animated-card data-motion-direction="scale">
           <div class="tcard-quote-icon"><i class="fas fa-quote-left"></i></div>
           <div class="tcard-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-          <p class="tcard-text">Very much satisfied with their service in quality, price and in security. Thank you, TSN Ventures.</p>
+          <p class="tcard-text tsn-i18n-copy" data-i18n="home.testimonials.quote1">Very much satisfied with their service in quality, price and in security. Thank you, TSN Ventures.</p>
           <div class="tcard-author"><div class="tcard-avatar">R</div><div class="tcard-author-info"><h4>Ram Meher Kollati</h4><span>Local Guide</span></div></div>
         </div>
         <div class="tcard reveal-scale" data-animated-card data-motion-direction="scale">
           <div class="tcard-quote-icon"><i class="fas fa-quote-left"></i></div>
           <div class="tcard-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-          <p class="tcard-text">The best layout and best for middle class family. Highly recommended for anyone looking for affordable quality plots.</p>
+          <p class="tcard-text tsn-i18n-copy" data-i18n="home.testimonials.quote2">The best layout and best for middle class family. Highly recommended for anyone looking for affordable quality plots.</p>
           <div class="tcard-author"><div class="tcard-avatar">S</div><div class="tcard-author-info"><h4>Srinu Chowdary Yalamarthi</h4><span>Verified Buyer</span></div></div>
         </div>
         <div class="tcard reveal-scale" data-animated-card data-motion-direction="scale">
           <div class="tcard-quote-icon"><i class="fas fa-quote-left"></i></div>
           <div class="tcard-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-          <p class="tcard-text">Excellent infrastructure and amenities. The drainage and water systems are very well planned. Great investment for the future.</p>
+          <p class="tcard-text tsn-i18n-copy" data-i18n="home.testimonials.quote3">Excellent infrastructure and amenities. The drainage and water systems are very well planned. Great investment for the future.</p>
           <div class="tcard-author"><div class="tcard-avatar">G</div><div class="tcard-author-info"><h4>Gatala Jayadeepmeenan</h4><span>Local Guide</span></div></div>
         </div>
         <div class="tcard reveal-scale" data-animated-card data-motion-direction="scale">
           <div class="tcard-quote-icon"><i class="fas fa-quote-left"></i></div>
           <div class="tcard-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i></div>
-          <p class="tcard-text">TSN Ventures delivers what they promise. The construction quality is top-notch and the team is very professional and supportive.</p>
+          <p class="tcard-text tsn-i18n-copy" data-i18n="home.testimonials.quote4">TSN Ventures delivers what they promise. The construction quality is top-notch and the team is very professional and supportive.</p>
           <div class="tcard-author"><div class="tcard-avatar">A</div><div class="tcard-author-info"><h4>Anand Kumar</h4><span>Home Owner</span></div></div>
         </div>
       </div>
@@ -457,7 +476,7 @@
       <div class="rdx-align-head reveal" data-animated-section data-animate-children="children" data-child-animation="section" data-child-direction="up" data-stagger="100">
         <div class="section-label">Project Updates</div>
         <h2 data-animated-heading>Three simple stories from our ventures</h2>
-        <p>Read buyer guides, infrastructure checks, and project stories based on TSN Ventures data.</p>
+        <p class="tsn-i18n-copy" data-i18n="home.blog.description">Read buyer guides, infrastructure checks, and project stories based on TSN Ventures data.</p>
       </div>
       <div class="blog-card-grid stagger-children" id="homeProjectUpdates"></div>
       <div class="home-blog-preview__cta reveal" data-animated-section data-motion-direction="scale">
@@ -471,7 +490,7 @@
       <div class="home-rdx-cta__content reveal-left" data-animated-section data-motion-direction="left" data-animate-children=".home-rdx-cta__actions .btn" data-child-animation="card" data-child-direction="scale" data-stagger="90" data-children-delay="140">
         <div class="section-label">Ready to Move Forward?</div>
         <h2 data-animated-heading>Ready to Identify the Right Venture?</h2>
-        <p>Speak with TSN Ventures for plot availability, price guidance, development status, site visits, or custom home construction support.</p>
+        <p class="tsn-i18n-copy" data-i18n="home.contact.description">Speak with TSN Ventures for plot availability, price guidance, development status, site visits, or custom home construction support.</p>
         <div class="home-rdx-cta__actions">
           <a href="https://wa.me/919553577777?text=Hi%20TSN%20Ventures!%20I%20want%20details%20about%20your%20ventures." target="_blank" class="btn btn-accent"><i class="fab fa-whatsapp"></i> WhatsApp Us</a>
           <a href="tel:+919553577777" class="btn btn-outline"><i class="fas fa-phone"></i> Call Now</a>
@@ -483,14 +502,19 @@
   <footer class="footer" id="footer">
     <div class="container">
       <div class="footer-grid">
-        <div class="footer-about"><div class="footer-logo"><div class="logo-icon"><img src="assets/images/logo.png" alt="TSN Ventures Logo"></div><h3>TSN <span>Ventures</span></h3></div><p>Building trust, one home at a time. TSN Ventures is your trusted partner for premium residential land development and custom construction in Andhra Pradesh.</p><div class="footer-social"><a href="https://www.instagram.com/tsn_ventures/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a><a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a><a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a><a href="https://wa.me/919553577777" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a></div></div>
+        <div class="footer-about"><div class="footer-logo"><div class="logo-icon"><img src="assets/images/logo.png" alt="TSN Ventures Logo"></div><h3>TSN <span>Ventures</span></h3></div><p class="tsn-i18n-copy" data-i18n="shared.footer.companyDescription">Building trust, one home at a time. TSN Ventures is your trusted partner for premium residential land development and custom construction in Andhra Pradesh.</p><div class="footer-social"><a href="https://www.instagram.com/tsn_ventures/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a><a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a><a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a><a href="https://wa.me/919553577777" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a></div></div>
         <div class="footer-col"><h4>Quick Links</h4><ul><li><a href="index.html">Home</a></li><li><a href="about.html">About Us</a></li><li><a href="ventures.html">Ventures</a></li><li><a href="services.html">Services</a></li><li><a href="blog.html">Blog</a></li><li><a href="/contact.html">Contact</a></li></ul></div>
         <div class="footer-col"><h4>Services</h4><ul><li><a href="services.html">Land Development</a></li><li><a href="services.html">Plot Sales</a></li><li><a href="services.html">Construction</a></li><li><a href="services.html">Design</a></li></ul></div>
-        <div class="footer-col"><h4>Contact Info</h4><ul class="footer-contact"><li><div class="icon"><i class="fas fa-map-marker-alt"></i></div><div class="info">W942+P9C, Gantavarigudem, Dubacherla,<br>Andhra Pradesh 534112</div></li><li><div class="icon"><i class="fas fa-phone"></i></div><div class="info"><a href="tel:+919553577777">+91 95535 77777</a></div></li><li><div class="icon"><i class="fas fa-clock"></i></div><div class="info">Open 24 Hours</div></li><li><div class="icon"><i class="fas fa-star"></i></div><div class="info">4.3 ★ Rating (9 Reviews)</div></li></ul></div>
+        <div class="footer-col"><h4>Contact Info</h4><ul class="footer-contact"><li><div class="icon"><i class="fas fa-map-marker-alt"></i></div><div class="info">W942+P9C, Gantavarigudem, Dubacherla,<br>Andhra Pradesh 534112</div></li><li><div class="icon"><i class="fas fa-phone"></i></div><div class="info"><a href="tel:+919553577777">+91 95535 77777</a></div></li><li><div class="icon"><i class="fas fa-clock"></i></div><div class="info tsn-i18n-copy" data-i18n="shared.footer.openHours">Open 24 Hours</div></li><li><div class="icon"><i class="fas fa-star"></i></div><div class="info">4.3 ★ Rating (9 Reviews)</div></li></ul></div>
       </div>
       <div class="footer-bottom"><p>&copy; 2026 TSN Ventures. All Rights Reserved.</p><p>Designed with <i class="fas fa-heart" style="color: var(--accent);"></i> for your dream home</p></div>
     </div>
   </footer>
+
+  <button class="language-float" type="button" data-language-floating aria-label="Switch supporting content to Telugu" title="తెలుగులో చూడండి">
+    <span class="language-float__icon" aria-hidden="true"><i class="fas fa-globe"></i></span>
+    <span class="language-float__label" data-language-floating-label>తెలుగు</span>
+  </button>
 
   <button class="theme-switch" type="button" data-theme-toggle aria-label="Activate dark theme" aria-pressed="false">
     <span class="theme-switch__track">
@@ -510,6 +534,9 @@
     </div>
   </div>
 
+  <script src="js/translations/en.js"></script>
+  <script src="js/translations/te.js"></script>
+  <script src="js/language-controller.js"></script>
   <script src="js/venture-data.js"></script>
   <script src="js/venture-image-manifest.js"></script>
   <script src="js/venture-image-resolver.js"></script>

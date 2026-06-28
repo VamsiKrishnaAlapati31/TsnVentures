@@ -1201,6 +1201,7 @@ html {
 .venture-rdx-hero__actions .btn,
 .services-feature-row__actions .btn,
 .cta-banner .btn,
+.language-float,
 .theme-switch,
 .btn {
   transition:
@@ -1213,16 +1214,19 @@ html {
 
 @media (hover: hover) and (pointer: fine) {
   .btn:hover,
+  .language-float:hover,
   .theme-switch:hover {
     transform: translateY(-2px);
   }
 
   html[data-theme="dark"] .btn:hover,
+  html[data-theme="dark"] .language-float:hover,
   html[data-theme="dark"] .theme-switch:hover {
     box-shadow: var(--tsn-button-glow-dark);
   }
 
   html[data-theme="light"] .btn:hover,
+  html[data-theme="light"] .language-float:hover,
   html[data-theme="light"] .theme-switch:hover {
     box-shadow: var(--tsn-button-glow-light);
   }

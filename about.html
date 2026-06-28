@@ -19,14 +19,20 @@
   <title>About Us — TSN Ventures</title>
   <script>
     (function() {
-      const key = 'tsn-theme';
+      const themeKey = 'tsn-theme';
+      const languageKey = 'tsn-preferred-language';
       let theme = 'light';
+      let language = 'en';
       try {
-        const storedTheme = localStorage.getItem(key);
+        const storedTheme = localStorage.getItem(themeKey);
+        const storedLanguage = localStorage.getItem(languageKey);
         if (storedTheme === 'light' || storedTheme === 'dark') {
           theme = storedTheme;
         } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
           theme = 'dark';
+        }
+        if (storedLanguage === 'en' || storedLanguage === 'te') {
+          language = storedLanguage;
         }
       } catch (error) {
         if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
@@ -34,6 +40,11 @@
         }
       }
       document.documentElement.setAttribute('data-theme', theme);
+      document.documentElement.setAttribute('lang', language);
+      document.documentElement.setAttribute('data-language', language);
+      if (language === 'te') {
+        document.documentElement.setAttribute('data-language-pending', 'te');
+      }
     })();
   </script>
   <link rel="icon" href="favicon.ico" sizes="any">
@@ -69,11 +80,19 @@
         <div class="logo-text">TSN <span>Ventures</span></div>
       </a>
       <div class="nav-links" id="navLinks">
+        <div class="nav-language-switch nav-language-switch--mobile" role="group" data-i18n-attr="aria-label:ui.language.groupLabel">
+          <button class="language-switch__button is-active" type="button" data-language-option="en" aria-pressed="true">English</button>
+          <button class="language-switch__button" type="button" data-language-option="te" aria-pressed="false">తెలుగు</button>
+        </div>
         <a href="index.html">Home</a>
         <a href="about.html" class="active">About</a>
         <a href="ventures.html">Ventures</a>
         <a href="services.html">Services</a>
         <a href="blog.html">Blog</a>
+        <div class="nav-language-switch nav-language-switch--desktop" role="group" data-i18n-attr="aria-label:ui.language.groupLabel">
+          <button class="language-switch__button is-active" type="button" data-language-option="en" aria-pressed="true">EN</button>
+          <button class="language-switch__button" type="button" data-language-option="te" aria-pressed="false">తెలుగు</button>
+        </div>
         <a href="/contact.html" class="nav-cta">Contact</a>
       </div>
       <button class="nav-toggle" id="navToggle" aria-label="Toggle Menu">
@@ -87,17 +106,17 @@
       <div class="inner-showcase__copy reveal-left" data-animated-section data-motion-direction="left">
         <div class="section-label">Our Story</div>
         <h2 data-animated-heading>Building Trust Since 2018</h2>
-        <p>TSN Ventures was founded to make premium, infrastructure-ready housing accessible to families and first-time investors in Andhra Pradesh.</p>
-        <p>We do not just sell plots. We create buyer-ready communities with roads, drainage, water supply, parks, documentation clarity, and construction support.</p>
+        <p class="tsn-i18n-copy" data-i18n="about.story.p1">TSN Ventures was founded to make premium, infrastructure-ready housing accessible to families and first-time investors in Andhra Pradesh.</p>
+        <p class="tsn-i18n-copy" data-i18n="about.story.p2">We do not just sell plots. We create buyer-ready communities with roads, drainage, water supply, parks, documentation clarity, and construction support.</p>
         <div class="inner-showcase__metrics">
-          <div><strong>5+</strong><span>ventures delivered</span></div>
-          <div><strong>Since 2018</strong><span>building trust</span></div>
-          <div><strong>500+</strong><span>families served</span></div>
+          <div><strong>5+</strong><span class="tsn-i18n-copy" data-i18n="about.story.metric1.helper">ventures delivered</span></div>
+          <div><strong>Since 2018</strong><span class="tsn-i18n-copy" data-i18n="about.story.metric2.helper">building trust</span></div>
+          <div><strong>500+</strong><span class="tsn-i18n-copy" data-i18n="about.story.metric3.helper">families served</span></div>
         </div>
       </div>
       <div class="inner-showcase__media reveal-right" data-animated-section data-motion-direction="right">
         <img src="assets/images/home-about-iconcity.jpeg" alt="TSN Ventures Development">
-        <div class="inner-showcase__float" data-animated-card data-motion-direction="right" data-floating-element><span>Buyer-first planning</span><strong>Infrastructure, approvals, and support before the sale.</strong></div>
+        <div class="inner-showcase__float" data-animated-card data-motion-direction="right" data-floating-element><span class="tsn-i18n-copy" data-i18n="about.story.float.label">Buyer-first planning</span><strong class="tsn-i18n-copy" data-i18n="about.story.float.body">Infrastructure, approvals, and support before the sale.</strong></div>
       </div>
     </div>
   </section>
@@ -107,22 +126,22 @@
       <div class="rdx-align-head reveal" data-animated-section data-animate-children="children" data-child-animation="section" data-child-direction="up" data-stagger="100">
         <div class="section-label">What Drives Us</div>
         <h2 data-animated-heading>Mission, Vision, and Operating Principles</h2>
-        <p>The same decision signals buyers care about in our ventures guide how we build the company: clarity, infrastructure, quality, and long-term support.</p>
+        <p class="tsn-i18n-copy" data-i18n="about.values.description">The same decision signals buyers care about in our ventures guide how we build the company: clarity, infrastructure, quality, and long-term support.</p>
       </div>
       <div class="rdx-align-grid rdx-align-grid--two stagger-children">
         <article class="rdx-align-card" data-animated-card data-motion-direction="up">
           <div class="rdx-align-card__header"><div><span class="rdx-align-card__eyebrow">Mission</span><h3>Premium development made accessible</h3></div><span class="rdx-align-badge rdx-align-badge--green">Now</span></div>
-          <p>Deliver affordable residential developments with strong infrastructure, legal clarity, and practical buyer guidance.</p>
+          <p class="tsn-i18n-copy" data-i18n="about.values.mission.body">Deliver affordable residential developments with strong infrastructure, legal clarity, and practical buyer guidance.</p>
         </article>
         <article class="rdx-align-card" data-animated-card data-motion-direction="up">
           <div class="rdx-align-card__header"><div><span class="rdx-align-card__eyebrow">Vision</span><h3>Andhra Pradesh's most trusted land brand</h3></div><span class="rdx-align-badge">Future</span></div>
-          <p>Become known for integrity, quality construction, and community-focused land development across the region.</p>
+          <p class="tsn-i18n-copy" data-i18n="about.values.vision.body">Become known for integrity, quality construction, and community-focused land development across the region.</p>
         </article>
       </div>
       <div class="rdx-align-grid stagger-children" style="margin-top: 22px;">
-        <article class="rdx-align-card" data-animated-card data-motion-direction="up"><div class="rdx-align-card__header"><div><span class="rdx-align-card__eyebrow">Pillar 01</span><h3>Quality & Security</h3></div><span class="rdx-align-badge rdx-align-badge--green">Trust</span></div><p>Materials, engineering practices, and planning standards are chosen to protect buyer confidence.</p></article>
-        <article class="rdx-align-card" data-animated-card data-motion-direction="up"><div class="rdx-align-card__header"><div><span class="rdx-align-card__eyebrow">Pillar 02</span><h3>Transparency</h3></div><span class="rdx-align-badge rdx-align-badge--blue">Clear</span></div><p>Clear titles, approved layouts, honest communication, and no hidden surprises in the journey.</p></article>
-        <article class="rdx-align-card" data-animated-card data-motion-direction="up"><div class="rdx-align-card__header"><div><span class="rdx-align-card__eyebrow">Pillar 03</span><h3>Infrastructure First</h3></div><span class="rdx-align-badge">Ready</span></div><p>Drainage, water supply, roads, electricity, and usability planning are treated as primary value signals.</p></article>
+        <article class="rdx-align-card" data-animated-card data-motion-direction="up"><div class="rdx-align-card__header"><div><span class="rdx-align-card__eyebrow">Pillar 01</span><h3>Quality & Security</h3></div><span class="rdx-align-badge rdx-align-badge--green">Trust</span></div><p class="tsn-i18n-copy" data-i18n="about.values.pillar1.body">Materials, engineering practices, and planning standards are chosen to protect buyer confidence.</p></article>
+        <article class="rdx-align-card" data-animated-card data-motion-direction="up"><div class="rdx-align-card__header"><div><span class="rdx-align-card__eyebrow">Pillar 02</span><h3>Transparency</h3></div><span class="rdx-align-badge rdx-align-badge--blue">Clear</span></div><p class="tsn-i18n-copy" data-i18n="about.values.pillar2.body">Clear titles, approved layouts, honest communication, and no hidden surprises in the journey.</p></article>
+        <article class="rdx-align-card" data-animated-card data-motion-direction="up"><div class="rdx-align-card__header"><div><span class="rdx-align-card__eyebrow">Pillar 03</span><h3>Infrastructure First</h3></div><span class="rdx-align-badge">Ready</span></div><p class="tsn-i18n-copy" data-i18n="about.values.pillar3.body">Drainage, water supply, roads, electricity, and usability planning are treated as primary value signals.</p></article>
       </div>
     </div>
   </section>
@@ -132,13 +151,13 @@
       <div class="rdx-align-head reveal" data-animated-section data-animate-children="children" data-child-animation="section" data-child-direction="up" data-stagger="100">
         <div class="section-label">Our Journey</div>
         <h2 data-animated-heading>Milestones That Built Buyer Confidence</h2>
-        <p>From first layout to expanded construction support, every stage sharpened our focus on infrastructure-led communities.</p>
+        <p class="tsn-i18n-copy" data-i18n="about.journey.description">From first layout to expanded construction support, every stage sharpened our focus on infrastructure-led communities.</p>
       </div>
       <div class="inner-timeline-grid stagger-children">
-        <article class="rdx-align-card" data-animated-card data-motion-direction="up"><span class="rdx-align-card__eyebrow">2018</span><h3>Company Founded</h3><p>TSN Ventures was established in Andhra Pradesh with a focus on buyer-ready residential layouts and transparent land development.</p></article>
-        <article class="rdx-align-card" data-animated-card data-motion-direction="up"><span class="rdx-align-card__eyebrow">2019</span><h3>Early Layout Launches</h3><p>The team began launching plotted developments around Gantavarigudem and nearby growth areas with practical infrastructure planning.</p></article>
-        <article class="rdx-align-card" data-animated-card data-motion-direction="up"><span class="rdx-align-card__eyebrow">2020</span><h3>Buyer Support Expanded</h3><p>TSN Ventures expanded beyond land sales to support buyers with construction guidance and a more complete end-to-end journey.</p></article>
-        <article class="rdx-align-card" data-animated-card data-motion-direction="up"><span class="rdx-align-card__eyebrow">2024</span><h3>Stronger Project Portfolio</h3><p>With completed and ongoing approved projects, TSN Ventures strengthened its reputation for infrastructure-led, documentation-first communities.</p></article>
+        <article class="rdx-align-card" data-animated-card data-motion-direction="up"><span class="rdx-align-card__eyebrow">2018</span><h3>Company Founded</h3><p class="tsn-i18n-copy" data-i18n="about.journey.2018.body">TSN Ventures was established in Andhra Pradesh with a focus on buyer-ready residential layouts and transparent land development.</p></article>
+        <article class="rdx-align-card" data-animated-card data-motion-direction="up"><span class="rdx-align-card__eyebrow">2019</span><h3>Early Layout Launches</h3><p class="tsn-i18n-copy" data-i18n="about.journey.2019.body">The team began launching plotted developments around Gantavarigudem and nearby growth areas with practical infrastructure planning.</p></article>
+        <article class="rdx-align-card" data-animated-card data-motion-direction="up"><span class="rdx-align-card__eyebrow">2020</span><h3>Buyer Support Expanded</h3><p class="tsn-i18n-copy" data-i18n="about.journey.2020.body">TSN Ventures expanded beyond land sales to support buyers with construction guidance and a more complete end-to-end journey.</p></article>
+        <article class="rdx-align-card" data-animated-card data-motion-direction="up"><span class="rdx-align-card__eyebrow">2024</span><h3>Stronger Project Portfolio</h3><p class="tsn-i18n-copy" data-i18n="about.journey.2024.body">With completed and ongoing approved projects, TSN Ventures strengthened its reputation for infrastructure-led, documentation-first communities.</p></article>
       </div>
     </div>
   </section>
@@ -148,7 +167,7 @@
     <div class="container" style="position: relative; z-index: 2;">
       <div class="reveal" data-animated-section data-animate-children="children" data-child-animation="section" data-child-direction="up" data-stagger="100">
         <h2 data-animated-heading>Join the TSN Family</h2>
-        <p>Over 500 families already trust us. Be part of a community that values quality, security, and affordability.</p>
+        <p class="tsn-i18n-copy" data-i18n="about.cta.description">Over 500 families already trust us. Be part of a community that values quality, security, and affordability.</p>
         <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; margin-top: 2rem;">
           <a href="ventures.html" class="btn btn-accent"><i class="fas fa-building"></i> Explore Ventures</a>
           <a href="/contact.html" class="btn btn-outline"><i class="fas fa-phone"></i> Contact</a>
@@ -166,7 +185,7 @@
             <div class="logo-icon"><img src="assets/images/logo.png" alt="TSN Ventures Logo"></div>
             <h3>TSN <span>Ventures</span></h3>
           </div>
-          <p>Building trust, one home at a time. TSN Ventures is your trusted partner for premium residential land development and custom construction in Andhra Pradesh.</p>
+          <p class="tsn-i18n-copy" data-i18n="shared.footer.companyDescription">Building trust, one home at a time. TSN Ventures is your trusted partner for premium residential land development and custom construction in Andhra Pradesh.</p>
           <div class="footer-social">
             <a href="https://www.instagram.com/tsn_ventures/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
             <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
@@ -207,7 +226,7 @@
             </li>
             <li>
               <div class="icon"><i class="fas fa-clock"></i></div>
-              <div class="info">Open 24 Hours</div>
+              <div class="info tsn-i18n-copy" data-i18n="shared.footer.openHours">Open 24 Hours</div>
             </li>
           </ul>
         </div>
@@ -218,6 +237,11 @@
       </div>
     </div>
   </footer>
+
+  <button class="language-float" type="button" data-language-floating aria-label="Switch supporting content to Telugu" title="తెలుగులో చూడండి">
+    <span class="language-float__icon" aria-hidden="true"><i class="fas fa-globe"></i></span>
+    <span class="language-float__label" data-language-floating-label>తెలుగు</span>
+  </button>
 
   <button class="theme-switch" type="button" data-theme-toggle aria-label="Activate dark theme" aria-pressed="false">
     <span class="theme-switch__track">
@@ -230,6 +254,9 @@
     <i class="fab fa-whatsapp"></i>
   </a>
 
+  <script src="js/translations/en.js"></script>
+  <script src="js/translations/te.js"></script>
+  <script src="js/language-controller.js"></script>
   <script src="js/animation-system.js"></script>
   <script src="js/main.js"></script>
 </body>

@@ -19,14 +19,20 @@
   <title>Our Services — TSN Ventures</title>
   <script>
     (function() {
-      const key = 'tsn-theme';
+      const themeKey = 'tsn-theme';
+      const languageKey = 'tsn-preferred-language';
       let theme = 'light';
+      let language = 'en';
       try {
-        const storedTheme = localStorage.getItem(key);
+        const storedTheme = localStorage.getItem(themeKey);
+        const storedLanguage = localStorage.getItem(languageKey);
         if (storedTheme === 'light' || storedTheme === 'dark') {
           theme = storedTheme;
         } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
           theme = 'dark';
+        }
+        if (storedLanguage === 'en' || storedLanguage === 'te') {
+          language = storedLanguage;
         }
       } catch (error) {
         if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
@@ -34,6 +40,11 @@
         }
       }
       document.documentElement.setAttribute('data-theme', theme);
+      document.documentElement.setAttribute('lang', language);
+      document.documentElement.setAttribute('data-language', language);
+      if (language === 'te') {
+        document.documentElement.setAttribute('data-language-pending', 'te');
+      }
     })();
   </script>
   <link rel="icon" href="favicon.ico" sizes="any">
@@ -70,11 +81,19 @@
         <div class="logo-text">TSN <span>Ventures</span></div>
       </a>
       <div class="nav-links" id="navLinks">
+        <div class="nav-language-switch nav-language-switch--mobile" role="group" data-i18n-attr="aria-label:ui.language.groupLabel">
+          <button class="language-switch__button is-active" type="button" data-language-option="en" aria-pressed="true">English</button>
+          <button class="language-switch__button" type="button" data-language-option="te" aria-pressed="false">తెలుగు</button>
+        </div>
         <a href="index.html">Home</a>
         <a href="about.html">About</a>
         <a href="ventures.html">Ventures</a>
         <a href="services.html" class="active">Services</a>
         <a href="blog.html">Blog</a>
+        <div class="nav-language-switch nav-language-switch--desktop" role="group" data-i18n-attr="aria-label:ui.language.groupLabel">
+          <button class="language-switch__button is-active" type="button" data-language-option="en" aria-pressed="true">EN</button>
+          <button class="language-switch__button" type="button" data-language-option="te" aria-pressed="false">తెలుగు</button>
+        </div>
         <a href="/contact.html" class="nav-cta">Contact</a>
       </div>
       <button class="nav-toggle" id="navToggle" aria-label="Toggle Menu">
@@ -88,7 +107,7 @@
       <div class="services-feature-head reveal" data-animated-section data-animate-children="children" data-child-animation="section" data-child-direction="up" data-stagger="100">
         <div class="section-label">What We Do</div>
         <h2 data-animated-heading>Three services, clearly explained</h2>
-        <p>We keep the original project photos and explain each service in simple language so buyers can understand what we do at a glance.</p>
+        <p class="tsn-i18n-copy" data-i18n="services.overview.description">We keep the original project photos and explain each service in simple language so buyers can understand what we do at a glance.</p>
       </div>
       <div class="services-feature-list stagger-children">
         <article class="services-feature-row" id="land-development" data-animated-card data-motion-direction="left">
@@ -99,22 +118,22 @@
           <div class="services-feature-row__content">
             <div class="services-feature-row__eyebrow">Service 01</div>
             <h3>Land Layout Development</h3>
-            <p>We turn raw land into ready-to-use residential layouts with roads, open drainage, water supply, and electricity already planned in.</p>
+            <p class="tsn-i18n-copy" data-i18n="services.landDevelopment.description">We turn raw land into ready-to-use residential layouts with roads, open drainage, water supply, and electricity already planned in.</p>
             <div class="services-feature-row__points">
               <div class="services-feature-point">
                 <i class="fas fa-road"></i>
                 <strong>Ready roads</strong>
-                <span>Easy access inside the layout</span>
+                <span class="tsn-i18n-copy" data-i18n="services.landDevelopment.point1.helper">Easy access inside the layout</span>
               </div>
               <div class="services-feature-point">
                 <i class="fas fa-tint"></i>
                 <strong>Open drainage</strong>
-                <span>Simple water flow and cleaner streets</span>
+                <span class="tsn-i18n-copy" data-i18n="services.landDevelopment.point2.helper">Simple water flow and cleaner streets</span>
               </div>
               <div class="services-feature-point">
                 <i class="fas fa-file-shield"></i>
                 <strong>Clear approvals</strong>
-                <span>Documents and layout details up front</span>
+                <span class="tsn-i18n-copy" data-i18n="services.landDevelopment.point3.helper">Documents and layout details up front</span>
               </div>
             </div>
             <div class="services-feature-row__actions">
@@ -132,22 +151,22 @@
           <div class="services-feature-row__content">
             <div class="services-feature-row__eyebrow">Service 02</div>
             <h3>Plot Sales & Guidance</h3>
-            <p>We help you compare plot size, location, budget, and approval details so you can choose with less confusion.</p>
+            <p class="tsn-i18n-copy" data-i18n="services.plotGuidance.description">We help you compare plot size, location, budget, and approval details so you can choose with less confusion.</p>
             <div class="services-feature-row__points">
               <div class="services-feature-point">
                 <i class="fas fa-location-dot"></i>
                 <strong>Site visit support</strong>
-                <span>See the layout before you decide</span>
+                <span class="tsn-i18n-copy" data-i18n="services.plotGuidance.point1.helper">See the layout before you decide</span>
               </div>
               <div class="services-feature-point">
                 <i class="fas fa-university"></i>
                 <strong>Loan guidance</strong>
-                <span>Support from partner banks</span>
+                <span class="tsn-i18n-copy" data-i18n="services.plotGuidance.point2.helper">Support from partner banks</span>
               </div>
               <div class="services-feature-point">
                 <i class="fas fa-pen-to-square"></i>
                 <strong>Simple booking help</strong>
-                <span>Clear next steps from enquiry to booking</span>
+                <span class="tsn-i18n-copy" data-i18n="services.plotGuidance.point3.helper">Clear next steps from enquiry to booking</span>
               </div>
             </div>
             <div class="services-feature-row__actions">
@@ -165,22 +184,22 @@
           <div class="services-feature-row__content">
             <div class="services-feature-row__eyebrow">Service 03</div>
             <h3>Contract Construction</h3>
-            <p>We handle home design, materials, construction, and handover under one roof so you know who is responsible at every step.</p>
+            <p class="tsn-i18n-copy" data-i18n="services.construction.description">We handle home design, materials, construction, and handover under one roof so you know who is responsible at every step.</p>
             <div class="services-feature-row__points">
               <div class="services-feature-point">
                 <i class="fas fa-drafting-compass"></i>
                 <strong>Custom plans</strong>
-                <span>Layouts designed around your home</span>
+                <span class="tsn-i18n-copy" data-i18n="services.construction.point1.helper">Layouts designed around your home</span>
               </div>
               <div class="services-feature-point">
                 <i class="fas fa-hard-hat"></i>
                 <strong>Quality checks</strong>
-                <span>Careful work at each stage</span>
+                <span class="tsn-i18n-copy" data-i18n="services.construction.point2.helper">Careful work at each stage</span>
               </div>
               <div class="services-feature-point">
                 <i class="fas fa-key"></i>
                 <strong>Handover support</strong>
-                <span>Move in with documents in hand</span>
+                <span class="tsn-i18n-copy" data-i18n="services.construction.point3.helper">Move in with documents in hand</span>
               </div>
             </div>
             <div class="services-feature-row__actions">
@@ -197,24 +216,24 @@
       <div class="rdx-align-head reveal" data-animated-section data-animate-children="children" data-child-animation="section" data-child-direction="up" data-stagger="100">
         <div class="section-label">How It Works</div>
         <h2 data-animated-heading>A simple four-step process</h2>
-        <p>From first enquiry to handover, we keep each step clear and easy to follow.</p>
+        <p class="tsn-i18n-copy" data-i18n="services.process.description">From first enquiry to handover, we keep each step clear and easy to follow.</p>
       </div>
       <div class="rdx-align-grid rdx-align-grid--two stagger-children">
         <article class="rdx-align-card" data-animated-card data-motion-direction="up">
           <div class="rdx-align-card__header"><div><span class="rdx-align-card__eyebrow">Step 01</span><h3>Enquiry & Consultation</h3></div><span class="rdx-align-badge">Start</span></div>
-          <p>Reach out to us via call, WhatsApp, or visit. We understand your needs and guide you to the right option.</p>
+          <p class="tsn-i18n-copy" data-i18n="services.process.step1.body">Reach out to us via call, WhatsApp, or visit. We understand your needs and guide you to the right option.</p>
         </article>
         <article class="rdx-align-card" data-animated-card data-motion-direction="up">
           <div class="rdx-align-card__header"><div><span class="rdx-align-card__eyebrow">Step 02</span><h3>Site Visit</h3></div><span class="rdx-align-badge rdx-align-badge--blue">Visit</span></div>
-          <p>We arrange a free site visit to our ventures so you can see the infrastructure and choose your preferred plot.</p>
+          <p class="tsn-i18n-copy" data-i18n="services.process.step2.body">We arrange a free site visit to our ventures so you can see the infrastructure and choose your preferred plot.</p>
         </article>
         <article class="rdx-align-card" data-animated-card data-motion-direction="up">
           <div class="rdx-align-card__header"><div><span class="rdx-align-card__eyebrow">Step 03</span><h3>Documentation</h3></div><span class="rdx-align-badge rdx-align-badge--green">Verify</span></div>
-          <p>Complete legal documentation with clear titles, approved layouts, and transparent terms. No hidden charges.</p>
+          <p class="tsn-i18n-copy" data-i18n="services.process.step3.body">Complete legal documentation with clear titles, approved layouts, and transparent terms. No hidden charges.</p>
         </article>
         <article class="rdx-align-card" data-animated-card data-motion-direction="up">
           <div class="rdx-align-card__header"><div><span class="rdx-align-card__eyebrow">Step 04</span><h3>Handover & Support</h3></div><span class="rdx-align-badge rdx-align-badge--violet">Close</span></div>
-          <p>Once complete, we hand over your plot or home with all documents. Post-sale support included.</p>
+          <p class="tsn-i18n-copy" data-i18n="services.process.step4.body">Once complete, we hand over your plot or home with all documents. Post-sale support included.</p>
         </article>
       </div>
     </div>
@@ -230,23 +249,23 @@
       <div style="max-width: 800px; margin: 0 auto;" class="stagger-children">
         <div class="services-faq-card" data-animated-card data-motion-direction="up">
           <h3><i class="fas fa-question-circle"></i>What sizes of plots are available?</h3>
-          <p>We offer plots ranging from 100 sq. yards to 500 sq. yards, sold by the cent. Contact us for specific availability in each venture.</p>
+          <p class="tsn-i18n-copy" data-i18n="services.faq.plotSizes.answer">We offer plots ranging from 100 sq. yards to 500 sq. yards, sold by the cent. Contact us for specific availability in each venture.</p>
         </div>
         <div class="services-faq-card" data-animated-card data-motion-direction="up">
           <h3><i class="fas fa-question-circle"></i>Do you offer payment plans?</h3>
-          <p>Yes! We offer flexible EMI options and bank loan assistance. We work with major banks to ensure easy financing for your purchase.</p>
+          <p class="tsn-i18n-copy" data-i18n="services.faq.paymentPlans.answer">Yes! We offer flexible EMI options and bank loan assistance. We work with major banks to ensure easy financing for your purchase.</p>
         </div>
         <div class="services-faq-card" data-animated-card data-motion-direction="up">
           <h3><i class="fas fa-question-circle"></i>Are layouts government approved?</h3>
-          <p>Absolutely. All our ventures have proper government approvals, DTCP (Directorate of Town & Country Planning) approved layouts, and clear legal titles.</p>
+          <p class="tsn-i18n-copy" data-i18n="services.faq.approvals.answer">Absolutely. All our ventures have proper government approvals, DTCP (Directorate of Town & Country Planning) approved layouts, and clear legal titles.</p>
         </div>
         <div class="services-faq-card" data-animated-card data-motion-direction="up">
           <h3><i class="fas fa-question-circle"></i>What is the construction cost per sq. ft?</h3>
-          <p>Construction costs vary based on design, materials, and finishes. Contact us for a personalized quote and we'll provide a detailed estimate within 48 hours.</p>
+          <p class="tsn-i18n-copy" data-i18n="services.faq.constructionCost.answer">Construction costs vary based on design, materials, and finishes. Contact us for a personalized quote and we'll provide a detailed estimate within 48 hours.</p>
         </div>
         <div class="services-faq-card" data-animated-card data-motion-direction="up">
           <h3><i class="fas fa-question-circle"></i>Can I visit the site before purchasing?</h3>
-          <p>Of course! We encourage site visits. Contact us to schedule a free visit and we'll arrange transportation from nearby towns.</p>
+          <p class="tsn-i18n-copy" data-i18n="services.faq.siteVisit.answer">Of course! We encourage site visits. Contact us to schedule a free visit and we'll arrange transportation from nearby towns.</p>
         </div>
       </div>
     </div>
@@ -257,7 +276,7 @@
     <div class="container" style="position: relative; z-index: 2;">
       <div class="reveal" data-animated-section data-animate-children="children" data-child-animation="section" data-child-direction="up" data-stagger="100">
         <h2 data-animated-heading>Ready to Get Started?</h2>
-        <p>Whether you need a plot, a home, or both — we're here to help. Contact us for a free consultation and site visit.</p>
+        <p class="tsn-i18n-copy" data-i18n="services.cta.description">Whether you need a plot, a home, or both — we're here to help. Contact us for a free consultation and site visit.</p>
         <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; margin-top: 2rem;">
           <a href="/contact.html" class="btn btn-accent"><i class="fas fa-phone"></i> Contact</a>
           <a href="ventures.html" class="btn btn-outline"><i class="fas fa-building"></i> View Ventures</a>
@@ -275,7 +294,7 @@
             <div class="logo-icon"><img src="assets/images/logo.png" alt="TSN Ventures Logo"></div>
             <h3>TSN <span>Ventures</span></h3>
           </div>
-          <p>Building trust, one home at a time. TSN Ventures is your trusted partner for premium residential land development and custom construction in Andhra Pradesh.</p>
+          <p class="tsn-i18n-copy" data-i18n="shared.footer.companyDescription">Building trust, one home at a time. TSN Ventures is your trusted partner for premium residential land development and custom construction in Andhra Pradesh.</p>
           <div class="footer-social">
             <a href="https://www.instagram.com/tsn_ventures/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
             <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
@@ -315,7 +334,7 @@
             </li>
             <li>
               <div class="icon"><i class="fas fa-clock"></i></div>
-              <div class="info">Open 24 Hours</div>
+              <div class="info tsn-i18n-copy" data-i18n="shared.footer.openHours">Open 24 Hours</div>
             </li>
           </ul>
         </div>
@@ -326,6 +345,11 @@
       </div>
     </div>
   </footer>
+
+  <button class="language-float" type="button" data-language-floating aria-label="Switch supporting content to Telugu" title="తెలుగులో చూడండి">
+    <span class="language-float__icon" aria-hidden="true"><i class="fas fa-globe"></i></span>
+    <span class="language-float__label" data-language-floating-label>తెలుగు</span>
+  </button>
 
   <button class="theme-switch" type="button" data-theme-toggle aria-label="Activate dark theme" aria-pressed="false">
     <span class="theme-switch__track">
@@ -338,6 +362,9 @@
     <i class="fab fa-whatsapp"></i>
   </a>
 
+  <script src="js/translations/en.js"></script>
+  <script src="js/translations/te.js"></script>
+  <script src="js/language-controller.js"></script>
   <script src="js/animation-system.js"></script>
   <script src="js/main.js"></script>
 </body>

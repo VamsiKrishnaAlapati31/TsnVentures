@@ -415,6 +415,13 @@ html[data-theme="dark"] .tsn-detail-redesign {
 }
 
 @media (max-width: 768px) {
+  .tsn-detail-redesign {
+    --floating-control-right: 14px;
+    --floating-whatsapp-bottom: 14px;
+    --floating-theme-bottom: 88px;
+    --floating-language-bottom: 162px;
+  }
+
   .tsn-detail-redesign .venture-rdx-shell {
     padding: 98px 0 max(118px, calc(118px + env(safe-area-inset-bottom)));
   }
@@ -555,11 +562,25 @@ html[data-theme="dark"] .tsn-detail-redesign {
   }
 
   .tsn-detail-redesign .theme-switch {
-    right: max(14px, calc(env(safe-area-inset-right) + 14px));
-    bottom: max(88px, calc(env(safe-area-inset-bottom) + 88px));
     min-width: 44px;
     min-height: 44px;
     padding: 4px;
+  }
+
+  .tsn-detail-redesign .language-float {
+    min-height: 44px;
+    min-width: 44px;
+    padding: 0 13px 0 11px;
+  }
+
+  .tsn-detail-redesign .language-float__icon {
+    width: 20px;
+    height: 20px;
+    font-size: 0.88rem;
+  }
+
+  .tsn-detail-redesign .language-float__label {
+    font-size: 0.82rem;
   }
 
   .tsn-detail-redesign .theme-switch__icon {
@@ -569,8 +590,6 @@ html[data-theme="dark"] .tsn-detail-redesign {
   }
 
   .tsn-detail-redesign .whatsapp-btn {
-    right: max(14px, calc(env(safe-area-inset-right) + 14px));
-    bottom: max(14px, calc(env(safe-area-inset-bottom) + 14px));
     width: 52px;
     height: 52px;
     font-size: 1.32rem;

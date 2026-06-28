@@ -7,8 +7,14 @@ document.addEventListener('DOMContentLoaded', () => {
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const failedSources = new Set();
   const imageProbeCache = new Map();
+  const language = window.TSNLanguage;
 
   const heroImageFor = (venture) => (typeof getVentureHeroImage === 'function' ? getVentureHeroImage(venture) : venture.heroImage);
+  const translate = (key, fallback) => (
+    language && typeof language.t === 'function'
+      ? language.t(key, fallback)
+      : (fallback || key)
+  );
 
   const ventureImagesFor = (venture) => {
     const images = typeof getVentureImages === 'function' ? getVentureImages(venture) : [];
@@ -30,12 +36,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (label === 'Scale') return 'fas fa-expand';
     return 'fas fa-chart-column';
   };
-
-  const firstParagraph = (text) => String(text || '')
-    .trim()
-    .split(/\n\n+/)[0]
-    .replace(/\s+/g, ' ')
-    .trim();
 
   const wait = (ms) => new Promise((resolve) => window.setTimeout(resolve, ms));
 
@@ -223,7 +223,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const images = ventureImagesFor(venture);
       const firstImage = images[0] || heroImageFor(venture) || 'assets/images/hero-banner.png';
       const imageCount = images.length > 0 ? images.length : 1;
-      const description = firstParagraph(venture.description);
+      const description = translate(venture.summaryKey, venture.summaryKey || '');
       const stats = Array.isArray(venture.stats) ? venture.stats.slice(0, 3) : [];
       const reverse = index % 2 === 1;
       const rowClasses = [
@@ -256,13 +256,13 @@ document.addEventListener('DOMContentLoaded', () => {
             <div class="ventures-rdx-feature-row__eyebrow">${stageLabel(venture)}</div>
             <h3>${venture.name}</h3>
             <p class="ventures-rdx-feature-row__tagline">${venture.tagline}</p>
-            <p class="ventures-rdx-feature-row__description">${description}</p>
+            <p class="ventures-rdx-feature-row__description tsn-i18n-copy" data-i18n="${venture.summaryKey}">${description}</p>
             <div class="ventures-rdx-feature-row__stats">
               ${stats.map((stat) => `
                 <div class="ventures-rdx-feature-row__stat">
                   <i class="${stat.icon || metricIcon(stat.label)}"></i>
                   <strong>${stat.value}</strong>
-                  <span>${stat.label}</span>
+                  <span class="tsn-i18n-copy" data-i18n="${stat.labelKey || ''}">${translate(stat.labelKey, stat.label)}</span>
                 </div>
               `).join('')}
             </div>
@@ -277,6 +277,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (window.TsnAnimations && typeof window.TsnAnimations.initAll === 'function') {
       window.TsnAnimations.initAll(showcase);
+    }
+
+    if (language && typeof language.applyTranslations === 'function') {
+      language.applyTranslations(showcase);
     }
 
     showcase.querySelectorAll('.ventures-rdx-feature-row').forEach((row) => {

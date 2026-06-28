@@ -11,30 +11,32 @@ const VENTURES = {
     status: 'completed',
     badge: 'Completed',
     badgeClass: 'badge-completed',
-    description: `TSN Ventures (Green City) is a completed residential layout in Dubacherla East, GDV District, Andhra Pradesh. The project spans 8 acres and was developed between 2021 and 2023 with a focus on clear approvals, practical access, and buyer confidence.
-
-The layout is DTCP and RERA approved, and homebuyers can access loan support from SBI, HDFC, and Axis Bank. Green City was planned as a reliable plotted development with the essential project approvals and financing support already in place.`,
+    descriptionKeys: [
+      'ventures.greenCity.description.p1',
+      'ventures.greenCity.description.p2'
+    ],
+    summaryKey: 'ventures.greenCity.description.p1',
     location: 'TSN Ventures, W942+P9C, Gantavarigudem, Dubacherla, Andhra Pradesh 534112',
     availability: 'Completed',
     mapQuery: 'TSN+Ventures,+W942+P9C,+Gantavarigudem,+Dubacherla,+Andhra+Pradesh+534112',
     mapEmbed: 'https://www.google.com/maps/embed/v1/place?key=AIzaSyD-9tSrke72PouQMnMX-a7eZSW0jkFMBWY&q=TSN+Ventures,+W942+P9C,+Gantavarigudem,+Dubacherla,+Andhra+Pradesh+534112',
     mapLink: 'https://www.google.com/maps/search/TSN+Ventures,+W942+P9C,+Gantavarigudem,+Dubacherla,+Andhra+Pradesh+534112',
     stats: [
-      { icon: 'fas fa-map-marker-alt', label: 'Location', value: 'Gantavarigudem' },
-      { icon: 'fas fa-expand', label: 'Total Area', value: '8 Acres' },
-      { icon: 'fas fa-certificate', label: 'Approvals', value: 'DTCP + RERA' },
-      { icon: 'fas fa-university', label: 'Loans', value: 'SBI / HDFC / Axis' },
-      { icon: 'fas fa-calendar-check', label: 'Project Timeline', value: '2021 - 2023' }
+      { icon: 'fas fa-map-marker-alt', label: 'Location', labelKey: 'ventures.stats.location', value: 'Gantavarigudem' },
+      { icon: 'fas fa-expand', label: 'Total Area', labelKey: 'ventures.stats.totalArea', value: '8 Acres' },
+      { icon: 'fas fa-certificate', label: 'Approvals', labelKey: 'ventures.stats.approvals', value: 'DTCP + RERA' },
+      { icon: 'fas fa-university', label: 'Loans', labelKey: 'ventures.stats.loans', value: 'SBI / HDFC / Axis' },
+      { icon: 'fas fa-calendar-check', label: 'Project Timeline', labelKey: 'ventures.stats.timeline', value: '2021 - 2023' }
     ],
     amenities: [
-      { icon: 'fas fa-road', text: 'BT Paved Internal Roads' },
-      { icon: 'fas fa-certificate', text: 'DTCP Approved Layout' },
-      { icon: 'fas fa-certificate', text: 'RERA Approved Project' },
-      { icon: 'fas fa-university', text: 'SBI, HDFC & Axis Bank Loans Available' },
-      { icon: 'fas fa-tint', text: 'Open Drainage System' },
-      { icon: 'fas fa-water', text: 'Piped Water Supply' },
-      { icon: 'fas fa-bolt', text: 'Electricity Infrastructure' },
-      { icon: 'fas fa-file-alt', text: 'Completed Development with Clear Documentation' }
+      { icon: 'fas fa-road', text: 'BT Paved Internal Roads', textKey: 'ventures.greenCity.amenities.road' },
+      { icon: 'fas fa-certificate', text: 'DTCP Approved Layout', textKey: 'ventures.greenCity.amenities.dtcp' },
+      { icon: 'fas fa-certificate', text: 'RERA Approved Project', textKey: 'ventures.greenCity.amenities.rera' },
+      { icon: 'fas fa-university', text: 'SBI, HDFC & Axis Bank Loans Available', textKey: 'ventures.greenCity.amenities.loans' },
+      { icon: 'fas fa-tint', text: 'Open Drainage System', textKey: 'ventures.greenCity.amenities.drainage' },
+      { icon: 'fas fa-water', text: 'Piped Water Supply', textKey: 'ventures.greenCity.amenities.water' },
+      { icon: 'fas fa-bolt', text: 'Electricity Infrastructure', textKey: 'ventures.greenCity.amenities.power' },
+      { icon: 'fas fa-file-alt', text: 'Completed Development with Clear Documentation', textKey: 'ventures.greenCity.amenities.docs' }
     ],
     images: [
       'assets/images/ventures/green-city/01-main.jpg',
@@ -55,30 +57,32 @@ The layout is DTCP and RERA approved, and homebuyers can access loan support fro
     status: 'ongoing',
     badge: 'Ongoing',
     badgeClass: 'badge-ongoing',
-    description: `TSN ICONCITY is a 10-acre layout in Nallajerlla, beside Star Grand on TPG Road. The project is RUDA and RERA approved, with buyer-friendly loan support options already available.
-
-The venture supports HDFC Smart Plot Loans and house loan options through SBI, Bank of India, and Bank of Baroda, giving buyers a practical financing path for both plot purchase and home construction.`,
+    descriptionKeys: [
+      'ventures.sunriseLayout.description.p1',
+      'ventures.sunriseLayout.description.p2'
+    ],
+    summaryKey: 'ventures.sunriseLayout.description.p1',
     location: 'Nallajerlla, beside Star Grand, TPG Rd',
     availability: 'Ongoing',
     mapQuery: 'Nallajerlla,+beside+Star+Grand,+TPG+Rd',
     mapEmbed: 'https://www.google.com/maps/embed/v1/place?key=AIzaSyD-9tSrke72PouQMnMX-a7eZSW0jkFMBWY&q=Nallajerlla,+beside+Star+Grand,+TPG+Rd',
     mapLink: 'https://www.google.com/maps/search/Nallajerlla,+beside+Star+Grand,+TPG+Rd',
     stats: [
-      { icon: 'fas fa-map-marker-alt', label: 'Location', value: 'Nallajerlla' },
-      { icon: 'fas fa-expand', label: 'Total Area', value: '10 Acres' },
-      { icon: 'fas fa-certificate', label: 'Approvals', value: 'RUDA + RERA' },
-      { icon: 'fas fa-university', label: 'Plot Loans', value: 'HDFC Smart Plot Loans' },
-      { icon: 'fas fa-home', label: 'House Loans', value: 'SBI / BOI / Bank of Baroda' }
+      { icon: 'fas fa-map-marker-alt', label: 'Location', labelKey: 'ventures.stats.location', value: 'Nallajerlla' },
+      { icon: 'fas fa-expand', label: 'Total Area', labelKey: 'ventures.stats.totalArea', value: '10 Acres' },
+      { icon: 'fas fa-certificate', label: 'Approvals', labelKey: 'ventures.stats.approvals', value: 'RUDA + RERA' },
+      { icon: 'fas fa-university', label: 'Plot Loans', labelKey: 'ventures.stats.plotLoans', value: 'HDFC Smart Plot Loans' },
+      { icon: 'fas fa-home', label: 'House Loans', labelKey: 'ventures.stats.houseLoans', value: 'SBI / BOI / Bank of Baroda' }
     ],
     amenities: [
-      { icon: 'fas fa-certificate', text: 'RUDA Approved Layout' },
-      { icon: 'fas fa-certificate', text: 'RERA Approved Layout' },
-      { icon: 'fas fa-university', text: 'HDFC Smart Plot Loans Available' },
-      { icon: 'fas fa-home', text: 'SBI, BOI & Bank of Baroda House Loans Available' },
-      { icon: 'fas fa-road', text: 'BT Paved Internal Roads' },
-      { icon: 'fas fa-tree', text: 'Avenue Plantation' },
-      { icon: 'fas fa-bolt', text: 'Electricity Infrastructure' },
-      { icon: 'fas fa-file-alt', text: 'Clear Project Documentation' }
+      { icon: 'fas fa-certificate', text: 'RUDA Approved Layout', textKey: 'ventures.sunriseLayout.amenities.ruda' },
+      { icon: 'fas fa-certificate', text: 'RERA Approved Layout', textKey: 'ventures.sunriseLayout.amenities.rera' },
+      { icon: 'fas fa-university', text: 'HDFC Smart Plot Loans Available', textKey: 'ventures.sunriseLayout.amenities.plotLoans' },
+      { icon: 'fas fa-home', text: 'SBI, BOI & Bank of Baroda House Loans Available', textKey: 'ventures.sunriseLayout.amenities.houseLoans' },
+      { icon: 'fas fa-road', text: 'BT Paved Internal Roads', textKey: 'ventures.sunriseLayout.amenities.road' },
+      { icon: 'fas fa-tree', text: 'Avenue Plantation', textKey: 'ventures.sunriseLayout.amenities.plantation' },
+      { icon: 'fas fa-bolt', text: 'Electricity Infrastructure', textKey: 'ventures.sunriseLayout.amenities.power' },
+      { icon: 'fas fa-file-alt', text: 'Clear Project Documentation', textKey: 'ventures.sunriseLayout.amenities.docs' }
     ],
     images: [
       'assets/images/ventures/sunrise-layout/10-gate-day.jpeg',

@@ -3,7 +3,7 @@
    ======================================== */
 
 /* --- Google Fonts --- */
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&family=Noto+Sans+Telugu:wght@400;500;600;700&display=swap');
 
 /* --- Design Tokens --- */
 :root {
@@ -20,6 +20,7 @@
   /* Typography */
   --font-heading: 'Outfit', sans-serif;
   --font-body: 'Inter', sans-serif;
+  --font-body-telugu: 'Noto Sans Telugu', system-ui, sans-serif;
 
   /* Spacing */
   --space-xs: 0.5rem;
@@ -46,6 +47,10 @@
   /* Layout */
   --max-width: 1200px;
   --nav-height: 80px;
+  --floating-control-right: 30px;
+  --floating-whatsapp-bottom: 30px;
+  --floating-theme-bottom: 108px;
+  --floating-language-bottom: 186px;
 }
 
 html[data-theme="dark"] {
@@ -199,6 +204,34 @@ h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-heading);
   font-weight: 700;
   line-height: 1.2;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.tsn-i18n-copy {
+  transition: opacity 180ms ease, color var(--transition-base);
+}
+
+html[data-language-pending="te"] .tsn-i18n-copy,
+html[data-language-transition="true"] .tsn-i18n-copy {
+  opacity: 0;
+}
+
+html[data-language="te"] .tsn-i18n-copy {
+  font-family: var(--font-body-telugu);
+  line-height: 1.72;
+  letter-spacing: normal;
+  text-transform: none;
 }
 
 /* --- Utility Classes --- */
@@ -419,6 +452,45 @@ h1, h2, h3, h4, h5, h6 {
   display: flex;
   align-items: center;
   gap: 35px;
+}
+
+.nav-language-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px;
+  border-radius: 999px;
+  border: 1px solid var(--border-strong);
+  background: var(--surface-panel-strong);
+  box-shadow: 0 16px 40px var(--shadow);
+  backdrop-filter: blur(18px);
+}
+
+.nav-language-switch--mobile {
+  display: none;
+}
+
+.language-switch__button {
+  min-width: 44px;
+  min-height: 36px;
+  padding: 0 14px;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--text-secondary);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  transition: background var(--transition-base), color var(--transition-base), box-shadow var(--transition-base), transform var(--transition-base);
+}
+
+.language-switch__button:hover {
+  transform: translateY(-1px);
+}
+
+.language-switch__button.is-active {
+  background: linear-gradient(135deg, var(--accent), var(--accent-light));
+  color: var(--dark-fixed);
+  box-shadow: 0 10px 22px rgba(212, 168, 83, 0.28);
 }
 
 .nav-links a {
@@ -1874,6 +1946,20 @@ h1, h2, h3, h4, h5, h6 {
 
   .nav-links a {
     font-size: 1.1rem;
+  }
+
+  .nav-language-switch--desktop {
+    display: none;
+  }
+
+  .nav-language-switch--mobile {
+    display: inline-flex;
+    width: max-content;
+    margin-bottom: 10px;
+  }
+
+  .nav-language-switch--mobile .language-switch__button:first-child {
+    min-width: 86px;
   }
 
   .nav-toggle {
@@ -4446,8 +4532,8 @@ h1, h2, h3, h4, h5, h6 {
 
 .theme-switch {
   position: fixed;
-  right: 30px;
-  bottom: 108px;
+  right: max(var(--floating-control-right), calc(env(safe-area-inset-right) + var(--floating-control-right)));
+  bottom: max(var(--floating-theme-bottom), calc(env(safe-area-inset-bottom) + var(--floating-theme-bottom)));
   z-index: 998;
   display: inline-flex;
   align-items: center;
@@ -4514,9 +4600,57 @@ html[data-theme="light"] .theme-switch__icon--sun {
   background: rgba(212,168,83,0.24);
 }
 
+.language-float {
+  position: fixed;
+  right: max(var(--floating-control-right), calc(env(safe-area-inset-right) + var(--floating-control-right)));
+  bottom: max(var(--floating-language-bottom), calc(env(safe-area-inset-bottom) + var(--floating-language-bottom)));
+  z-index: 999;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-width: 52px;
+  min-height: 52px;
+  padding: 0 16px 0 14px;
+  border-radius: 999px;
+  border: 1px solid var(--border-strong);
+  background: var(--surface-panel-strong);
+  box-shadow: var(--shadow-panel);
+  color: var(--text-primary);
+  backdrop-filter: blur(18px);
+  transition: transform var(--transition-base), box-shadow var(--transition-base), border-color var(--transition-base), background var(--transition-base), color var(--transition-base);
+}
+
+.language-float:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 24px 60px var(--shadow-lg);
+  border-color: var(--surface-border-glow);
+}
+
+.language-float:active {
+  transform: translateY(0) scale(0.98);
+}
+
+.language-float__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  color: var(--accent);
+  font-size: 0.95rem;
+}
+
+.language-float__label {
+  font-size: 0.92rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  line-height: 1;
+}
+
 .whatsapp-btn {
-  bottom: 30px;
-  right: 30px;
+  right: max(var(--floating-control-right), calc(env(safe-area-inset-right) + var(--floating-control-right)));
+  bottom: max(var(--floating-whatsapp-bottom), calc(env(safe-area-inset-bottom) + var(--floating-whatsapp-bottom)));
   box-shadow: 0 10px 30px rgba(37, 211, 102, 0.3);
 }
 
@@ -4638,6 +4772,11 @@ html[data-theme="light"] .theme-switch {
   box-shadow: 0 22px 54px rgba(24,34,43,0.14);
 }
 
+html[data-theme="light"] .language-float {
+  background: rgba(255, 251, 242, 0.94);
+  box-shadow: 0 22px 54px rgba(24,34,43,0.14);
+}
+
 html[data-theme="light"] .whatsapp-btn {
   box-shadow: 0 14px 34px rgba(37,211,102,0.24);
 }
@@ -4724,9 +4863,14 @@ html[data-theme="light"] .footer-bottom p {
 }
 
 @media (max-width: 768px) {
+  :root {
+    --floating-control-right: 18px;
+    --floating-whatsapp-bottom: 22px;
+    --floating-theme-bottom: 96px;
+    --floating-language-bottom: 170px;
+  }
+
   .theme-switch {
-    right: 18px;
-    bottom: 96px;
     min-height: 48px;
     min-width: 48px;
     padding: 4px;
@@ -4742,9 +4886,19 @@ html[data-theme="light"] .footer-bottom p {
     height: 36px;
   }
 
-  .whatsapp-btn {
-    right: 18px;
-    bottom: 22px;
+  .language-float {
+    min-height: 48px;
+    min-width: 48px;
+    padding: 0 14px 0 12px;
+  }
+
+  .language-float__icon {
+    width: 22px;
+    height: 22px;
+  }
+
+  .language-float__label {
+    font-size: 0.86rem;
   }
 }
 
@@ -4835,4 +4989,14 @@ html[data-theme="light"] .blog-detail-tags span {
   background: rgba(20,33,44,0.05);
   border-color: rgba(20,33,44,0.08);
   color: rgba(20,33,44,0.72);
+}
+
+html[data-language="te"] .blog-excerpt,
+html[data-language="te"] .blog-post-card__excerpt,
+html[data-language="te"] .home-rdx-feature-row__description,
+html[data-language="te"] .ventures-rdx-feature-row__description {
+  display: block;
+  -webkit-line-clamp: unset;
+  -webkit-box-orient: initial;
+  overflow: visible;
 }

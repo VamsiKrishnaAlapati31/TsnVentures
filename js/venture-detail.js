@@ -19,12 +19,20 @@
     return `https://wa.me/919553577777?text=${waMsg}`;
   }
 
-  function renderDescription(description) {
-    return String(description || '')
-      .split('\n\n')
-      .map((paragraph) => paragraph.trim())
-      .filter(Boolean)
-      .map((paragraph) => `<p>${escapeHtml(paragraph)}</p>`)
+  function translateText(key, fallback) {
+    if (window.TSNLanguage && typeof window.TSNLanguage.t === 'function') {
+      return window.TSNLanguage.t(key, fallback);
+    }
+
+    return fallback || key || '';
+  }
+
+  function renderDescription(descriptionKeys) {
+    return (Array.isArray(descriptionKeys) ? descriptionKeys : [])
+      .map((key) => {
+        const content = translateText(key, key);
+        return `<p class="tsn-i18n-copy" data-i18n="${escapeHtml(key)}">${escapeHtml(content)}</p>`;
+      })
       .join('');
   }
 
@@ -34,7 +42,7 @@
         <div class="section-label">About This Venture</div>
         <h2 data-animated-heading>Built for clearer buyer confidence</h2>
         <div class="venture-rdx-copy__content">
-          ${renderDescription(venture.description)}
+          ${renderDescription(venture.descriptionKeys)}
         </div>
       </article>
     `;
@@ -62,7 +70,7 @@
           ${amenities.map((amenity) => `
             <div class="venture-rdx-amenity-item" data-animated-card data-motion-direction="up">
               <div class="venture-rdx-amenity-icon"><i class="${escapeHtml(amenity.icon || 'fas fa-star')}"></i></div>
-              <span>${escapeHtml(amenity.text || '')}</span>
+              <span class="tsn-i18n-copy" data-i18n="${escapeHtml(amenity.textKey || '')}">${escapeHtml(translateText(amenity.textKey, amenity.text || ''))}</span>
             </div>
           `).join('')}
         </div>
@@ -91,7 +99,7 @@
           <article class="venture-rdx-stat-item" data-animated-card data-motion-direction="up">
             <div class="venture-rdx-stat-icon"><i class="${escapeHtml(stat.icon || 'fas fa-star')}"></i></div>
             <div class="venture-rdx-stat-value">${escapeHtml(stat.value || '')}</div>
-            <div class="venture-rdx-stat-label">${escapeHtml(stat.label || '')}</div>
+            <div class="venture-rdx-stat-label tsn-i18n-copy" data-i18n="${escapeHtml(stat.labelKey || '')}">${escapeHtml(translateText(stat.labelKey, stat.label || ''))}</div>
           </article>
         `).join('')}
       </section>
@@ -107,9 +115,9 @@
               <div class="section-label">Photo Gallery</div>
               <h2 data-animated-heading>Real project visuals</h2>
             </div>
-            <p>Project images will appear here soon.</p>
+            <p class="tsn-i18n-copy" data-i18n="ventures.detail.gallery.emptyLead">${escapeHtml(translateText('ventures.detail.gallery.emptyLead', 'Project images will appear here soon.'))}</p>
           </div>
-          <p class="venture-rdx-gallery-empty">Gallery images will appear here soon.</p>
+          <p class="venture-rdx-gallery-empty tsn-i18n-copy" data-i18n="ventures.detail.gallery.emptyBody">${escapeHtml(translateText('ventures.detail.gallery.emptyBody', 'Gallery images will appear here soon.'))}</p>
         </article>
       `;
     }
@@ -121,7 +129,7 @@
             <div class="section-label">Photo Gallery</div>
             <h2 data-animated-heading>Real project visuals</h2>
           </div>
-          <p>Browse all project photos together and open any image in a larger preview.</p>
+          <p class="tsn-i18n-copy" data-i18n="ventures.detail.gallery.description">${escapeHtml(translateText('ventures.detail.gallery.description', 'Browse all project photos together and open any image in a larger preview.'))}</p>
         </div>
         <div class="venture-rdx-gallery-grid" data-animated-section data-animate-children="children" data-child-animation="card" data-child-direction="scale" data-stagger="40">
           ${images.map((src, index) => `
@@ -170,7 +178,7 @@
         <div class="venture-rdx-bottomhead venture-rdx-bottomhead--stacked">
           <div>
             <h2 data-animated-heading>Interested in this venture?</h2>
-            <p>Ask for pricing, plot availability, construction timelines, or schedule a site visit directly from here.</p>
+            <p class="tsn-i18n-copy" data-i18n="ventures.detail.enquiry.description">${escapeHtml(translateText('ventures.detail.enquiry.description', 'Ask for pricing, plot availability, construction timelines, or schedule a site visit directly from here.'))}</p>
           </div>
         </div>
         <div class="venture-rdx-enquiry-actions">
@@ -257,6 +265,10 @@
     ].join('');
 
     initAmenitiesToggle(mount);
+
+    if (window.TSNLanguage && typeof window.TSNLanguage.applyTranslations === 'function') {
+      window.TSNLanguage.applyTranslations(mount);
+    }
 
     if (window.TsnAnimations && typeof window.TsnAnimations.initAll === 'function') {
       window.TsnAnimations.initAll(mount);

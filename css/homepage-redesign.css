@@ -674,6 +674,10 @@
   overflow: hidden;
 }
 
+html[data-language="te"] .tsn-home-redesign .home-rdx-feature-row__description {
+  line-height: 1.78;
+}
+
 .tsn-home-redesign .home-rdx-feature-row__stats {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));

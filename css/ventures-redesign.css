@@ -171,6 +171,10 @@
   overflow: hidden;
 }
 
+html[data-language="te"] .tsn-ventures-redesign .ventures-rdx-feature-row__description {
+  line-height: 1.78;
+}
+
 .tsn-ventures-redesign .ventures-rdx-feature-row__stats {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));

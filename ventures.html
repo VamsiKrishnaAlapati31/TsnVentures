@@ -19,14 +19,20 @@
   <title>Our Ventures — TSN Ventures</title>
   <script>
     (function() {
-      const key = 'tsn-theme';
+      const themeKey = 'tsn-theme';
+      const languageKey = 'tsn-preferred-language';
       let theme = 'light';
+      let language = 'en';
       try {
-        const storedTheme = localStorage.getItem(key);
+        const storedTheme = localStorage.getItem(themeKey);
+        const storedLanguage = localStorage.getItem(languageKey);
         if (storedTheme === 'light' || storedTheme === 'dark') {
           theme = storedTheme;
         } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
           theme = 'dark';
+        }
+        if (storedLanguage === 'en' || storedLanguage === 'te') {
+          language = storedLanguage;
         }
       } catch (error) {
         if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
@@ -34,6 +40,11 @@
         }
       }
       document.documentElement.setAttribute('data-theme', theme);
+      document.documentElement.setAttribute('lang', language);
+      document.documentElement.setAttribute('data-language', language);
+      if (language === 'te') {
+        document.documentElement.setAttribute('data-language-pending', 'te');
+      }
     })();
   </script>
   <link rel="icon" href="favicon.ico" sizes="any">
@@ -68,11 +79,19 @@
         <div class="logo-text">TSN <span>Ventures</span></div>
       </a>
       <div class="nav-links" id="navLinks">
+        <div class="nav-language-switch nav-language-switch--mobile" role="group" data-i18n-attr="aria-label:ui.language.groupLabel">
+          <button class="language-switch__button is-active" type="button" data-language-option="en" aria-pressed="true">English</button>
+          <button class="language-switch__button" type="button" data-language-option="te" aria-pressed="false">తెలుగు</button>
+        </div>
         <a href="index.html">Home</a>
         <a href="about.html">About</a>
         <a href="ventures.html" class="active">Ventures</a>
         <a href="services.html">Services</a>
         <a href="blog.html">Blog</a>
+        <div class="nav-language-switch nav-language-switch--desktop" role="group" data-i18n-attr="aria-label:ui.language.groupLabel">
+          <button class="language-switch__button is-active" type="button" data-language-option="en" aria-pressed="true">EN</button>
+          <button class="language-switch__button" type="button" data-language-option="te" aria-pressed="false">తెలుగు</button>
+        </div>
         <a href="/contact.html" class="nav-cta">Contact</a>
       </div>
       <button class="nav-toggle" id="navToggle" aria-label="Toggle Menu">
@@ -86,7 +105,7 @@
       <div class="ventures-rdx-showcase__head reveal" data-animated-section data-animate-children="children" data-child-animation="section" data-child-direction="up" data-stagger="100">
         <div class="section-label">Featured Ventures</div>
         <h1 data-animated-heading>Large-format views of every venture</h1>
-        <p>Each project rotates through its own gallery automatically, so the page opens with live site photography instead of a static hero block.</p>
+        <p class="tsn-i18n-copy" data-i18n="ventures.page.description">Each project rotates through its own gallery automatically, so the page opens with live site photography instead of a static hero block.</p>
         <div class="ventures-rdx-showcase__actions">
           <a href="https://wa.me/919553577777?text=Hi%20TSN%20Ventures!%20I%20want%20details%20about%20your%20ventures." target="_blank" class="btn btn-outline"><i class="fab fa-whatsapp"></i> Talk on WhatsApp</a>
           <a href="https://www.instagram.com/tsn_ventures/" target="_blank" rel="noreferrer" class="btn btn-outline"><i class="fab fa-instagram"></i> Instagram</a>
@@ -101,7 +120,7 @@
       <div>
         <div class="section-label">Next Step</div>
         <h2 data-animated-heading>Need Help Comparing Ventures?</h2>
-        <p>Get plot availability, site-visit scheduling, and project-stage guidance directly from the TSN Ventures team.</p>
+        <p class="tsn-i18n-copy" data-i18n="ventures.cta.description">Get plot availability, site-visit scheduling, and project-stage guidance directly from the TSN Ventures team.</p>
       </div>
       <div class="ventures-rdx-cta__actions">
         <a href="https://wa.me/919553577777?text=Hi%20TSN%20Ventures!%20I%20want%20help%20comparing%20ventures." target="_blank" class="btn btn-accent"><i class="fab fa-whatsapp"></i> WhatsApp Us</a>
@@ -118,7 +137,7 @@
             <div class="logo-icon"><img src="assets/images/logo.png" alt="TSN Ventures Logo"></div>
             <h3>TSN <span>Ventures</span></h3>
           </div>
-          <p>Building trust, one home at a time. TSN Ventures is your trusted partner for premium residential land development and custom construction in Andhra Pradesh.</p>
+          <p class="tsn-i18n-copy" data-i18n="shared.footer.companyDescription">Building trust, one home at a time. TSN Ventures is your trusted partner for premium residential land development and custom construction in Andhra Pradesh.</p>
           <div class="footer-social">
             <a href="https://www.instagram.com/tsn_ventures/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
             <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
@@ -128,11 +147,16 @@
         </div>
         <div class="footer-col"><h4>Quick Links</h4><ul><li><a href="index.html">Home</a></li><li><a href="about.html">About Us</a></li><li><a href="ventures.html">Ventures</a></li><li><a href="services.html">Services</a></li><li><a href="blog.html">Blog</a></li><li><a href="/contact.html">Contact</a></li></ul></div>
         <div class="footer-col"><h4>Services</h4><ul><li><a href="services.html">Land Development</a></li><li><a href="services.html">Plot Sales</a></li><li><a href="services.html">Construction</a></li><li><a href="services.html">Design</a></li></ul></div>
-        <div class="footer-col"><h4>Contact Info</h4><ul class="footer-contact"><li><div class="icon"><i class="fas fa-map-marker-alt"></i></div><div class="info">W942+P9C, Gantavarigudem, Dubacherla,<br>Andhra Pradesh 534112</div></li><li><div class="icon"><i class="fas fa-phone"></i></div><div class="info"><a href="tel:+919553577777">+91 95535 77777</a></div></li><li><div class="icon"><i class="fas fa-clock"></i></div><div class="info">Open 24 Hours</div></li></ul></div>
+        <div class="footer-col"><h4>Contact Info</h4><ul class="footer-contact"><li><div class="icon"><i class="fas fa-map-marker-alt"></i></div><div class="info">W942+P9C, Gantavarigudem, Dubacherla,<br>Andhra Pradesh 534112</div></li><li><div class="icon"><i class="fas fa-phone"></i></div><div class="info"><a href="tel:+919553577777">+91 95535 77777</a></div></li><li><div class="icon"><i class="fas fa-clock"></i></div><div class="info tsn-i18n-copy" data-i18n="shared.footer.openHours">Open 24 Hours</div></li></ul></div>
       </div>
       <div class="footer-bottom"><p>&copy; 2026 TSN Ventures. All Rights Reserved.</p><p>Designed with <i class="fas fa-heart" style="color: var(--accent);"></i> for your dream home</p></div>
     </div>
   </footer>
+
+  <button class="language-float" type="button" data-language-floating aria-label="Switch supporting content to Telugu" title="తెలుగులో చూడండి">
+    <span class="language-float__icon" aria-hidden="true"><i class="fas fa-globe"></i></span>
+    <span class="language-float__label" data-language-floating-label>తెలుగు</span>
+  </button>
 
   <button class="theme-switch" type="button" data-theme-toggle aria-label="Activate dark theme" aria-pressed="false">
     <span class="theme-switch__track">
@@ -143,6 +167,9 @@
 
   <a href="https://wa.me/919553577777" class="whatsapp-btn" target="_blank" aria-label="Chat on WhatsApp"><i class="fab fa-whatsapp"></i></a>
 
+  <script src="js/translations/en.js"></script>
+  <script src="js/translations/te.js"></script>
+  <script src="js/language-controller.js"></script>
   <script src="js/venture-data.js"></script>
   <script src="js/venture-image-manifest.js"></script>
   <script src="js/venture-image-resolver.js"></script>
