@@ -138,11 +138,11 @@
               class="venture-rdx-gallery-item"
               data-lightbox="${escapeHtml(src)}"
               data-lightbox-alt="${escapeHtml(`${venture.name} - Photo ${index + 1}`)}"
+              aria-label="${escapeHtml(`Open ${venture.name} photo ${index + 1}`)}"
               data-animated-card
               data-motion-direction="scale"
             >
               <img src="${escapeHtml(src)}" alt="${escapeHtml(`${venture.name} - Photo ${index + 1}`)}" loading="lazy" decoding="async">
-              <span class="venture-rdx-gallery-item__overlay"><i class="fas fa-expand-alt"></i> View Photo</span>
             </button>
           `).join('')}
         </div>

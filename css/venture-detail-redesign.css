@@ -16,8 +16,6 @@
   --venture-detail-panel-hover-shadow: 0 18px 38px rgba(24, 34, 43, 0.1);
   --venture-detail-icon-bg: rgba(212, 168, 83, 0.12);
   --venture-detail-icon-ring: inset 0 0 0 1px rgba(212, 168, 83, 0.08);
-  --venture-detail-gallery-overlay: rgba(20, 33, 44, 0.78);
-  --venture-detail-gallery-overlay-text: #fff;
   --venture-detail-map-border: rgba(20, 33, 44, 0.08);
   --venture-detail-map-highlight: inset 0 0 0 1px rgba(255, 255, 255, 0.4);
   overflow-x: clip;
@@ -42,8 +40,6 @@ html[data-theme="dark"] .tsn-detail-redesign {
   --venture-detail-panel-hover-shadow: 0 22px 44px rgba(0, 0, 0, 0.32);
   --venture-detail-icon-bg: rgba(212, 168, 83, 0.14);
   --venture-detail-icon-ring: inset 0 0 0 1px rgba(212, 168, 83, 0.14);
-  --venture-detail-gallery-overlay: rgba(7, 16, 23, 0.82);
-  --venture-detail-gallery-overlay-text: var(--text-primary);
   --venture-detail-map-border: rgba(255, 255, 255, 0.1);
   --venture-detail-map-highlight: inset 0 0 0 1px rgba(255, 255, 255, 0.06);
 }
@@ -288,24 +284,9 @@ html[data-theme="dark"] .tsn-detail-redesign {
   transition: transform 320ms ease;
 }
 
-.tsn-detail-redesign .venture-rdx-gallery-item__overlay {
-  position: absolute;
-  inset: auto 12px 12px 12px;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  min-height: 38px;
-  padding: 0 14px;
-  border-radius: 999px;
-  background: var(--venture-detail-gallery-overlay);
-  color: var(--venture-detail-gallery-overlay-text);
-  font-size: 0.82rem;
-  font-weight: 600;
-  opacity: 0;
-  transform: translateY(8px);
-  transition:
-    opacity 220ms ease,
-    transform 220ms ease;
+.tsn-detail-redesign .venture-rdx-gallery-item:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 3px;
 }
 
 .tsn-detail-redesign .venture-rdx-gallery-empty {
@@ -370,10 +351,6 @@ html[data-theme="dark"] .tsn-detail-redesign {
     transform: scale(1.05);
   }
 
-  .tsn-detail-redesign .venture-rdx-gallery-item:hover .venture-rdx-gallery-item__overlay {
-    opacity: 1;
-    transform: translateY(0);
-  }
 }
 
 @media (min-width: 640px) {
@@ -531,15 +508,6 @@ html[data-theme="dark"] .tsn-detail-redesign {
   .tsn-detail-redesign .venture-rdx-gallery-item {
     margin-bottom: 12px;
     border-radius: 18px;
-  }
-
-  .tsn-detail-redesign .venture-rdx-gallery-item__overlay {
-    inset: auto 10px 10px 10px;
-    min-height: 32px;
-    padding: 0 11px;
-    font-size: 0.72rem;
-    opacity: 1;
-    transform: none;
   }
 
   .tsn-detail-redesign .venture-rdx-enquiry-actions {
